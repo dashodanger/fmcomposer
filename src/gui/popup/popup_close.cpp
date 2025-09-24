@@ -71,9 +71,9 @@ void Popup::buttonActions(int buttonID)
 				close();
 			else if (buttonID == 1)
 #ifdef _WIN32
-				ShellExecute(0, 0, "http://fmcomposer.org/download.php?version=latest", 0, 0, SW_SHOW);
+				ShellExecute(0, 0, "https://github.com/dashodanger/fmcomposer", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
-				system("xdg-open http://fmcomposer.org/download.php?version=latest &");
+				system("xdg-open https://github.com/dashodanger/fmcomposer &");
 #endif
 			break;
 		case POPUP_FIRSTSTART:
@@ -81,9 +81,9 @@ void Popup::buttonActions(int buttonID)
 				close();
 			else if (buttonID == 1)
 #ifdef _WIN32
-				ShellExecute(0, 0, "http://fmcomposer.org/user_manual.php#tutorial", 0, 0, SW_SHOW);
+				ShellExecute(0, 0, "https://web.archive.org/web/20181125092454/http://fmcomposer.org/en/user_manual.php", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
-				system("xdg-open http://fmcomposer.org/user_manual.php#tutorial &");
+				system("xdg-open https://web.archive.org/web/20181125092454/http://fmcomposer.org/en/user_manual.php &");
 #endif
 			break;
 		case POPUP_ABOUT:
@@ -91,15 +91,15 @@ void Popup::buttonActions(int buttonID)
 				close();
 			else if (buttonID == 1)
 #ifdef _WIN32
-				ShellExecute(0, 0, "http://fmcomposer.org", 0, 0, SW_SHOW);
+				ShellExecute(0, 0, "https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
-				system("xdg-open http://fmcomposer.org &");
+				system("xdg-open https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/ &");
 #endif
 			else if (buttonID == 2)
 #ifdef _WIN32
-				ShellExecute(0, 0, string(string("http://fmcomposer.org/checkupdates.php?v=") + VERSION).c_str(), 0, 0, SW_SHOW);
+				ShellExecute(0, 0, "https://github.com/dashodanger/fmcomposer", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
-				system(string(("xdg-open "+string("http://fmcomposer.org/checkupdates.php?v=")+VERSION)+" &").c_str());
+				system("xdg-open https://github.com/dashodanger/fmcomposer &");
 #endif
 			break;
 		case POPUP_WORKING:
@@ -302,32 +302,15 @@ void Popup::buttonActions(int buttonID)
 
 			if (buttonID == 0)
 			{ // ok button
-				streamedExport.fromPattern = sliders[1].value;
-				streamedExport.toPattern = sliders[2].value;
-				streamedExport.nbLoops = sliders[3].value;
-				streamedExport.format = checkboxes[0].checked+2*checkboxes[1].checked;
+				streamedExport.fromPattern = sliders[0].value;
+				streamedExport.toPattern = sliders[1].value;
+				streamedExport.nbLoops = sliders[2].value;
 				mouse.clickLock2 = 1;
-
 				
-				// WAVE
-				if (checkboxes[0].checked)
-				{
-					streamedExport.bitDepth = sliders[5].value;
-				}
-				// MP3
-				else if (checkboxes[1].checked)
-				{
-					streamedExport.param = (sliders[0].value) + checkboxes[3].checked * 100;
-				}
-				// FLAC
-				else
-				{
-					streamedExport.bitDepth = sliders[6].value;
-					streamedExport.param = sliders[4].value;
-				}
+				streamedExport.bitDepth = sliders[3].value;
 
 				// multi-track export
-				if (checkboxes[5].checked) {
+				if (checkboxes[0].checked) {
 					show(POPUP_MULTITRACKEXPORT);
 				}
 				// single-track export

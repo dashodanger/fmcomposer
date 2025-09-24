@@ -153,60 +153,6 @@ void Popup::handleEvents()
 						break;
 					case POPUP_STREAMEDEXPORT:
 
-						// cant be unchecked (radios) except multitrack export
-						if (!checkboxes[i].checked && i!=5)
-							checkboxes[i].checked = 1;
-
-						// mp3
-						if (i == 1 && (checkboxes[0].checked || checkboxes[4].checked) )
-						{
-							checkboxes[0].checked = 0;
-							checkboxes[4].checked = 0;
-							// pre select vbr
-							if (!checkboxes[2].checked && !checkboxes[3].checked)
-							{
-								checkboxes[2].checked = 1;
-							}
-						}
-
-						// wave
-						else if (i == 0 && checkboxes[0].checked)
-						{
-							checkboxes[1].checked = 0;
-							checkboxes[2].checked = 0;
-							checkboxes[3].checked = 0;
-							checkboxes[4].checked = 0;
-						}
-
-						// cbr : auto select mp3
-						if (i == 3)
-						{
-							checkboxes[2].checked = 0;
-							checkboxes[0].checked = 0;
-							checkboxes[1].checked = 1;
-							checkboxes[4].checked = 0;
-						}
-						// vbr : auto select mp3
-						if (i == 2)
-						{
-							checkboxes[3].checked = 0;
-							checkboxes[0].checked = 0;
-							checkboxes[1].checked = 1;
-							checkboxes[4].checked = 0;
-						}
-
-						// flac
-						if (i == 4)
-						{
-							checkboxes[3].checked = 0;
-							checkboxes[0].checked = 0;
-							checkboxes[1].checked = 0;
-							checkboxes[2].checked = 0;
-						}
-
-
-						updateExportSliders();
-
 						break;
 
 					case POPUP_TRANSPOSE:
@@ -410,60 +356,25 @@ void Popup::handleEvents()
 						updateEffectDescription();
 						break;
 					case POPUP_STREAMEDEXPORT:
-						/* MP3 bitrate/quality */
 						if (i == 0)
 						{
-							checkboxes[0].checked = 0;
-							checkboxes[1].checked = 1;
-							checkboxes[4].checked = 0;
-						}
-						/* Pattern : from */
-						else if (i == 1)
-						{
-							if (sliders[1].value > sliders[2].value)
+							if (sliders[0].value > sliders[1].value)
 							{
-								sliders[2].setValue(sliders[1].value);
+								sliders[1].setValue(sliders[0].value);
 							}
 						}
 						/* Pattern : to */
-						else if (i==2)
+						else if (i==1)
 						{
 
-							if (sliders[1].value > sliders[2].value)
+							if (sliders[0].value > sliders[1].value)
 							{
-								sliders[1].setValue(sliders[2].value);
+								sliders[0].setValue(sliders[1].value);
 							}
 						}
-						else if (i == 5 || i==6)
+						else if (i == 3)
 						{
-							if (i == 5)
-							{
-								checkboxes[4].checked = 0;
-								checkboxes[0].checked = 1;
-								checkboxes[1].checked = 0;
-								checkboxes[3].checked = 0;
-								checkboxes[2].checked = 0;
-
-							}
-							else
-							{
-								checkboxes[4].checked = 1;
-								checkboxes[0].checked = 0;
-								checkboxes[1].checked = 0;
-								checkboxes[3].checked = 0;
-								checkboxes[2].checked = 0;
-
-							}
 							updateBitDepthDescription();
-						}
-						/* FLAC compression level */
-						else if (i!=3)
-						{
-							checkboxes[4].checked = 1;
-							checkboxes[0].checked = 0;
-							checkboxes[1].checked = 0;
-							checkboxes[3].checked = 0;
-							checkboxes[2].checked = 0;
 						}
 						break;
 
@@ -586,19 +497,9 @@ void Popup::updateIntervalDescription()
 
 void Popup::updateBitDepthDescription()
 {
-	/* FLAC */
-	
-	string bitDepths[6] = {"8 bit", "16 bit","24 bit"};
-	sliders[6].setMinMax(0,2);
-	sliders[6].setDisplayedValueOnly(bitDepths[sliders[6].value]);
-	
-	/* Wave */
-	
-	string bitDepths2[5] = {"8 bit", "16 bit","24 bit", "32 bit", "Float"};
-	sliders[5].setMinMax(0,4);
-	sliders[5].setDisplayedValueOnly(bitDepths2[sliders[5].value]);
-	
-	
+	string bitDepths[5] = {"8 bit", "16 bit","24 bit", "32 bit", "Float"};
+	sliders[3].setMinMax(0,4);
+	sliders[3].setDisplayedValueOnly(bitDepths[sliders[3].value]);
 }
 
 void Popup::updateMultitrackExportList()

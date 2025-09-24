@@ -7,7 +7,6 @@
 typedef struct StreamedExport{
 	int param;
 	int fromPattern;
-	int format;
 	int toPattern;
 	int nbLoops;
 	int bitDepth;

@@ -86,9 +86,9 @@ void Popup::show(int _type, int param)
 			sprites[0].setPosition(10, 10);
 
 			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(20, h - 50, "Go to the website", -1, 8));
-			buttons.push_back(Button(180, h - 50, "Check for updates", -1, 8));
-			texts.push_back(Text(L"FM Composer, © 2017-2018 Stéphane Damo\n\n--------- Credits ---------\n\nTesting, help and advices :\n		Klairzaki Fil-Xter, Masami Komuro, Isaac Zuniga\n\nLibraries authors :\n		Laurent Gomila & SFML contributors (SFML lib)\n		Guillaume Vareille (tinyfiledialogs lib)\n		Brodie Thiesfield (SimpleIni lib)\n		Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)\n		Yann Collet (LZ4)\n		The LAME MP3 encoder team\n		The Google team (Material Icons)\n		Josh Coalson & Xiph.org foundation (FLAC encoder)", font, charSize));
+			buttons.push_back(Button(20, h - 50, "Go to the website (Archive.org)", -1, 8));
+			buttons.push_back(Button(240, h - 50, "Check for updates (Github)", -1, 8));
+			texts.push_back(Text(L"FM Composer, © 2017-2018 Stéphane Damo\n\n--------- Credits ---------\n\nTesting, help and advices :\n		Klairzaki Fil-Xter, Masami Komuro, Isaac Zuniga\n\nLibraries authors :\n		Laurent Gomila & SFML contributors (SFML lib)\n		Guillaume Vareille (tinyfiledialogs lib)\n		Brodie Thiesfield (SimpleIni lib)\n		Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)\n		Yann Collet (LZ4)\n		The Google team (Material Icons)", font, charSize));
 			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(286, 20);
 
@@ -433,8 +433,8 @@ void Popup::show(int _type, int param)
 			break;
 		}
 		case POPUP_STREAMEDEXPORT:
-			setSize(620, 380);
-			title.setString("Streamed audio export");
+			setSize(620, 160);
+			title.setString("WAVE export");
 
 			texts.push_back(Text("From", font, charSize));
 			texts[0].setFillColor(colors[BLOCKTEXT]);
@@ -443,12 +443,6 @@ void Popup::show(int _type, int param)
 			texts.push_back(Text("To", font, charSize));
 			texts[1].setFillColor(colors[BLOCKTEXT]);
 			texts[1].setPosition(240, 20);
-
-			checkboxes.push_back(Checkbox(20, 100, "Export as Wave"));
-
-			checkboxes[0].checked = 1;
-
-			sliders.push_back(DataSlider(250, 264, 15, 0, "", 0, 200));
 
 			shapes.push_back(RectangleShape(Vector2f(580, 1)));
 			shapes[0].setPosition(20, 80);
@@ -463,10 +457,10 @@ void Popup::show(int _type, int param)
 			texts[2].setFillColor(colors[BLOCKTEXT]);
 			texts[2].setPosition(150, 50);
 
-			sliders.push_back(DataSlider(170, 170, 4, 0, "Bit depth", 1,130));
+			sliders.push_back(DataSlider(270, 50, 4, 0, "Bit depth", 1,130));
 
-			buttons.push_back(Button(w - 90, h - 50, "Export", -1, 8));
-			buttons.push_back(Button(50, h - 50, "Cancel", -1, 8));
+			buttons.push_back(Button(w - 90, 110, "Export", -1, 8));
+			buttons.push_back(Button(50, 110, "Cancel", -1, 8));
 
 			checkboxes.push_back(Checkbox(445, 20, "Multi-track export"));
 
@@ -537,7 +531,7 @@ void Popup::show(int _type, int param)
 			sprites[0].setPosition(10, 10);
 
 			buttons.push_back(Button(w - 80, h - 50, "Close", -1, 8));
-			buttons.push_back(Button(490, 101, "Online tutorial", -1, 8));
+			buttons.push_back(Button(490, 101, "Online tutorial (Archive.org)", -1, 8));
 			texts.push_back(Text("Welcome to FM Composer !\n\nIt seems to be the first time you launch this program.\n\n\nClick here to learn the basics :\n\n\nA demo song was just loaded so you can see how a song is made and how\nsome FM Composer features are used.\nThere are other demos in the song folder.\n\n\nHave fun !", font, charSize));
 			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(276, 20);
@@ -666,18 +660,11 @@ void Popup::show(int _type, int param)
 			updateIntervalDescription();
 			break;
 		case POPUP_STREAMEDEXPORT:
-			updateExportSliders();
 			updateBitDepthDescription();
 			break;
 	}
 
 
-}
-
-void Popup::updateExportSliders()
-{
-	sliders[0].name.setString("Quality (0=best, 9=worst)");
-	sliders[0].setMinMax(0, 9);
 }
 
 void Popup::updateWindow()
