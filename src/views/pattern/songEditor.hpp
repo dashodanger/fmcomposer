@@ -24,7 +24,7 @@ extern int prevNote;
 extern View borderView, patternTopView, patNumView;
 extern void *focusedElement;
 
-typedef struct historyElem{
+struct historyElem{
 	vector< vector< Cell >>  data;
 	int y;
 	unsigned char patternSize; 

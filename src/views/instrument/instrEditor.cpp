@@ -24,13 +24,13 @@ temperament(806 + 6, y + 657 + 6, "Temperament", -1, 6), k_fx1(806, y + 627, 7, 
 {
 
 
-	newNote.setColor(colors[BLOCKTEXT]);
+	newNote.setFillColor(colors[BLOCKTEXT]);
 	newNote.setPosition(806, y + 380 + 166);
 
-	kfx_text.setColor(colors[BLOCKTEXT]);
+	kfx_text.setFillColor(colors[BLOCKTEXT]);
 	kfx_text.setPosition(806, y + 607);
 
-	lfo.setColor(colors[BLOCKTEXT]);
+	lfo.setFillColor(colors[BLOCKTEXT]);
 	lfo.setPosition(806, y + 410);
 	lfoBG.setPosition(806, y + 410);
 	lfoBG.setFillColor(colors[BLOCKBG]);

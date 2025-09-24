@@ -62,7 +62,7 @@ void Popup::show(int _type, int param)
 
 							 delay = 1;
 							 texts.push_back(Text("Saved !", font, charSize));
-							 texts[0].setColor(colors[BLOCKTEXT]);
+							 texts[0].setFillColor(colors[BLOCKTEXT]);
 							 texts[0].setPosition(110, 40);
 							 break;
 		}
@@ -70,7 +70,7 @@ void Popup::show(int _type, int param)
 			setSize(500, 200);
 			title.setString("Info");
 			texts.push_back(Text("Rendering, please wait...", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 20);
 			sliders.push_back(DataSlider(80, 70, 99, 0, "%", 99));
 			buttons.push_back(Button(50, h - 50, "Abort", -1, 8));
@@ -89,11 +89,11 @@ void Popup::show(int _type, int param)
 			buttons.push_back(Button(20, h - 50, "Go to the website", -1, 8));
 			buttons.push_back(Button(180, h - 50, "Check for updates", -1, 8));
 			texts.push_back(Text(L"FM Composer, © 2017-2018 Stéphane Damo\n\n--------- Credits ---------\n\nTesting, help and advices :\n		Klairzaki Fil-Xter, Masami Komuro, Isaac Zuniga\n\nLibraries authors :\n		Laurent Gomila & SFML contributors (SFML lib)\n		Guillaume Vareille (tinyfiledialogs lib)\n		Brodie Thiesfield (SimpleIni lib)\n		Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)\n		Yann Collet (LZ4)\n		The LAME MP3 encoder team\n		The Google team (Material Icons)\n		Josh Coalson & Xiph.org foundation (FLAC encoder)", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(286, 20);
 
 			texts.push_back(Text(string("Version ") + VERSION + " (" + VERSION_DATE + ")", font, charSize));
-			texts[1].setColor(colors[BLOCKTEXT]);
+			texts[1].setFillColor(colors[BLOCKTEXT]);
 			texts[1].setPosition(100, 276);
 
 		}
@@ -124,7 +124,7 @@ void Popup::show(int _type, int param)
 
 
 			texts.push_back(Text("", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(160, 110);
 
 			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
@@ -154,7 +154,7 @@ void Popup::show(int _type, int param)
 			checkboxes.push_back(Checkbox(20, 140, "Fade in/out"));
 
 			texts.push_back(Text("From\n\nTo", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(160, 140);
 
 			sliders.push_back(DataSlider(210, 140, 99, 0, "", 99));
@@ -183,7 +183,7 @@ void Popup::show(int _type, int param)
 							   title.setString("Add effect");
 
 							   texts.push_back(Text("Effect type", font, charSize));
-							   texts[0].setColor(colors[BLOCKTEXT]);
+							   texts[0].setFillColor(colors[BLOCKTEXT]);
 							   texts[0].setPosition(10, 10);
 
 							   lists.push_back(List(20, 20, 18, 200));
@@ -197,11 +197,11 @@ void Popup::show(int _type, int param)
 							   sliders[1].setVisible(false);
 
 							   texts.push_back(Text("", font, charSize));
-							   texts[0].setColor(colors[BLOCKTEXT]);
+							   texts[0].setFillColor(colors[BLOCKTEXT]);
 							   texts[0].setPosition(250, 20);
 
 							   texts.push_back(Text("", font, charSize));
-							   texts[1].setColor(colors[BLOCKTEXT]);
+							   texts[1].setFillColor(colors[BLOCKTEXT]);
 							   texts[1].setPosition(250, 128);
 		}break;
 
@@ -210,7 +210,7 @@ void Popup::show(int _type, int param)
 			title.setString("Search/Replace");
 
 			texts.push_back(Text("Search for :", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 20);
 
 			checkboxes.push_back(Checkbox(20, 100, "Note"));
@@ -279,7 +279,7 @@ void Popup::show(int _type, int param)
 			sliders.push_back(DataSlider(550, 410, 255, -1, "", 0, 200));
 
 			texts.push_back(Text("Search in :", font, charSize));
-			texts[1].setColor(colors[BLOCKTEXT]);
+			texts[1].setFillColor(colors[BLOCKTEXT]);
 			texts[1].setPosition(120, h - 50);
 
 			for (int i = 0; i < sliders.size(); i++)
@@ -303,7 +303,7 @@ void Popup::show(int _type, int param)
 			setSize(300, 130);
 			title.setString("Search/Replace");
 			texts.push_back(Text(std::to_string(param) + " occurence(s) replaced", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 20);
 			delay = 60;
 			break;
@@ -312,7 +312,7 @@ void Popup::show(int _type, int param)
 			setSize(460, 150);
 			title.setString("Save action failed");
 			texts.push_back(Text("Can't write data. Check if this file is writable.", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
 			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
 			break;
@@ -320,7 +320,7 @@ void Popup::show(int _type, int param)
 			setSize(460, 150);
 			title.setString("Open action failed");
 			texts.push_back(Text("Can't open file. Check if the file exists.", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
 			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
 			break;
@@ -329,7 +329,7 @@ void Popup::show(int _type, int param)
 			setSize(450, 150);
 			title.setString("Confirmation");
 			texts.push_back(Text("You have unsaved changes", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
 			buttons.push_back(Button(w - 160, h - 50, "Quit without saving", -1, 8));
 			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
@@ -341,7 +341,7 @@ void Popup::show(int _type, int param)
 			setSize(450, 150);
 			title.setString("Confirmation");
 			texts.push_back(Text("You have unsaved changes", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
 			buttons.push_back(Button(w - 160, h - 50, "Discard changes", -1, 8));
 			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
@@ -352,7 +352,7 @@ void Popup::show(int _type, int param)
 			setSize(500, 150);
 			title.setString("Confirmation");
 			texts.push_back(Text("Notes using this instrument will be removed from the song. Proceed ?", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
 			buttons.push_back(Button(w - 80, h - 50, "Yes", -1, 8));
 			buttons.push_back(Button(30, h - 50, "No", -1, 8));
@@ -362,7 +362,7 @@ void Popup::show(int _type, int param)
 			setSize(450, 150);
 			title.setString("Confirmation");
 			texts.push_back(Text("You have unsaved changes", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
 			buttons.push_back(Button(w - 160, h - 50, "Discard changes", -1, 8));
 			buttons.push_back(Button(30, h - 50, "Cancel", -1, 8));
@@ -384,19 +384,19 @@ void Popup::show(int _type, int param)
 			title.setString("MIDI export");
 
 			texts.push_back(Text("Associate the song's instruments to MIDI channels and MIDI instruments.", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
 
 			texts.push_back(Text("Song instrument", font, charSize));
-			texts[1].setColor(colors[TITLE]);
+			texts[1].setFillColor(colors[TITLE]);
 			texts[1].setPosition(10, 45);
 
 			texts.push_back(Text("MIDI channel", font, charSize));
-			texts[2].setColor(colors[TITLE]);
+			texts[2].setFillColor(colors[TITLE]);
 			texts[2].setPosition(300, 45);
 
 			texts.push_back(Text("MIDI instrument", font, charSize));
-			texts[3].setColor(colors[TITLE]);
+			texts[3].setFillColor(colors[TITLE]);
 			texts[3].setPosition(600, 45);
 
 
@@ -437,18 +437,14 @@ void Popup::show(int _type, int param)
 			title.setString("Streamed audio export");
 
 			texts.push_back(Text("From", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 20);
 
 			texts.push_back(Text("To", font, charSize));
-			texts[1].setColor(colors[BLOCKTEXT]);
+			texts[1].setFillColor(colors[BLOCKTEXT]);
 			texts[1].setPosition(240, 20);
 
 			checkboxes.push_back(Checkbox(20, 100, "Export as Wave"));
-			checkboxes.push_back(Checkbox(20, 242, "Export as MP3"));
-
-			checkboxes.push_back(Checkbox(170, 242, "VBR"));
-			checkboxes.push_back(Checkbox(170, 282, "CBR"));
 
 			checkboxes[0].checked = 1;
 
@@ -464,13 +460,9 @@ void Popup::show(int _type, int param)
 
 			sliders.push_back(DataSlider(60, 50, 10, 0, "Loop", 0, 80));
 			texts.push_back(Text("Times", font, charSize));
-			texts[2].setColor(colors[BLOCKTEXT]);
+			texts[2].setFillColor(colors[BLOCKTEXT]);
 			texts[2].setPosition(150, 50);
 
-			checkboxes.push_back(Checkbox(20, 168, "Export as FLAC"));
-			sliders.push_back(DataSlider(310, 170, 8, 0, "Compression level", 0, 200));
-
-			sliders.push_back(DataSlider(170, 102, 4, 0, "Bit depth", 1,130));
 			sliders.push_back(DataSlider(170, 170, 4, 0, "Bit depth", 1,130));
 
 			buttons.push_back(Button(w - 90, h - 50, "Export", -1, 8));
@@ -483,7 +475,7 @@ void Popup::show(int _type, int param)
 			setSize(320, 400);
 			title.setString("Edit temperament");
 			texts.push_back(Text("Tuning in cents for each note", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 40);
 			sliders.push_back(DataSlider(20, 80, 100, -100, "C", 0));
 			sliders.push_back(DataSlider(20, 100, 100, -100, "C#", 0));
@@ -529,7 +521,7 @@ void Popup::show(int _type, int param)
 			setSize(460, 150);
 			title.setString(":(");
 			texts.push_back(Text("The file you opened seems corrupted.\n\nBe careful when editing, it may crash the program.\n\nUse a clean backup if you have one.", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(10, 10);
 			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
 			break;
@@ -547,7 +539,7 @@ void Popup::show(int _type, int param)
 			buttons.push_back(Button(w - 80, h - 50, "Close", -1, 8));
 			buttons.push_back(Button(490, 101, "Online tutorial", -1, 8));
 			texts.push_back(Text("Welcome to FM Composer !\n\nIt seems to be the first time you launch this program.\n\n\nClick here to learn the basics :\n\n\nA demo song was just loaded so you can see how a song is made and how\nsome FM Composer features are used.\nThere are other demos in the song folder.\n\n\nHave fun !", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(276, 20);
 
 
@@ -560,22 +552,22 @@ void Popup::show(int _type, int param)
 			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
 			buttons.push_back(Button(28, 150, "Go to the download page", -1, 8));
 			texts.push_back(Text("This file has been created with a newer version of FM Composer.\n\nPlease download the latest version and try again.", font, charSize));
-			texts[0].setColor(colors[BLOCKTEXT]);
+			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 20);
 			break;
 		case POPUP_MULTITRACKEXPORT:
 			setSize(600, 450);
 			title.setString("Multi-track streamed audio export");
 			texts.push_back(Text("Tracks to export", font, charSize));
-			texts[0].setColor(colors[TITLE]);
+			texts[0].setFillColor(colors[TITLE]);
 			texts[0].setPosition(10, 25);
 
 			texts.push_back(Text("Channels to mix into", font, charSize));
-			texts[1].setColor(colors[TITLE]);
+			texts[1].setFillColor(colors[TITLE]);
 			texts[1].setPosition(300, 25);
 
 			texts.push_back(Text("(hold CTRL/SHIFT to select multiple)", font, charSize));
-			texts[2].setColor(colors[BLOCKTEXT]);
+			texts[2].setFillColor(colors[BLOCKTEXT]);
 			texts[2].setPosition(300, 45);
 
 			lists.push_back(List(10, 50, 12, 200,4,false));

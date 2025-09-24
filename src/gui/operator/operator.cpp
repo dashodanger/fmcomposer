@@ -33,12 +33,12 @@ int Operator::update()
 	if (active || highlighted || hovered)
 	{
 		bg.setFillColor(colors[OPERATORBGHOVER]);
-		number.setColor(colors[muted ? OPERATORBGMUTED : OPERATORTEXTHOVER]);
+		number.setFillColor(colors[muted ? OPERATORBGMUTED : OPERATORTEXTHOVER]);
 	}
 	else
 	{
 		bg.setFillColor(colors[muted ? OPERATORBGMUTED : OPERATORBG]);
-		number.setColor(colors[muted ? OPERATORTEXTHOVER : OPERATORTEXT]);
+		number.setFillColor(colors[muted ? OPERATORTEXTHOVER : OPERATORTEXT]);
 	}
 
 	bgValue.setPosition(bg.getPosition().x, bg.getPosition().y + bg.getSize().y);

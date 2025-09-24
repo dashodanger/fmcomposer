@@ -24,7 +24,7 @@ lfo("LFO", font, charSize)
 	bg.setFillColor(colors[BLOCKBG]);
 	bg.setOutlineColor(colors[FOCUSOUTLINE]);
 	bg.setPosition(-5, 0);
-	name.setColor(colors[TITLE]);
+	name.setFillColor(colors[TITLE]);
 	name.setPosition(0, 4);
 	view.setCenter(x, y);
 	slider.insert(slider.end(), {
@@ -46,7 +46,7 @@ lfo("LFO", font, charSize)
 		DataSlider(0, 110, 80, 0, "Hold", 0, 150), // hold
 		DataSlider(0, 50, 70, 0, "Delay", 0, 150), // delay
 		DataSlider(0, 70, 99, 0, "Initial level", 0, 150), // initial level
-		DataSlider(160, 70, 24, 0, "¼tone", 0, 75),
+		DataSlider(160, 70, 24, 0, "ï¿½tone", 0, 75),
 		DataSlider(321, 70, 120, 0, "Center note", 40, 150, 2), // envelope rate scaling
 		DataSlider(397, -900, 40, -40, "Pitch", 0, 74), // envelope rate scaling
 		DataSlider(160, 120, 99, -99, "Initial freq", 0, 150), // envelope rate scaling
@@ -66,16 +66,16 @@ lfo("LFO", font, charSize)
 	waveform.setPosition(443, 0);
 	lfoOffsetBar.setPosition(waveform.getPosition().x + slider[24].value*36.0 / 32, waveform.getPosition().y + 6);
 	mode.setPosition(160, 30);
-	mode.setColor(colors[SUBTITLE]);
+	mode.setFillColor(colors[SUBTITLE]);
 
 	pitchEnv.setPosition(160, 100);
-	pitchEnv.setColor(colors[SUBTITLE]);
+	pitchEnv.setFillColor(colors[SUBTITLE]);
 	volEnv.setPosition(0, 30);
-	volEnv.setColor(colors[SUBTITLE]);
+	volEnv.setFillColor(colors[SUBTITLE]);
 	scalings.setPosition(320, 50);
-	scalings.setColor(colors[SUBTITLE]);
+	scalings.setFillColor(colors[SUBTITLE]);
 	lfo.setPosition(320, 180);
-	lfo.setColor(colors[SUBTITLE]);
+	lfo.setFillColor(colors[SUBTITLE]);
 }
 
 int OpGUI::hover()

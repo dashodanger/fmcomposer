@@ -69,11 +69,11 @@ void DrawBatcher::addItem(Operator *o)
 
 	if (o->active || o->highlighted || o->hovered)
 	{
-		o->number.setColor(colors[o->muted ? OPERATORBGMUTED : OPERATORTEXTHOVER]);
+		o->number.setFillColor(colors[o->muted ? OPERATORBGMUTED : OPERATORTEXTHOVER]);
 	}
 	else
 	{
-		o->number.setColor(colors[o->muted ? OPERATORTEXTHOVER : OPERATORTEXT]);
+		o->number.setFillColor(colors[o->muted ? OPERATORTEXTHOVER : OPERATORTEXT]);
 	}
 
 	addItem(&o->number);

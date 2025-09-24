@@ -18,7 +18,7 @@ channelName(std::to_string(_channelIndex + 1), font, charSize), pressed(false), 
 	channelSelector.setPosition(100 * channelIndex + 5, 3);
 
 	channelName.setPosition(3 * 18 + 4 + 100 * channelIndex + 5, 4);
-	channelName.setColor(colors[TITLE]);
+	channelName.setFillColor(colors[TITLE]);
 	selected = 0;
 }
 

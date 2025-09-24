@@ -130,7 +130,7 @@ void Button::updatePosition()
 
 void Button::updateStyle()
 {
-	text.setColor((colors[selected ? BUTTONTOGGLEDTEXT : BUTTONTEXT]));
+	text.setFillColor((colors[selected ? BUTTONTOGGLEDTEXT : BUTTONTEXT]));
 	if (hovered)
 	{
 		if (click)

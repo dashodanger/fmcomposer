@@ -66,8 +66,3 @@ install(EXPORT ${PROJECT_NAME}Targets
 )
 
 target_include_directories(${PROJECT_NAME} INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
-
-if(IS_TOPLEVEL_PROJECT)
-	enable_testing()
-	add_subdirectory(tests)
-endif()

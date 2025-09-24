@@ -20,7 +20,7 @@ project(portmidi VERSION "${VERSION}"
 set(LIBRARY_SOVERSION "${SOVERSION}")
 set(LIBRARY_VERSION "${VERSION}")
 
-option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 option(PM_USE_STATIC_RUNTIME 
        "Use MSVC static runtime. Only applies when BUILD_SHARED_LIBS is OFF"

@@ -48,7 +48,7 @@ VuMeter::VuMeter(int x, int y, string _title) :bar(Vector2f(30, 0)), topbar(Vect
 	this->x = x;
 
 	title.setPosition(x + 10, y - 16);
-	title.setColor(colors[VUMETERTEXT]);
+	title.setFillColor(colors[VUMETERTEXT]);
 	quad[0].position = sf::Vector2f(x + 1, y + 64);
 	quad[1].position = sf::Vector2f(x + 1 + 30, y + 64);
 	quad[2].position = sf::Vector2f(x + 1 + 30, y + 128);
@@ -75,7 +75,7 @@ VuMeter::VuMeter(int x, int y, string _title) :bar(Vector2f(30, 0)), topbar(Vect
 	topbar.setFillColor(colors[VUMETERTOPBAR]);
 	topbar.setPosition(bar.getPosition().x, y + 128);
 	db.setPosition(x, y + 128);
-	db.setColor(colors[VUMETERTEXT]);
+	db.setFillColor(colors[VUMETERTEXT]);
 }
 
 void VuMeter::update()
@@ -107,7 +107,7 @@ void VuMeter::update()
 	{
 
 		saturationTimer = 60;
-		db.setColor(colors[VUMETERTEXTSATURATED]);
+		db.setFillColor(colors[VUMETERTEXTSATURATED]);
 	}
 
 	if (saturationTimer > 0)
@@ -115,7 +115,7 @@ void VuMeter::update()
 		saturationTimer--;
 		if (saturationTimer == 0)
 		{
-			db.setColor(colors[VUMETERTEXT]);
+			db.setFillColor(colors[VUMETERTEXT]);
 		}
 	}
 	// value *= 0.85, but better going for an FPS-independant function

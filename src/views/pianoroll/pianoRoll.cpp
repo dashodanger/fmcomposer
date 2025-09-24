@@ -26,9 +26,9 @@ bracket(Vector2f(1,18))
 	noteBg.setFillColor(colors[BACKGROUND]);
 
 	cache.setFillColor(colors[BACKGROUND]);
-	marker.setColor(colors[BLOCKTEXT]);
-	time.setColor(colors[BLOCKTEXT]);
-	note.setColor(colors[BLOCKTEXT]);
+	marker.setFillColor(colors[BLOCKTEXT]);
+	time.setFillColor(colors[BLOCKTEXT]);
+	note.setFillColor(colors[BLOCKTEXT]);
 	piano.setTexture(*tileset);
 	piano.setTextureRect(IntRect(0, 64, 57, 96));
 

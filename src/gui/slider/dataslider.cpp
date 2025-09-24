@@ -7,10 +7,10 @@ DataSlider* copiedSlider, pastedSlider;
 DataSlider::DataSlider(int _x, int _y, int _max, int _min, string _name, int def, int _width, int _number) : tvalue(int2str[def], font, charSize), width(_width), name(_name, font, charSize)
 , bg(Vector2f(_width - 2, 19 - 2)), x(_x), y(_y), value(clamp(def, _min, _max)), selected(false), vmax(_max), vmin(_min), number(_number), focused(false)
 {
-	name.setColor(colors[SLIDERTITLE]);
+	name.setFillColor(colors[SLIDERTITLE]);
 	setPosition(x, y);
 	bg.setFillColor(colors[SLIDERBG]);
-	tvalue.setColor(colors[SLIDERVALUE]);
+	tvalue.setFillColor(colors[SLIDERVALUE]);
 	setValue(value);
 	bg.setOutlineThickness(1);
 }

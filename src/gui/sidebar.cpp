@@ -17,14 +17,14 @@ editingStep(1070, 270, 16, 0, "Editing step",0)
 {
 	vuMeter = new StereoVuMeter(1100, 50);
 
-	currentInstr.setColor(colors[TITLE]);
+	currentInstr.setFillColor(colors[TITLE]);
 	currentInstr.setPosition(1070, 355);
 
-	timer.setColor(colors[BLOCKTEXT]);
+	timer.setFillColor(colors[BLOCKTEXT]);
 	timer.setPosition(1200, 50);
 
 
-	notePreview.setColor(colors[BACKGROUND]);
+	notePreview.setFillColor(colors[BACKGROUND]);
 	notePreview.setPosition(1242, 6);
 
 	borderRight.setPosition(1065, 32);

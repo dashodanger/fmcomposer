@@ -23,7 +23,7 @@ patHSlider(0, 255, 0, 0.1, 0, 169, 600, false, true)
 
 
 	rowNumbers.setPosition(4, 0);
-	rowNumbers.setColor(colors[PATTERNROWNUMBERS]);
+	rowNumbers.setFillColor(colors[PATTERNROWNUMBERS]);
 
 	for (unsigned ch = 0; ch < FM_ch; ++ch)
 	{
@@ -44,16 +44,16 @@ patHSlider(0, 255, 0, 0.1, 0, 169, 600, false, true)
 		text[ch][1].setPosition(ch*CH_WIDTH + 33, 0);
 		text[ch][2].setPosition(ch*CH_WIDTH + 50, 0);
 		text[ch][3].setPosition(ch*CH_WIDTH + 70, 0);
-		text[ch][0].setColor(colors[PATTERNNOTE]);
-		text[ch][1].setColor(colors[PATTERNINSTRUMENT]);
-		text[ch][2].setColor(colors[PATTERNVOLUME]);
-		text[ch][3].setColor(colors[PATTERNEFFECT]);
+		text[ch][0].setFillColor(colors[PATTERNNOTE]);
+		text[ch][1].setFillColor(colors[PATTERNINSTRUMENT]);
+		text[ch][2].setFillColor(colors[PATTERNVOLUME]);
+		text[ch][3].setFillColor(colors[PATTERNEFFECT]);
 	}
 	channelHead[0].record.selected = 1;
 
 	playCursor.setFillColor(colors[PATTERNSELECTION]);
 
-	patText.setColor(colors[BLOCKTEXT]);
+	patText.setFillColor(colors[BLOCKTEXT]);
 	patText.setPosition(patternList.x - 80, 52);
 
 	buildContextMenus();

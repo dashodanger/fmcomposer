@@ -19,9 +19,9 @@ mouseLock(0)
 	bg.setOutlineThickness(1.f);
 	bg.setOutlineColor(colors[TEXTINPUTOUTLINE]);
 	text.setPosition(x + title.getLocalBounds().width + 8, y);
-	text.setColor(colors[TEXTINPUTTEXT]);
+	text.setFillColor(colors[TEXTINPUTTEXT]);
 	title.setPosition(x, y);
-	title.setColor(colors[TITLE]);
+	title.setFillColor(colors[TITLE]);
 	cursor.setFillColor(colors[TEXTINPUTCURSOR]);
 	cursor.setPosition(x + title.getLocalBounds().width + 8, y);
 	bg.setFillColor(colors[TEXTINPUTBG]);

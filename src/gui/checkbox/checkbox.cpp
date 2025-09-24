@@ -9,7 +9,7 @@ Checkbox::Checkbox(int x, int y, std::string _title) :title(_title, font, charSi
 	v.setTextureRect(IntRect(0, 0, 24, 22));
 	v.setPosition(x + 2, y + 2);
 	title.setPosition(x + 32, (int)(y + 11 - title.getLocalBounds().height/2));
-	title.setColor(colors[BLOCKTEXT]);
+	title.setFillColor(colors[BLOCKTEXT]);
 	checked = 0;
 
 }

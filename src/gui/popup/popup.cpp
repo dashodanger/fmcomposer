@@ -10,7 +10,7 @@ Popup::Popup() :title("", font, charSize), view(FloatRect(0.f, 0.f, windowWidth,
 	bg.setOutlineThickness(1.f);
 	bg.setOutlineColor(colors[FOCUSOUTLINE]);
 	titlebar.setFillColor(colors[FOCUSOUTLINE]);
-	title.setColor(colors[BLOCKTEXT]);
+	title.setFillColor(colors[BLOCKTEXT]);
 	shadow.setPosition(10, 10 - 32);
 	shadow.setFillColor(colors[POPUPSHADOW]);
 }

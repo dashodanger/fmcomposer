@@ -19,9 +19,9 @@ rows("rows", font, charSize)
 	fm->tempo = tempo.value;
 	reverb.setPosition(650, 325);
 	rows.setPosition(245, 100);
-	rows.setColor(colors[BLOCKTEXT]);
+	rows.setFillColor(colors[BLOCKTEXT]);
 	diviseurText.setPosition(20, 100);
-	diviseurText.setColor(colors[BLOCKTEXT]);
+	diviseurText.setFillColor(colors[BLOCKTEXT]);
 	updateFromFM();
 }
 

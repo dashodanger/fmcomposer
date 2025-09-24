@@ -347,7 +347,7 @@ ELSE()
 ENDIF()
 
 OPTION(PA_BUILD_STATIC "Build static library" ON)
-OPTION(PA_BUILD_SHARED "Build shared/dynamic library" ON)
+OPTION(PA_BUILD_SHARED "Build shared/dynamic library" OFF)
 
 IF(MSVC)
   OPTION(PA_LIBNAME_ADD_SUFFIX "Add suffix _static to static library name" ON)

@@ -10,7 +10,7 @@ extern CSimpleIniA ini_gmlist;
 
 /* Tracker channel status */
 
-typedef struct trackerChannelProperties{
+struct trackerChannelProperties{
 	int noteOn;
 	int midiChannelMappings;
 	int pedalCanRelease;
@@ -33,7 +33,7 @@ static trackerChannelProperties trackerCh[FM_ch];
 
 /* MIDI channel status */
 
-typedef struct midiChannelProperties{
+struct midiChannelProperties{
 	int vol;
 	int pan;
 	int currentInstr;
@@ -58,7 +58,7 @@ static double realRow;
 static short midiFormat, tracks;
 static int maxOrder, currentTrack, lastNotePos, loopStart;
 static int order, row, tempoDivisor, totalLength;
-typedef struct oldChannel{
+struct oldChannel{
 	int channel, age, priority;
 };
 static oldChannel oldestChannels[FM_ch]; // forward

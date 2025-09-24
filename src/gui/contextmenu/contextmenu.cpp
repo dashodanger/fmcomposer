@@ -72,13 +72,13 @@ bool ListMenu::hover()
 	mouse.pos = input_getmouse(*relative);
 	for (unsigned i = scroll; i < min<int>(scroll + 14, text.size()); ++i)
 	{
-		text[i].setColor(colors[CONTEXTMENUTEXT]);
+		text[i].setFillColor(colors[CONTEXTMENUTEXT]);
 	}
 	s.setPosition(x, -100);
 	if (mouse.pos.y >= y && mouse.pos.y < y + text.size() * 24 && mouse.pos.x >= x && mouse.pos.x < x + bg.getSize().x)
 	{
 		s.setPosition(x, y + ((int)(mouse.pos.y - y) / 24 + scroll) * 24);
-		text[(mouse.pos.y - y) / 24 + scroll].setColor(colors[CONTEXTMENUTEXTHOVER]);
+		text[(mouse.pos.y - y) / 24 + scroll].setFillColor(colors[CONTEXTMENUTEXTHOVER]);
 		return true;
 	}
 

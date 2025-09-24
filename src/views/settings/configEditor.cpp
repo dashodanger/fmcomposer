@@ -207,19 +207,19 @@ wasapiExclusive(420, 325, "Exclusive mode")
 	keyPreset.setPosition(800, 410);
 	/* Set text colors */
 
-	keyAssocHelp.setColor(colors[BLOCKTEXT]);
-	keyPreset.setColor(colors[BLOCKTEXT]);
-	midiImport.setColor(colors[TITLE]);
-	soundDeviceText.setColor(colors[TITLE]);
-	midiInText.setColor(colors[TITLE]);
-	startup.setColor(colors[TITLE]);
-	display.setColor(colors[TITLE]);
+	keyAssocHelp.setFillColor(colors[BLOCKTEXT]);
+	keyPreset.setFillColor(colors[BLOCKTEXT]);
+	midiImport.setFillColor(colors[TITLE]);
+	soundDeviceText.setFillColor(colors[TITLE]);
+	midiInText.setFillColor(colors[TITLE]);
+	startup.setFillColor(colors[TITLE]);
+	display.setFillColor(colors[TITLE]);
 
-	themeText.setColor(colors[BLOCKTEXT]);
-	keyAssoc.setColor(colors[TITLE]);
-	midiQuantizeText.setColor(colors[BLOCKTEXT]);
-	rowHighlightText.setColor(colors[BLOCKTEXT]);
-	diviseurText.setColor(colors[BLOCKTEXT]);
+	themeText.setFillColor(colors[BLOCKTEXT]);
+	keyAssoc.setFillColor(colors[TITLE]);
+	midiQuantizeText.setFillColor(colors[BLOCKTEXT]);
+	rowHighlightText.setFillColor(colors[BLOCKTEXT]);
+	diviseurText.setFillColor(colors[BLOCKTEXT]);
 
 	refresh();
 

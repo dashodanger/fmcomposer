@@ -25,7 +25,7 @@ void List::add(string elem, bool autoUpdate)
 		strpos--;
 	}
 	pings.push_back(0);
-	text.back().setColor(colors[LISTITEMTEXT]);
+	text.back().setFillColor(colors[LISTITEMTEXT]);
 	text.back().setPosition(x, y + (text.size() - 1) * 17);
 	if (autoUpdate)
 		updateSize();
@@ -219,7 +219,7 @@ void List::unselectAll()
 	for (unsigned i = 0; i < selecteds.size(); i++)
 	{
 		selecteds[i]=false;
-		text[i].setColor(colors[LISTITEMTEXT]);
+		text[i].setFillColor(colors[LISTITEMTEXT]);
 	}
 }
 
@@ -228,7 +228,7 @@ void List::selectAll()
 	for (unsigned i = 0; i < selecteds.size(); i++)
 	{
 		selecteds[i]=true;
-		text[i].setColor(colors[LISTITEMTEXTFOCUS]);
+		text[i].setFillColor(colors[LISTITEMTEXTFOCUS]);
 	}
 }
 
@@ -385,7 +385,7 @@ void List::updateView()
 		
 	for (int i = 0; i < text.size(); i++)
 	{
-		text[i].setColor(colors[selecteds[i] ? LISTITEMTEXTFOCUS : LISTITEMTEXT]);
+		text[i].setFillColor(colors[selecteds[i] ? LISTITEMTEXTFOCUS : LISTITEMTEXT]);
 	}
 
 	
