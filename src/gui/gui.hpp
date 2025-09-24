@@ -7,6 +7,7 @@
 #include "../fmengine/fmlib.h"
 #include <algorithm>
 #include "../globalFunctions.hpp"
+#define SI_CONVERT_GENERIC
 #include "SimpleIni.h"
 #include "../input/input.hpp"
 #include "../state.hpp"

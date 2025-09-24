@@ -1,10 +1,10 @@
 ##########################################
-# SimpleIni
+# whereami
 ##########################################
 
 add_library(
-  SimpleIni
-  ConvertUTF.c 
+  whereami
+  whereami.c 
   )
 
-target_include_directories(SimpleIni PUBLIC ./)
+target_include_directories(whereami PUBLIC ./)

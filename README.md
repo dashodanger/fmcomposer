@@ -1,4 +1,4 @@
-![FM Composer logo](icon256.png)
+![FM Composer logo](fmcomposer.png)
 
 [Original Site (Archive.org)](https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/)
 

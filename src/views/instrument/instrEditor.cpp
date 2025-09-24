@@ -1,6 +1,7 @@
 #include "instrEditor.hpp"
 #include "../../input/noteInput.hpp"
 #include "algoPresets.hpp"
+#define SI_CONVERT_GENERIC
 #include "SimpleIni.h"
 #include "../pattern/songEditor.hpp"
 #include "../settings/configEditor.hpp"

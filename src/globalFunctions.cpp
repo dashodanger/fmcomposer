@@ -6,6 +6,7 @@
 #include "views/pianoroll/pianoRoll.hpp"
 #include "midi/midi.h"
 #include "tinyfiledialogs.h"
+#define SI_CONVERT_GENERIC
 #include "SimpleIni.h"
 #include "gui/mainmenu.hpp"
 #include "portaudio.h"

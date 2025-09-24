@@ -3,32 +3,17 @@
 |  ,-/-,   / / /    /   __ ______  _   __ _   _  __ 
 | (_/     / ' (_   (__/(_)/ / / <_/_)_(_)/_)_</_/ (_
 |                                / 
-|                               '  v1.7 (2018-05-11)
+|                               '  v1.8 (2025-??-??)
 | 
-| by St�phane "Phanoo" Damo -- http://fmcomposer.org
-|_____________________________________________________
+| by Stephane "Phanoo" Damo -- https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/ (Original Site)
+|
+| updates by dashodanger    -- https://github.com/dashodanger/fmcomposer
+|___________________________________________________________________________________________________________________
 
 
 Thank you for downloading FM Composer !
 
-
-Recommended setup :
-
-	- Windows 10 / 8 / 7
-	- A full HD screen
-	- Core i3 CPU or equivalent
-
-
-Lowest tested, fully working setup :
-
-	- Windows XP SP3
-	- 1366*768 screen
-	- Pentium III 933 Mhz
-	- 256 MB RAM
-
-
 This software is free and contains no ads nor intrusive features.
-
 
 Thanks to Masami Komuro, Klairzaki Fil-Xter and Isaac Zuniga for their contributions !
 
@@ -44,6 +29,19 @@ Thanks to Masami Komuro, Klairzaki Fil-Xter and Isaac Zuniga for their contribut
 
 
 *** Changelog ***
+
+v1.8 (2025-??-??)
+    - [Feature] Working CMake for GCC/Clang + Unix (with optional install target)
+	- [Feature] Added support for --appdir parameter for separate resource directory
+	- [Fix] Added missing <sstream> include causing Clang builds to fail
+	- [Fix] Addressed GCC/Clang compilation warnings
+	- [Fix] Original fmcomposer.org URLs in the program redirected to Archive.org capture
+	- [Fix] Update link changed to Github repository
+	- [Maintenance] Updated portaudio/portmidi/simpleini/tinyfiledialogs to latest releases
+	- [Maintenance] Deprecated SFML2 functions migrated to their replacements
+	- [Removal] FLAC and MP3 dependencies/export options removed
+
+-- Versions below 1.8 are by the original developer (Phanoo) --
 
 v1.7 (2018-05-11)
 	- [Fix] Crash after undoing a pasted selection that was out of the pattern bounds

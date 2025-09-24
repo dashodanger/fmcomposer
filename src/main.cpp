@@ -11,6 +11,7 @@
 #include "portaudio.h"
 #include <fstream>
 
+#define SI_CONVERT_GENERIC
 #include "SimpleIni.h"
 #include <fenv.h>
 #include "tinyfiledialogs.h"
@@ -19,6 +20,8 @@
 #include "gui/mainmenu.hpp"
 #include "views/pattern/songFileActions.hpp"
 #include "gui/sidebar.hpp"
+#include "ProgramOptions.hxx"
+#include "whereami.h"
 
 
 Uint32 textEntered[32];
@@ -34,9 +37,29 @@ int windowFocus = 1;
 
 int main(int argc, char *argv[])
 {
+	po::parser parser;
+	po::option &app_dir = parser["appdir"];
+	app_dir.bind(appdir);
+	std::string song_to_play;
+	po::option &song = parser["song"];
+	song.bind(song_to_play);
+	po::option &unknown = parser[""];
 
-	appdir = dirnameOf(string(argv[0]));
-
+	if (!parser(argc, argv) || !app_dir.was_set())
+	{
+		int length = wai_getExecutablePath(NULL, 0, NULL);
+		appdir.resize(length);
+		int dirname_length = 0;
+		wai_getExecutablePath(&appdir[0], length, &dirname_length);
+		appdir.resize(dirname_length);
+		if (appdir.back() != '/')
+			appdir.push_back('/');
+	}
+	else
+	{
+		if (appdir.back() != '/')
+			appdir.push_back('/');
+	}
 
 	global_initialize();
 
@@ -66,9 +89,9 @@ int main(int argc, char *argv[])
 	config->loadRecentSongs();
 
 
-	if (argc > 1)
+	if (song.was_set())
 	{
-		song_load(argv[1], false);
+		song_load(song_to_play.c_str(), false);
 	}
 	else
 	{

@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "../views/settings/configEditor.hpp"
+#define SI_CONVERT_GENERIC
 #include "SimpleIni.h"
 
 extern ConfigEditor* config;

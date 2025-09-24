@@ -1,4 +1,6 @@
 add_subdirectory(portaudio)
 add_subdirectory(portmidi)
+add_subdirectory(ProgramOptions)
 add_subdirectory(simpleini)
 add_subdirectory(tinyfiledialogs)
+add_subdirectory(whereami)
