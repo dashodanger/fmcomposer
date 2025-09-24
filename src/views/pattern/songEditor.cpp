@@ -492,11 +492,11 @@ void SongEditor::recordFromKeyboard(int note, int volume, int channel, int isFro
 			}
 
 			fm_write(fm, fm->order, fm->row, channel, {
-				note,
-				note == 128 ? 255 : instrList->value,
-				newVol,
-				255,
-				255
+				(unsigned char)note,
+				note == 128 ? (unsigned char)255 : (unsigned char)instrList->value,
+				(unsigned char)newVol,
+				(unsigned char)255,
+				(unsigned char)255
 			});
 
 			saveToHistory(fm->row, 1);

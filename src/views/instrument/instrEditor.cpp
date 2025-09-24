@@ -642,7 +642,8 @@ void InstrEditor::handleEvents()
 							removeInstrument();
 						}
 						break;
-
+					default:
+						break;
 				}
 			}
 		}

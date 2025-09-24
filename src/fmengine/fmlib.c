@@ -491,11 +491,11 @@ void _fm_render(fmsynth* f, float* buffer, unsigned length)
 										f->ch[ch].instrVol = expVol[min(99, f->ch[ch].fxData)];
 										break;
 									case 1:
-										f->ch[ch].transpose = clamp(f->ch[ch].fxData, -12, 12);
+										f->ch[ch].transpose = clamp((char)f->ch[ch].fxData, -12, 12);
 										fm_calcPitch(f, ch, f->ch[ch].untransposedNote);
 										break;
 									case 2:
-										f->ch[ch].tuning = 0.0006*clamp(f->ch[ch].fxData, -100, 100);
+										f->ch[ch].tuning = 0.0006*clamp((char)f->ch[ch].fxData, -100, 100);
 										fm_calcPitch(f, ch, f->ch[ch].untransposedNote);
 										break;
 									case 3:
@@ -552,7 +552,7 @@ void _fm_render(fmsynth* f, float* buffer, unsigned length)
 											   break;
 									}
 									case 6:{
-											   o->detune = clamp(f->ch[ch].fxData, -100, 100);
+											   o->detune = clamp((char)f->ch[ch].fxData, -100, 100);
 											   float frequency = f->noteIncr[f->ch[ch].note] + f->noteIncr[f->ch[ch].note] * SEMITONE_RATIO * f->ch[ch].instr->temperament[f->ch[ch].note % 12];
 											   o->incr = frequency *(o->mult + (float)o->finetune*_24TO1 + (float)o->detune*_2400TO1) * (1 + f->ch[ch].tuning);
 											   break;
@@ -576,7 +576,7 @@ void _fm_render(fmsynth* f, float* buffer, unsigned length)
 										o->s = expVol[clamp(f->ch[ch].fxData, 0, 99)];
 										break;
 									case 13:{
-												char value = clamp(f->ch[ch].fxData, -99, 99);
+												char value = clamp((char)f->ch[ch].fxData, -99, 99);
 												o->r = (value >= 0) ? exp(-(expEnv[value])*f->sampleRateRatio) : 2 - exp(-(expEnv[abs(value)])*f->sampleRateRatio);
 												break;
 									}
@@ -1533,7 +1533,8 @@ int fm_saveSong(fmsynth* f, const char* filename)
 	int totalSize = ftell(fp);
 	char *all = malloc(totalSize);
 	fseek(fp, 0, SEEK_SET);
-	fread(all, totalSize, 1, fp);
+	if (fread(all, totalSize, 1, fp) != 1)
+		return 0;
 
 	unsigned checksum = adler32(all, totalSize);
 
@@ -1701,7 +1702,7 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 
 
 	f->readSeek = 5;
-	readFromMemory(f, &temp, 1, data);
+	readFromMemory(f, (char *)&temp, 1, data);
 
 	if (temp > FMCS_version)
 	{
@@ -1712,38 +1713,38 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 	f->order = f->row = 0;
 	fm_patternClear(f);
 
-	readFromMemory(f, &temp, 1, data);
+	readFromMemory(f, (char *)&temp, 1, data);
 
 	readFromMemory(f, &f->songName[0], temp, data);
 	f->songName[temp] = 0;
 
-	readFromMemory(f, &temp, 1, data);
+	readFromMemory(f, (char *)&temp, 1, data);
 	readFromMemory(f, &f->author[0], temp, data);
 	f->author[temp] = 0;
 
-	readFromMemory(f, &temp, 1, data);
+	readFromMemory(f, (char *)&temp, 1, data);
 	readFromMemory(f, &f->comments[0], temp, data);
 	f->comments[temp] = 0;
 
 
 
 
-	readFromMemory(f, &f->initial_tempo, sizeof(f->initial_tempo), data);
+	readFromMemory(f, (char *)&f->initial_tempo, sizeof(f->initial_tempo), data);
 	f->initial_tempo = max(1, f->initial_tempo);
 
-	readFromMemory(f, &f->diviseur, sizeof(f->diviseur), data);
+	readFromMemory(f, (char *)&f->diviseur, sizeof(f->diviseur), data);
 	f->diviseur = clamp(f->diviseur, 1, 32);
 
-	readFromMemory(f, &f->_globalVolume, sizeof(f->_globalVolume), data);
+	readFromMemory(f, (char *)&f->_globalVolume, sizeof(f->_globalVolume), data);
 
 	fm_setVolume(f, f->_globalVolume);
 
 	readFromMemory(f, &f->transpose, sizeof(f->transpose), data);
 
-	readFromMemory(f, &temp, sizeof(temp), data);
+	readFromMemory(f, (char *)&temp, sizeof(temp), data);
 	f->initialReverbLength = (float)temp / 160;
 
-	readFromMemory(f, &temp, sizeof(temp), data);
+	readFromMemory(f, (char *)&temp, sizeof(temp), data);
 	f->initialReverbRoomSize = (float)temp / 160;
 
 	fm_initReverb(f, f->initialReverbRoomSize);
@@ -1751,23 +1752,23 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 	for (unsigned ch = 0; ch < FM_ch; ++ch)
 	{
 		f->ch[ch].cInstr = 0;
-		readFromMemory(f, &f->ch[ch].initial_pan, sizeof(f->ch[ch].initial_pan), data); // ch panning
+		readFromMemory(f, (char *)&f->ch[ch].initial_pan, sizeof(f->ch[ch].initial_pan), data); // ch panning
 
-		readFromMemory(f, &f->ch[ch].initial_vol, sizeof(f->ch[ch].initial_vol), data); // ch volume
+		readFromMemory(f, (char *)&f->ch[ch].initial_vol, sizeof(f->ch[ch].initial_vol), data); // ch volume
 		f->ch[ch].initial_vol = min(f->ch[ch].initial_vol, 99);
 
-		readFromMemory(f, &f->ch[ch].initial_reverb, sizeof(f->ch[ch].initial_reverb), data); // ch volume
+		readFromMemory(f, (char *)&f->ch[ch].initial_reverb, sizeof(f->ch[ch].initial_reverb), data); // ch volume
 		f->ch[ch].initial_reverb = min(f->ch[ch].initial_reverb, 99);
 	}
 
-	readFromMemory(f, &nbOrd, sizeof(nbOrd), data);
+	readFromMemory(f, (char *)&nbOrd, sizeof(nbOrd), data);
 	fm_resizePatterns(f, nbOrd);
 
 	for (unsigned i = 0; i < nbOrd; i++)
 	{
-		readFromMemory(f, &nbRow, sizeof(nbRow), data);
+		readFromMemory(f, (char *)&nbRow, sizeof(nbRow), data);
 
-		fm_resizePattern(f, i, clamp(nbRow, 1, 256), 0);
+		fm_resizePattern(f, i, max(1, nbRow), 0);
 
 
 		if (!read_compressed_mem(f, (char*)&f->pattern[i][0], data))
@@ -1777,7 +1778,7 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 		}
 	}
 
-	readFromMemory(f, &f->instrumentCount, 1, data);
+	readFromMemory(f, (char *)&f->instrumentCount, 1, data);
 	fm_resizeInstrumentList(f, f->instrumentCount);
 
 	if (f->instrumentCount <= 0 || f->instrumentCount > 255)
@@ -1836,7 +1837,10 @@ char* fm_fileToMemory(fmsynth *f, const char* filename)
 	}
 
 	fseek(fp, 0, SEEK_SET);
-	fread(all, f->totalFileSize, 1, fp);
+	if (fread(all, f->totalFileSize, 1, fp) != 1)
+	{
+		return 0;
+	}
 	fclose(fp);
 	f->readSeek = 0;
 	return all;

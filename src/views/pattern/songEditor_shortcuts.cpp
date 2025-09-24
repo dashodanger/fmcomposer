@@ -15,6 +15,8 @@ void SongEditor::handleShortcuts()
 				popup->close(true);
 			}
 			break;
+		default:
+			break;
 	}
 
 	if (patternList.selected)
@@ -36,6 +38,8 @@ void SongEditor::handleShortcuts()
 				case Keyboard::V:// coller
 					pattern_paste(0);
 					break;
+				default:
+					break;
 			}
 		}
 		else
@@ -45,7 +49,8 @@ void SongEditor::handleShortcuts()
 				case Keyboard::Delete:
 					pattern_delete();
 					break;
-
+				default:
+					break;
 			}
 		}
 
@@ -263,6 +268,8 @@ void SongEditor::handleShortcuts()
 			else
 				moveXrelative(4);
 			break;
+		default:
+			break;
 	}
 
 	if (keyboard.shift)
@@ -284,6 +291,8 @@ void SongEditor::handleShortcuts()
 			case Keyboard::F: // note -1
 
 				multipleEdit(3, 0, -1);
+				break;
+			default:
 				break;
 		}
 	}
@@ -323,12 +332,13 @@ void SongEditor::handleShortcuts()
 					saveToHistory(fm->row, copiedSelection.data[0].size());
 				}
 				break;
-			case Keyboard::A:// tout sélectionner
+			case Keyboard::A:// tout sï¿½lectionner
 				selectedRow = selectedType = selectedChannel = 0;
 				selection.bg.setPosition(0, 0);
 				selection.bg.setSize(Vector2f(FM_ch*CH_WIDTH, fm->patternSize[fm->order] * ROW_HEIGHT));
 				break;
-
+			default:
+				break;
 		}
 	}
 }

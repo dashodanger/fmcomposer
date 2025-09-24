@@ -139,7 +139,7 @@ void ConfigEditor::loadKeyboardMappings(string keyboard)
 	noteMappings[atoi(pch) + 1] = 0;
 	int count = 1;
 
-	while (pch = strtok(NULL, " ,."))
+	while ((pch = strtok(NULL, " ,.")))
 	{
 		noteMappings[atoi(pch) + 1] = count;
 		count++;

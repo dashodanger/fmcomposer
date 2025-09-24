@@ -75,8 +75,8 @@ static int sortChannels(void const *a, void const *b)
 
 unsigned long ReadVarLen(ifstream* f)
 {
-	register unsigned long value;
-	register char c;
+	unsigned long value;
+	char c;
 
 	if ((value = f->get()) & 0x80)
 	{

@@ -308,7 +308,8 @@ void Pianoroll::handleEvents()
 				}
 			}
 			break;
-
+		default:
+			break;
 	}
 }
 

@@ -73,7 +73,10 @@ void Popup::buttonActions(int buttonID)
 #ifdef _WIN32
 				ShellExecute(0, 0, "https://github.com/dashodanger/fmcomposer", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
-				system("xdg-open https://github.com/dashodanger/fmcomposer &");
+			{
+				int result = system("xdg-open https://github.com/dashodanger/fmcomposer &");
+				(void)result;
+			}
 #endif
 			break;
 		case POPUP_FIRSTSTART:
@@ -83,7 +86,10 @@ void Popup::buttonActions(int buttonID)
 #ifdef _WIN32
 				ShellExecute(0, 0, "https://web.archive.org/web/20181125092454/http://fmcomposer.org/en/user_manual.php", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
-				system("xdg-open https://web.archive.org/web/20181125092454/http://fmcomposer.org/en/user_manual.php &");
+			{
+				int result = system("xdg-open https://web.archive.org/web/20181125092454/http://fmcomposer.org/en/user_manual.php &");
+				(void)result;
+			}
 #endif
 			break;
 		case POPUP_ABOUT:
@@ -93,13 +99,19 @@ void Popup::buttonActions(int buttonID)
 #ifdef _WIN32
 				ShellExecute(0, 0, "https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
-				system("xdg-open https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/ &");
+			{
+				int result = system("xdg-open https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/ &");
+				(void)result;
+			}
 #endif
 			else if (buttonID == 2)
 #ifdef _WIN32
 				ShellExecute(0, 0, "https://github.com/dashodanger/fmcomposer", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
-				system("xdg-open https://github.com/dashodanger/fmcomposer &");
+			{
+				int result = system("xdg-open https://github.com/dashodanger/fmcomposer &");
+				(void)result;
+			}
 #endif
 			break;
 		case POPUP_WORKING:
@@ -138,11 +150,11 @@ void Popup::buttonActions(int buttonID)
 				int replaceWhat = (checkboxes[9].checked + checkboxes[10].checked * 2 + checkboxes[11].checked * 4 + checkboxes[12].checked * 8 + checkboxes[13].checked * 16 + checkboxes[14].checked * 32) * checkboxes[8].checked;
 
 				unsigned char searchValues[5] = {
-					sliders[0].value,
-					sliders[1].value,
-					lists[0].value - 1,
-					lists[1].value - 1,
-					sliders[2].value
+					(unsigned char)sliders[0].value,
+					(unsigned char)sliders[1].value,
+					(unsigned char)(lists[0].value - 1),
+					(unsigned char)(lists[1].value - 1),
+					(unsigned char)sliders[2].value
 				};
 
 				if (lists[1].value > 0)
@@ -151,12 +163,12 @@ void Popup::buttonActions(int buttonID)
 				}
 
 				unsigned char replaceValues[6] = {
-					sliders[3].value,
-					sliders[4].value,
-					lists[2].value - 1,
-					lists[3].value - 1,
-					sliders[5].value,
-					sliders[6].value,
+					(unsigned char)sliders[3].value,
+					(unsigned char)sliders[4].value,
+					(unsigned char)(lists[2].value - 1),
+					(unsigned char)(lists[3].value - 1),
+					(unsigned char)sliders[5].value,
+					(unsigned char)sliders[6].value,
 				};
 
 				if (lists[3].value > 0)

@@ -4,9 +4,9 @@
 vector<int> midiExportAssoc;
 vector<int> midiExportAssocChannels;
 
-void WriteVarLen(register unsigned long value, ofstream* f)
+void WriteVarLen(unsigned long value, ofstream* f)
 {
-	register unsigned long buffer;
+	unsigned long buffer;
 	buffer = value & 0x7F;
 	while ((value >>= 7))
 	{
@@ -177,7 +177,7 @@ void midiExport(const char* filename)
 							lastinstr[i] != -1 && midiExportAssocChannels[lastinstr[i]] == 9)
 						{
 							WriteVarLen(cpt * 8, &file);
-							file.put(144 + 9);
+							file.put((char)(144 + 9));
 							lastnote[i] = 23 + midiExportAssoc[fm->pattern[k][j][i].instr]; // convert instrument to drumkit note
 						}
 						// melodic

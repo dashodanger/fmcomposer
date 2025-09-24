@@ -90,6 +90,8 @@ void handleUnconditionalEvents()
 			free(evt.file.path);
 			break;
 			#endif
+		default:
+			break;
 	}
 
 	if (windowFocus)
@@ -181,6 +183,8 @@ void handleUnconditionalEvents()
 						popup->close();
 						contextMenu=0;
 						break;
+					default:
+						break;
 				}
 
 				break;
@@ -242,6 +246,8 @@ void handleUnconditionalEvents()
 					textEnteredCount++;
 				}
 				break;
+			default:
+				break;
 		}
 
 	}
@@ -277,7 +283,8 @@ void handleNotePreview(int canPreview)
 				}
 			}
 			break;
-
+		default:
+			break;
 	}
 
 }

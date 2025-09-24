@@ -546,5 +546,7 @@ void ConfigEditor::handleEvents()
 				updateKeyboardMappingDisplay();
 			}
 			break;
+		default:
+			break;
 	}
 }

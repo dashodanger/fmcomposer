@@ -330,7 +330,7 @@ sf::Color string2color(const char* s)
 	int comp[4] = { atoi(pch), 0, 0, 255 };
 
 	int count = 1;
-	while (pch = strtok(NULL, " ,.-"))
+	while ((pch = strtok(NULL, " ,.-")))
 	{
 		comp[count] = atoi(pch);
 		count++;

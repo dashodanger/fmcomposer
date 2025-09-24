@@ -1,5 +1,6 @@
 #ifndef GLOBALFUNCTIONS_H
 #define GLOBALFUNCTIONS_H
+#include <sstream>
 #include <string>
 
 #include <SFML/Graphics.hpp>
