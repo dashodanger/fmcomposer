@@ -2,7 +2,7 @@
 #define MIDI_H
 
 #include "../fmengine/fmlib.h"
-#include "../libs/portmidi/portmidi.h"
+#include <portmidi.h>
 #include "../views/settings/configEditor.hpp"
 #include <vector>
 using namespace std;

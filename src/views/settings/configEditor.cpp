@@ -1,7 +1,7 @@
 #include "configEditor.hpp"
 #include "../../input/noteInput.hpp"
 #include "../pattern/songEditor.hpp"
-#include "../../libs/portmidi/portmidi.h"
+#include <portmidi.h>
 #include "../../midi/midi.h"
 #include "../pattern/songFileActions.hpp"
 #include "../../gui/sidebar.hpp"

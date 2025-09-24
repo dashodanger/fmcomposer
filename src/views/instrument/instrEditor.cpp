@@ -1,7 +1,7 @@
 #include "instrEditor.hpp"
 #include "../../input/noteInput.hpp"
 #include "algoPresets.hpp"
-#include "../../libs/simpleini/SimpleIni.h"
+#include "SimpleIni.h"
 #include "../pattern/songEditor.hpp"
 #include "../settings/configEditor.hpp"
 #include "../../gui/sidebar.hpp"

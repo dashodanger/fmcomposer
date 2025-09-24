@@ -1,7 +1,7 @@
 #include "../../globalFunctions.hpp"
 #include "../../input/input.hpp"
 #include "../../gui/popup/popup.hpp"
-#include "../../libs/tinyfiledialogs/tinyfiledialogs.h"
+#include "tinyfiledialogs.h"
 #include "../instrument/instrEditor.hpp"
 #include "../pattern/songEditor.hpp"
 #include "../pianoroll/pianoRoll.hpp"

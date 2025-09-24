@@ -21,13 +21,9 @@ typedef struct StreamedExport{
 
 extern struct StreamedExport streamedExport;
 
-extern const int mp3_bitrates[16];
-
 void promptStreamedExport();
 
 int waveExportFunc();
-int mp3ExportFunc();
-int flacExportFunc();
 void stopExport();
 
 #endif

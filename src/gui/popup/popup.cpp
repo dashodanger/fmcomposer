@@ -416,10 +416,6 @@ void Popup::handleEvents()
 							checkboxes[0].checked = 0;
 							checkboxes[1].checked = 1;
 							checkboxes[4].checked = 0;
-							if (checkboxes[3].checked)
-							{
-								sliders[0].setDisplayedValueOnly(std::to_string(mp3_bitrates[sliders[0].value]));
-							}
 						}
 						/* Pattern : from */
 						else if (i == 1)

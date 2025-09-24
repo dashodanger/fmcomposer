@@ -4,7 +4,7 @@
 #include "portaudio.h"
 
 
-#include "../../libs/tinyfiledialogs/tinyfiledialogs.h"
+#include "tinyfiledialogs.h"
 #include "../../views/instrument/instrEditor.hpp"
 #include "../../views/pattern/songFileActions.hpp"
 

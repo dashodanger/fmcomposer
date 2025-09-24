@@ -7,7 +7,7 @@
 #include "../fmengine/fmlib.h"
 #include <algorithm>
 #include "../globalFunctions.hpp"
-#include "../libs/simpleini/SimpleIni.h"
+#include "SimpleIni.h"
 #include "../input/input.hpp"
 #include "../state.hpp"
 #include "IconsMaterialDesign.h"

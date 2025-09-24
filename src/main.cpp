@@ -11,9 +11,9 @@
 #include "portaudio.h"
 #include <fstream>
 
-#include "libs/simpleini/SimpleIni.h"
+#include "SimpleIni.h"
 #include <fenv.h>
-#include "libs/tinyfiledialogs/tinyfiledialogs.h"
+#include "tinyfiledialogs.h"
 #include "input/input.hpp"
 #include "state.hpp"
 #include "gui/mainmenu.hpp"

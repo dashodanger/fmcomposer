@@ -1,5 +1,5 @@
 #include "instrEditor.hpp"
-#include "../../libs/tinyfiledialogs/tinyfiledialogs.h"
+#include "tinyfiledialogs.h"
 
 
 void InstrEditor::instrument_load(const char *filename)

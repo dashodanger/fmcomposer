@@ -684,17 +684,8 @@ void Popup::show(int _type, int param)
 
 void Popup::updateExportSliders()
 {
-	if (checkboxes[3].checked)
-	{
-		sliders[0].name.setString("Bitrate (Kbps)");
-		sliders[0].setMinMax(0, 15);
-		sliders[0].setDisplayedValueOnly(std::to_string(mp3_bitrates[sliders[0].value]));
-	}
-	else
-	{
-		sliders[0].name.setString("Quality (0=best, 9=worst)");
-		sliders[0].setMinMax(0, 9);
-	}
+	sliders[0].name.setString("Quality (0=best, 9=worst)");
+	sliders[0].setMinMax(0, 9);
 }
 
 void Popup::updateWindow()

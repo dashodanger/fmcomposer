@@ -5,7 +5,7 @@
 |                                / 
 |                               '  v1.7 (2018-05-11)
 | 
-| by Stéphane "Phanoo" Damo -- http://fmcomposer.org
+| by Stï¿½phane "Phanoo" Damo -- http://fmcomposer.org
 |_____________________________________________________
 
 
@@ -40,9 +40,7 @@ Thanks to Masami Komuro, Klairzaki Fil-Xter and Isaac Zuniga for their contribut
 	- Brodie Thiesfield (SimpleIni lib)
  	- Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)
 	- Yann Collet (LZ4 lib)
-	- The LAME MP3 encoder team
  	- The Google team (Material Icons)
-	- Josh Coalson & Xiph.org foundation (FLAC encoder)
 
 
 *** Changelog ***
