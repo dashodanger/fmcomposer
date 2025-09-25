@@ -10,6 +10,7 @@ Released with 150+ FM instruments and drums, ranging from synth to acoustic soun
 - Tracker-style sequencer
 - Lots of effects available : vibrato, tremolo, arpeggio, pitch slides, real time FM parameter modification, loop points...
 - MIDI integration : MIDI file import with partial XG/GS support, MIDI keyboard support
+- MUS integration: DMX MUS file import
 - Wave export
 - Piano roll view
 
