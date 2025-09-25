@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=FMComposer
-Comment=Music and sound creation tool, featuring an FM synthesizer and a tracker-like interface
-Terminal=false
-Type=Application
-Categories=Audio;AudioVideo;Midi;Sequencer;
-StartupNotify=false

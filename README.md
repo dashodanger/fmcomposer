@@ -1,4 +1,4 @@
-![FM Composer logo](fmcomposer.png)
+![FM Composer logo](src/fmcomposer.png)
 
 [Original Site (Archive.org)](https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/)
 
@@ -35,7 +35,7 @@ The audio engine is written in pure C and was optimized for lowest CPU usage pos
 FM Composer uses its own binary format, FMCI for storing instruments and .FMCS for the songs . They use LZ4 compression (https://github.com/lz4/lz4).
 
 # Compiling
-You'll need the following additional libraries :
+For Unix builds, you'll need the following additional libraries :
 - SFML 2
 
 # Thanks

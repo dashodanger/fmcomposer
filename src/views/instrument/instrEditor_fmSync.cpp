@@ -8,7 +8,7 @@ void InstrEditor::updateFromFM()
 
 	for (unsigned i = 0; i < FM_op; ++i)
 	{
-		if (fm->instrument[instrList->value].op[i].fixedFreq == true)
+		if ((bool)fm->instrument[instrList->value].op[i].fixedFreq == true)
 		{
 			op[i].slider[1].name.setString("Frequency");
 			op[i].slider[1].setMinMax(1, 255);
@@ -21,7 +21,7 @@ void InstrEditor::updateFromFM()
 			op[i].fixedFreq.setText("Ratio");
 		}
 
-		op[i].envLoop.selected = fm->instrument[instrList->value].op[i].envLoop == true;
+		op[i].envLoop.selected = (bool)fm->instrument[instrList->value].op[i].envLoop == true;
 		op[i].mute.selected = fm->instrument[instrList->value].op[i].muted;
 		if (op[i].mute.selected)
 		{
