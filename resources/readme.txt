@@ -31,7 +31,7 @@ Thanks to Masami Komuro, Klairzaki Fil-Xter and Isaac Zuniga for their contribut
 
 *** Changelog ***
 
-v1.8 (2025-??-??)
+v1.8 (2025-09-25)
     - [Feature] Working CMake for GCC/Clang + Unix (with optional install target)
 	- [Feature] Added support for --appdir parameter for separate resource directory
 	- [Feature] Added support for DMX MUS (Doom format) import
