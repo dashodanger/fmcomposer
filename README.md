@@ -36,8 +36,9 @@ The audio engine is written in pure C and was optimized for lowest CPU usage pos
 FM Composer uses its own binary format, FMCI for storing instruments and .FMCS for the songs . They use LZ4 compression (https://github.com/lz4/lz4).
 
 # Compiling
-For Unix builds, you'll need the following additional libraries :
+For Unix builds, you'll need the following additional development libraries :
 - SFML 2 (package names may vary; for Debian/Ubuntu this is likely `libsfml-dev`)
+- ALSA (package names may vary; for Debian/Ubuntu this is likely `libasound2-dev`)
 
 The program and necessary resources will be located in the `/bin` subdirectory of your build folder when compilation is complete.
 

@@ -3,7 +3,7 @@
 |  ,-/-,   / / /    /   __ ______  _   __ _   _  __ 
 | (_/     / ' (_   (__/(_)/ / / <_/_)_(_)/_)_</_/ (_
 |                                / 
-|                               '  v1.8 (2025-??-??)
+|                               '  v1.8 (2025-09-25)
 | 
 | by Stephane "Phanoo" Damo -- https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/ (Original Site)
 |

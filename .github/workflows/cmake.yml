@@ -42,6 +42,7 @@ jobs:
         name: fmcomposer-linux
         path: |
           ${{github.workspace}}/build/bin/FMComposer
+          ${{github.workspace}}/build/bin/LICENSE
           ${{github.workspace}}/build/bin/defaultkeyboards.ini
           ${{github.workspace}}/build/bin/gmlist.ini
           ${{github.workspace}}/build/bin/readme.txt
@@ -63,6 +64,7 @@ jobs:
           name: fmcomposer-win64
           path: |
             build/bin/FMComposer.exe
+            build/bin/LICENSE
             build/bin/*.dll
             build/bin/defaultkeyboards.ini
             build/bin/gmlist.ini
