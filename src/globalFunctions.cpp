@@ -375,8 +375,24 @@ void global_initialize()
 #ifdef _WIN32
 	appconfigdir = appdir;
 #else 
-	appconfigdir = "~/.local/share"+pathSeparator+"fmcomposer"+pathSeparator;
-	mkdir(appconfigdir.c_str(),0733);
+	const char *config_path = getenv("XDG_CONFIG_HOME");
+	if (config_path != NULL)
+	{
+		appconfigdir = config_path;
+		appconfigdir.append("/fmcomposer/");
+	}
+	else
+	{
+		const char *home = getenv("HOME");
+		if (home != NULL)
+		{
+			appconfigdir = home;
+			appconfigdir.append("/.config/fmcomposer/");
+		}
+		else
+			appconfigdir = "~/.config/fmcomposer/";
+	}
+	mkdir(appconfigdir.c_str(),0774);
 #endif
 
 	/* Load config files (preferences, last songs, midi instrument list..) */

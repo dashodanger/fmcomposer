@@ -11,7 +11,7 @@ if(MSVC)
   find_package(SFML2 REQUIRED)
 else()
   find_package(SFML 2 COMPONENTS graphics window system REQUIRED)
-  set(SFML2_LIBRARIES "sfml-graphics sfml-window sfml-system")
+  set(SFML2_LIBRARIES "sfml-graphics;sfml-window;sfml-system")
 endif()
 
 find_package(OpenGL REQUIRED)
