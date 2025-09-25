@@ -371,28 +371,13 @@ static int patestCallback(const void *inputBuffer, void *outputBuffer, unsigned 
 
 void global_initialize()
 {
-
-
-
-
 	/* Set config (preferences) directory */
 #ifdef _WIN32
-	TCHAR szPath[MAX_PATH];
-	if (SUCCEEDED(SHGetFolderPath(NULL, CSIDL_COMMON_APPDATA, NULL, SHGFP_TYPE_CURRENT, szPath)))
-	{
-		appconfigdir = string(szPath) + pathSeparator + "fmcomposer" + pathSeparator;
-		_mkdir(appconfigdir.c_str());
-	}
-	else
-	{
-		error("Can't get the application directory.");
-	}
-
+	appconfigdir = appdir;
 #else 
 	appconfigdir = "~/.local/share"+pathSeparator+"fmcomposer"+pathSeparator;
 	mkdir(appconfigdir.c_str(),0733);
 #endif
-
 
 	/* Load config files (preferences, last songs, midi instrument list..) */
 	iniparams_load();
