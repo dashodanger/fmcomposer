@@ -91,6 +91,11 @@ void song_load(const char* filename, bool fromAutoReload)
 		if ((opened = midiImport(filename)) == 0)
 			saveAs = "";
 	}
+	else if (checkExtension(filename, "mus"))
+	{
+		if ((opened = musImport(filename)) == 0)
+			saveAs = "";
+	}
 	if (opened == FM_ERR_FILEIO && !fromAutoReload)
 	{
 		popup->show(POPUP_OPENFAILED);
@@ -144,8 +149,8 @@ void song_open()
 
 	mouse.clickLock2 = 1;
 	contextMenu = NULL;
-	static const char * filters[4] = { "*.fmcs", "*.mid", "*.rmi", "*.smf" };
-	const char *fileName = tinyfd_openFileDialog("Open a file", songDir.c_str(), 4, filters, "FMComposer or MIDI files", false);
+	static const char * filters[5] = { "*.fmcs", "*.mid", "*.rmi", "*.smf", "*.mus"};
+	const char *fileName = tinyfd_openFileDialog("Open a file", songDir.c_str(), 5, filters, "FMComposer or MIDI files", false);
 	if (fileName)
 	{
 		songDir = dirnameOf(fileName);

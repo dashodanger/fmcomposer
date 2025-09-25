@@ -46,7 +46,8 @@ endif()
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
 target_link_libraries(
-   ${EXECUTABLE_NAME} 
+   ${EXECUTABLE_NAME}
+   Mus2Midi 
    OpenGL::GL 
    portaudio_static
    portmidi

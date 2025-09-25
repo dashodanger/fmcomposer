@@ -21,6 +21,7 @@ void midi_selectDevice(int id);
 vector<string>* midi_refreshDevices();
 
 int midiImport(const char* filename);
+int musImport(const char* filename);
 
 void midiExport(const char* filename);
 

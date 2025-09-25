@@ -36,7 +36,11 @@ FM Composer uses its own binary format, FMCI for storing instruments and .FMCS f
 
 # Compiling
 For Unix builds, you'll need the following additional libraries :
-- SFML 2
+- SFML 2 (package names may vary; for Debian/Ubuntu this is likely `libsfml-dev`)
+
+The program and necessary resources will be located in the `/bin` subdirectory of your build folder when compilation is complete.
+
+On Unix, the program can also be installed via `cmake --install <build folder>` to an appropriate location. This usually requires root permissions.
 
 # Thanks
 
@@ -49,3 +53,6 @@ For Unix builds, you'll need the following additional libraries :
 - Ross Bencina/Phil Burk/Roger B. Dannenberg ([PortMidi](http://portmedia.sourceforge.net/portmidi/)/[PortAudio lib](http://portaudio.com/))
 - Yann Collet ([LZ4 lib](https://github.com/lz4/lz4))
 - The Google team (Material Icons)
+- Josua Rieder ([ProgramOptions](https://github.com/Fytch/ProgramOptions.hxx))
+- Gregory Pakosz ([whereami](https://github.com/gpakosz/whereami))
+- Id Software, Inc., Simon Howard, Ben Ryves ([SLADE3](https://github.com/sirjuddington/SLADE)) (MUS2MIDI conversion)

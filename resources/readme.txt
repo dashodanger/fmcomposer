@@ -26,6 +26,7 @@ Thanks to Masami Komuro, Klairzaki Fil-Xter and Isaac Zuniga for their contribut
  	- Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)
 	- Yann Collet (LZ4 lib)
  	- The Google team (Material Icons)
+	- Id Software, Inc., Simon Howard, Ben Ryves (SLADE3 MUS2MIDI conversion)
 
 
 *** Changelog ***
@@ -33,6 +34,7 @@ Thanks to Masami Komuro, Klairzaki Fil-Xter and Isaac Zuniga for their contribut
 v1.8 (2025-??-??)
     - [Feature] Working CMake for GCC/Clang + Unix (with optional install target)
 	- [Feature] Added support for --appdir parameter for separate resource directory
+	- [Feature] Added support for DMX MUS (Doom format) import
 	- [Fix] Added missing <sstream> include causing Clang builds to fail
 	- [Fix] Addressed GCC/Clang compilation warnings
 	- [Fix] Original fmcomposer.org URLs in the program redirected to Archive.org capture

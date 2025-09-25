@@ -1,3 +1,4 @@
+add_subdirectory(Mus2Midi)
 add_subdirectory(portaudio)
 add_subdirectory(portmidi)
 add_subdirectory(ProgramOptions)

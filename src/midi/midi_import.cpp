@@ -3,6 +3,7 @@
 #include <math.h>
 
 #include "../views/settings/configEditor.hpp"
+#include "Mus2Midi.h"
 #define SI_CONVERT_GENERIC
 #include "SimpleIni.h"
 
@@ -74,17 +75,17 @@ static int sortChannels(void const *a, void const *b)
 	return (pb->priority) - (pa->priority);
 }
 
-unsigned long ReadVarLen(ifstream* f)
+unsigned long ReadVarLen(istream &f)
 {
 	unsigned long value;
 	char c;
 
-	if ((value = f->get()) & 0x80)
+	if ((value = f.get()) & 0x80)
 	{
 		value &= 0x7F;
 		do
 		{
-			value = (value << 7) + ((c = f->get()) & 0x7F);
+			value = (value << 7) + ((c = f.get()) & 0x7F);
 		} while (c & 0x80);
 	}
 
@@ -760,8 +761,8 @@ void midi_expression(int midiChannel, int vol)
 		}
 	}
 }
-ifstream midifile;
-void midi_handleEvents(int type, int midiChannel, unsigned char data)
+
+void midi_handleEvents(int type, int midiChannel, unsigned char data, istream &midifile)
 {
 
 	/* Check if some stolen channels have expired */
@@ -983,7 +984,7 @@ void midi_handleEvents(int type, int midiChannel, unsigned char data)
 }
 
 
-int parseMidiRows(unsigned short delta_time_ticks)
+int parseMidiRows(unsigned short delta_time_ticks, istream &midifile)
 {
 	unsigned char eventType, eventData;
 	realRow = 0;
@@ -1012,7 +1013,7 @@ int parseMidiRows(unsigned short delta_time_ticks)
 	while (order >= -1 && !midifile.eof())
 	{ /* order set to -1 when end of track is found */
 
-		deltaAcc += ReadVarLen(&midifile) / tempoDivisor;
+		deltaAcc += ReadVarLen(midifile) / tempoDivisor;
 		realRow = deltaAcc / (delta_time_ticks / (double)fm->diviseur) + roundRow;
 
 		while (realRow >= patternSize*(order + 1))
@@ -1038,20 +1039,20 @@ int parseMidiRows(unsigned short delta_time_ticks)
 		if (eventType / 16 < 8)
 		{
 
-			midi_handleEvents(lastStatus / 16, lastStatus % 16, eventType);
+			midi_handleEvents(lastStatus / 16, lastStatus % 16, eventType, midifile);
 		}
 		else
 		{ // New status
 			if (eventType / 16 < 15)
 			{
 				eventData = midifile.get();
-				midi_handleEvents(eventType / 16, eventType % 16, eventData);
+				midi_handleEvents(eventType / 16, eventType % 16, eventData, midifile);
 			}
 			else
 			{ // Meta event
 				if (eventType % 16 < 8)
 				{ //sysex
-					temp = ReadVarLen(&midifile);
+					temp = ReadVarLen(midifile);
 					char *sysex = (char*)malloc(temp);
 					midifile.read(sysex, temp);
 					if (temp >= 7 && !memcmp(sysex, "\x43\x10\x4C\x00\x00\x7E\x00", 7))
@@ -1075,7 +1076,7 @@ int parseMidiRows(unsigned short delta_time_ticks)
 						case 0x06:// marker
 						case 0x07: // cue point
 						case 0x7F:{ // sequencer specific data
-									  temp = ReadVarLen(&midifile);
+									  temp = ReadVarLen(midifile);
 									  char* d = (char*)malloc(temp);
 									  midifile.read(d, temp);
 
@@ -1161,10 +1162,107 @@ int parseMidiRows(unsigned short delta_time_ticks)
 	return 1;
 }
 
+int musImport(const char* filename)
+{
+	ifstream musfile;
+	musfile.open(filename, ios::binary);
+	if (!musfile.is_open())
+		return FM_ERR_FILEIO;
+
+	ostringstream midiostream;
+
+	if (!mus2mid(musfile, midiostream))
+	{
+		musfile.close();
+		return FM_ERR_FILECORRUPTED;
+	}
+	else
+	{
+		midiostream.flush();
+    	musfile.close();
+	}
+
+	istringstream midiistream(midiostream.str());
+
+	int currentVol = fm->_globalVolume;
+	fm_clearSong(fm);
+	fm_resizeInstrumentList(fm, 0);
+
+	fm->diviseur = config->diviseur.value;
+	fm_setVolume(fm, currentVol);
+	fm->initial_tempo = 120;
+	loopStart = -1;
+
+	totalLength = 0;
+	tempoDivisor = 1;
+	for (unsigned i = 0; i < FM_ch; i++)
+	{
+		fm->ch[i].initial_reverb = 20;
+		trackerCh[i].firstNotePos = -1;
+		trackerCh[i].midiChannelMappings = -1;
+		trackerCh[i].midiTrackMappings = -1;
+		trackerCh[i].noteOn = 0;
+		trackerCh[i].age = -1;
+		trackerCh[i].pan = -1;
+		trackerCh[i].vol = -1;
+		trackerCh[i].channelPBend = -1;
+		trackerCh[i].isInitialPanSet = 0;
+		trackerCh[i].isInitialVolSet = 0;
+		trackerCh[i].stolenUsed = 0;
+	}
+
+	isXG = 0;
+	unsigned short delta_time_ticks;
+
+	char temp[4];
+	midiistream.read((char*)&temp, 4);
+	midiistream.ignore(4); // MThd + chuckSize
+	midiistream.read((char*)&midiFormat, 2);
+	midiFormat = (midiFormat >> 8) | (midiFormat << 8);
+	midiistream.read((char*)&tracks, 2); // nb of tracks
+	tracks = (tracks >> 8) | (tracks << 8);
+	midiistream.read((char*)&delta_time_ticks, 2);
+	delta_time_ticks = (delta_time_ticks >> 8) | (delta_time_ticks << 8);
+
+	if (instrumentList)
+	{
+		free(instrumentList);
+		instrumentList = 0;
+	}
+
+	maxOrder = -1;
+	midiistream.ignore(8); // expecting MTrk + chunk size, we dont need them
+	parseMidiRows(delta_time_ticks, midiistream);
+
+	// no instrument (unlikely?) : avoid crash
+	if (fm->instrumentCount == 0)
+	{
+		if (fm_loadInstrument(fm, "instruments/keyboards/piano.fmci", 0) < 0)
+		{
+			fm_resizeInstrumentList(fm, 1);
+		}
+	}
+	instrList->select(0);
+
+	for (int i = 0; i < fm->instrumentCount; i++)
+	{
+		if (!fm_isInstrumentUsed(fm, i))
+		{
+			fm_removeInstrument(fm, i, 1);
+			/* Because instruments after the removed one are re-numbered, we need to check again the same i (it's the next instrument) */
+			i--;
+		}
+	}
+
+
+	fm_buildStateTable(fm, 0, fm->patternCount, 0, FM_ch);
+
+	return 0;
+}
 
 int midiImport(const char* filename)
 {
-
+	ifstream midifile;
 	midifile.open(filename, ios::binary);
 	if (!midifile.is_open())
 		return FM_ERR_FILEIO;
@@ -1226,7 +1324,7 @@ int midiImport(const char* filename)
 	{
 		midifile.ignore(8); // expecting MTrk + chunk size, we dont need them
 
-		if (!parseMidiRows(delta_time_ticks))
+		if (!parseMidiRows(delta_time_ticks, midifile))
 			break;
 	}
 	/* rpg maker loop point , */
