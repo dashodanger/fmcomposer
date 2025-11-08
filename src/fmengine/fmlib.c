@@ -1434,25 +1434,6 @@ void fm_setPosition(fmsynth* f, int order, int row, int cutNotes)
 		fm_initChannels(f);
 }
 
-/* Writes a LZ4 compressed block */
-
-int write_compressed(char* data, unsigned short size, FILE *fp)
-{
-	char* compressedData = malloc(size * (257 / 256) + 1);
-	if (!compressedData) return 0;
-
-	unsigned short compressedDataSize = LZ4_compress_HC(data, compressedData, size, LZ4_compressBound(size), 9);
-	if (compressedDataSize <= 0) return 0;
-
-	fwrite(&size, 2, 1, fp);
-	fwrite(&compressedDataSize, 2, 1, fp);
-	fwrite(compressedData, compressedDataSize, 1, fp);
-	free(compressedData);
-	return 1;
-}
-
-
-
 #include <stdint.h>
 
 static uint32_t adler32(const void *buf, size_t buflength)
@@ -1520,8 +1501,7 @@ int fm_saveSong(fmsynth* f, const char* filename)
 	{
 		temp = f->patternSize[i];
 		fwrite(&temp, sizeof(temp), 1, fp);
-		if (!write_compressed((char*)&f->pattern[i][0], sizeof(Cell)*f->patternSize[i] * FM_ch, fp))
-			return 0;
+		fwrite((char*)&f->pattern[i][0], sizeof(Cell)*f->patternSize[i] * FM_ch, 1, fp);
 	}
 	fwrite(&f->instrumentCount, 1, 1, fp);
 
@@ -1531,9 +1511,7 @@ int fm_saveSong(fmsynth* f, const char* filename)
 		f->instrument[slot].version = FMCI_version;
 	}
 
-	if (!write_compressed((char*)&f->instrument[0], sizeof(fm_instrument)*f->instrumentCount, fp))
-		return 0;
-
+	fwrite((char*)&f->instrument[0], sizeof(fm_instrument)*f->instrumentCount, 1, fp);
 
 	int totalSize = ftell(fp);
 	char *all = malloc(totalSize);
@@ -2135,8 +2113,7 @@ int fm_saveInstrument(fmsynth* f, const char* filename, unsigned slot)
 		fputc(FMCI_version, fp); // version
 
 	//	f->instrument[slot].flags |= FM_INSTR_TRANSPOSABLE;
-		if (!write_compressed((char*)&f->instrument[slot].name[0], sizeof(fm_instrument)-6, fp))
-			return 0;
+		fwrite((char*)&f->instrument[slot].name[0], sizeof(fm_instrument)-6, 1, fp);
 		fclose(fp);
 		return 1;
 	}

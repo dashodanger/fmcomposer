@@ -669,11 +669,11 @@ void midi_noteOn(int note, int volume, int midiChannel, int instrument)
 			// handle timpani from orchestra drum kit
 			if (midiCh[midiChannel].drumKit == 48 && note > 40 && note < 54)
 			{
-				instrument = addInstrument(47, 0);
+				instrument = instrumentExists(47, 0);
 			}
 			else
 			{
-				addedPercussion = addInstrument(note, 1);
+				addedPercussion = instrumentExists(note, 1);
 			}
 		}
 
@@ -807,7 +807,6 @@ void midi_handleEvents(int type, int midiChannel, unsigned char data, istream &m
 			// wtf a midi without any program change ? hello Masami ?!
 			if (midiCh[midiChannel].currentInstr == -1 && midiChannel != 9)
 			{
-				addInstrument(0, 0);
 				midiCh[midiChannel].currentInstr = 0;
 			}
 			midi_noteOn(data, data2, midiChannel, midiCh[midiChannel].currentInstr);
@@ -945,7 +944,7 @@ void midi_handleEvents(int type, int midiChannel, unsigned char data, istream &m
 			}
 			else
 			{
-				midiCh[midiChannel].currentInstr = addInstrument(data, 0);
+				midiCh[midiChannel].currentInstr = data;
 			}
 			break;
 		case 13: /* currentChannelNumber Key Pressure */
@@ -1187,7 +1186,14 @@ int musImport(const char* filename)
 	int currentVol = fm->_globalVolume;
 	fm_clearSong(fm);
 	fm_resizeInstrumentList(fm, 0);
-
+	for (int i = 0; i < 128; ++i)
+	{
+		addInstrument(i, 0);
+	}
+	for (int i = 24; i < 88; ++i)
+	{
+		addInstrument(i, 1);
+	}
 	fm->diviseur = config->diviseur.value;
 	fm_setVolume(fm, currentVol);
 	fm->initial_tempo = 120;
@@ -1224,12 +1230,6 @@ int musImport(const char* filename)
 	midiistream.read((char*)&delta_time_ticks, 2);
 	delta_time_ticks = (delta_time_ticks >> 8) | (delta_time_ticks << 8);
 
-	if (instrumentList)
-	{
-		free(instrumentList);
-		instrumentList = 0;
-	}
-
 	maxOrder = -1;
 	midiistream.ignore(8); // expecting MTrk + chunk size, we dont need them
 	parseMidiRows(delta_time_ticks, midiistream);
@@ -1243,17 +1243,6 @@ int musImport(const char* filename)
 		}
 	}
 	instrList->select(0);
-
-	for (int i = 0; i < fm->instrumentCount; i++)
-	{
-		if (!fm_isInstrumentUsed(fm, i))
-		{
-			fm_removeInstrument(fm, i, 1);
-			/* Because instruments after the removed one are re-numbered, we need to check again the same i (it's the next instrument) */
-			i--;
-		}
-	}
-
 
 	fm_buildStateTable(fm, 0, fm->patternCount, 0, FM_ch);
 
@@ -1270,7 +1259,14 @@ int midiImport(const char* filename)
 	int currentVol = fm->_globalVolume;
 	fm_clearSong(fm);
 	fm_resizeInstrumentList(fm, 0);
-
+	for (int i = 0; i < 128; ++i)
+	{
+		addInstrument(i, 0);
+	}
+	for (int i = 24; i < 88; ++i)
+	{
+		addInstrument(i, 1);
+	}
 	fm->diviseur = config->diviseur.value;
 	fm_setVolume(fm, currentVol);
 	fm->initial_tempo = 120;
@@ -1312,12 +1308,6 @@ int midiImport(const char* filename)
 	midifile.read((char*)&delta_time_ticks, 2);
 	delta_time_ticks = (delta_time_ticks >> 8) | (delta_time_ticks << 8);
 
-	if (instrumentList)
-	{
-		free(instrumentList);
-		instrumentList = 0;
-	}
-
 	maxOrder = -1;
 
 	for (currentTrack = 0; currentTrack < tracks; currentTrack++)
@@ -1353,17 +1343,6 @@ int midiImport(const char* filename)
 	}
 	instrList->select(0);
 	midifile.close();
-
-	for (int i = 0; i < fm->instrumentCount; i++)
-	{
-		if (!fm_isInstrumentUsed(fm, i))
-		{
-			fm_removeInstrument(fm, i, 1);
-			/* Because instruments after the removed one are re-numbered, we need to check again the same i (it's the next instrument) */
-			i--;
-		}
-	}
-
 
 	fm_buildStateTable(fm, 0, fm->patternCount, 0, FM_ch);
 
