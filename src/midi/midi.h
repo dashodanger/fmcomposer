@@ -19,7 +19,7 @@ extern vector<int> midiExportAssocChannels;
 void midi_getEvents();
 void midi_selectDevice(int id);
 vector<string>* midi_refreshDevices();
-
+int addInstrument(int id, unsigned char type);
 int midiImport(const char* filename);
 int musImport(const char* filename);
 

@@ -26,7 +26,7 @@ class InstrEditor : public State{
 	DataSlider algo, feedback, feedbackSource, lfoSpeed, lfoA, lfoDelay, lfoWaveform, lfoOffset, volume, tuning, transpose, k_fx1, k_fx2;
 	vector<OpGUI> op;
 	Sprite imgalgo, waveform, connector;
-	Button save, load, add, envReset, phaseReset, lfoReset, instrCleanup, temperament, smoothTransition;
+	Button save, load, load_default_gm, add, envReset, phaseReset, lfoReset, instrCleanup, temperament, smoothTransition;
 	TextInput instrName;
 	Checkbox transposable;
 	RectangleShape adsr, lfoBG, lfoOffsetBar;
@@ -71,6 +71,7 @@ class InstrEditor : public State{
 	void redo();
 
 	void instrument_load(const char *filename);
+	void instrument_load_default_gm();
 	void instrument_open();
 	void instrument_save();
 	void cleanupInstruments();

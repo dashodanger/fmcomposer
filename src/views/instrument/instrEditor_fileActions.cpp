@@ -1,4 +1,5 @@
 #include "instrEditor.hpp"
+#include "../../midi/midi.h"
 #include "tinyfiledialogs.h"
 
 
@@ -24,7 +25,23 @@ void InstrEditor::instrument_open()
 		instrument_load(fileName);
 	}
 }
-
+void InstrEditor::instrument_load_default_gm()
+{
+	fm_resizeInstrumentList(fm, 0);
+	for (int i = 0; i < 128; ++i)
+	{
+		addInstrument(i, 0);
+	}
+	for (int i = 24; i < 88; ++i)
+	{
+		addInstrument(i, 1);
+	}
+	updateFromFM();
+	updateInstrListFromFM();
+	updateToFM();
+	valueChanged = 1;
+	addToUndoHistory();
+}
 void InstrEditor::instrument_save()
 {
 	mouse.clickLock2 = 5;
