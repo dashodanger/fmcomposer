@@ -24,7 +24,6 @@ Thanks to Masami Komuro, Klairzaki Fil-Xter and Isaac Zuniga for their contribut
 	- Guillaume Vareille (tinyfiledialogs lib)
 	- Brodie Thiesfield (SimpleIni lib)
  	- Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)
-	- Yann Collet (LZ4 lib)
  	- The Google team (Material Icons)
 	- Id Software, Inc., Simon Howard, Ben Ryves (SLADE3 MUS2MIDI conversion)
 

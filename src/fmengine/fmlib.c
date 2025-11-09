@@ -1,5 +1,4 @@
 #include "fmlib.h"
-#include "lz4/lz4hc.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -9,8 +8,8 @@
 
 
 /* Current version of instrument/song formats */
-#define FMCI_version 1
-#define FMCS_version 1
+#define FMCI_version 2
+#define FMCS_version 2
 
 
 #ifndef M_PI
@@ -1650,28 +1649,6 @@ static char* readFromMemoryPtr(fmsynth *f, int len, char *from)
 	return &from[f->readSeek - len];
 }
 
-/* Reads a LZ4 compressed block */
-
-static int read_compressed_mem(fmsynth *f, char* dest, char* data)
-{
-	unsigned short originalDataSize, compressedDataSize;
-	readFromMemory(f, (char*)&originalDataSize, 2, data);
-	readFromMemory(f, (char*)&compressedDataSize, 2, data);
-
-	if (originalDataSize == 0 || compressedDataSize == 0)
-		return 0;
-
-	char* compressedData = readFromMemoryPtr(f, compressedDataSize, data);
-	if (!compressedData) return 0;
-
-	if (LZ4_decompress_safe(compressedData, dest, compressedDataSize, originalDataSize) < 0)
-	{
-		return 0;
-	}
-
-	return 1;
-}
-
 int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 {
 	f->totalFileSize = len;
@@ -1753,12 +1730,7 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 
 		fm_resizePattern(f, i, max(1, nbRow), 0);
 
-
-		if (!read_compressed_mem(f, (char*)&f->pattern[i][0], data))
-		{
-			error++;
-			continue;
-		}
+		readFromMemory(f, (char*)&f->pattern[i][0], sizeof(Cell) * f->patternSize[i] * FM_ch, data);
 	}
 
 	readFromMemory(f, (char *)&f->instrumentCount, 1, data);
@@ -1773,8 +1745,7 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 		fm_resizePatterns(f, 1);
 	}
 
-	if (!read_compressed_mem(f, (char*)&f->instrument[0], data))
-		error++;
+	readFromMemory(f, (char*)&f->instrument[0], sizeof(fm_instrument) * f->instrumentCount, data);
 
 	unsigned checksum;
 
@@ -2136,9 +2107,7 @@ int fm_loadInstrumentFromMemory(fmsynth* f, char *data, unsigned slot)
 		return FM_ERR_FILEVERSION;
 	}
 
-
-	if (!read_compressed_mem(f, (char*)&f->instrument[slot].name[0], data))
-		return FM_ERR_FILECORRUPTED;
+	readFromMemory(f, (char*)&f->instrument[slot].name[0], sizeof(fm_instrument)-6, data);
 
 	return 0;
 }

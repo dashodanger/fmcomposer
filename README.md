@@ -33,7 +33,7 @@ GUI is written in C++ and using the SFML library to get low level access to the 
 
 The audio engine is written in pure C and was optimized for lowest CPU usage possible (cache-friendly structures, loops on small data sets, no function calls in critical parts, taking advantage of unsigned int wrapping for phase accumulators and so on). A part of the optimization relies on the use of FISTP instruction instead of the standard C ftol() for int/float conversions.
 
-FM Composer uses its own binary format, FMCI for storing instruments and .FMCS for the songs . They use LZ4 compression (https://github.com/lz4/lz4).
+FM Composer uses its own binary format, FMCI for storing instruments and .FMCS for the songs.
 
 # Compiling
 For Unix builds, you'll need the following additional development libraries :
@@ -53,7 +53,6 @@ On Unix, the program can also be installed via `cmake --install <build folder>` 
 - Guillaume Vareille ([tinyfiledialogs lib](https://sourceforge.net/projects/tinyfiledialogs/))
 - Brodie Thiesfield ([SimpleIni lib](https://github.com/brofield/simpleini))
 - Ross Bencina/Phil Burk/Roger B. Dannenberg ([PortMidi](http://portmedia.sourceforge.net/portmidi/)/[PortAudio lib](http://portaudio.com/))
-- Yann Collet ([LZ4 lib](https://github.com/lz4/lz4))
 - The Google team (Material Icons)
 - Josua Rieder ([ProgramOptions](https://github.com/Fytch/ProgramOptions.hxx))
 - Gregory Pakosz ([whereami](https://github.com/gpakosz/whereami))
