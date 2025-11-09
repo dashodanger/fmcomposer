@@ -84,10 +84,10 @@ void Popup::buttonActions(int buttonID)
 				close();
 			else if (buttonID == 1)
 #ifdef _WIN32
-				ShellExecute(0, 0, "https://web.archive.org/web/20181125092454/http://fmcomposer.org/en/user_manual.php", 0, 0, SW_SHOW);
+				ShellExecute(0, 0, string("file:///" + appdir + "manual.html &").c_str(), 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
 			{
-				int result = system("xdg-open https://web.archive.org/web/20181125092454/http://fmcomposer.org/en/user_manual.php &");
+				int result = system(string("xdg-open file:///" + appdir + "manual.html &").c_str());
 				(void)result;
 			}
 #endif

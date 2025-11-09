@@ -530,8 +530,8 @@ void Popup::show(int _type, int param)
 			sprites[0].setPosition(10, 10);
 
 			buttons.push_back(Button(w - 80, h - 50, "Close", -1, 8));
-			buttons.push_back(Button(490, 101, "Online tutorial (Archive.org)", -1, 8));
-			texts.push_back(Text("Welcome to MUDTracker !\n\nIt seems to be the first time you launch this program.\n\n\nClick here to learn the basics :\n\n\nA demo song was just loaded so you can see how a song is made and how\nsome MUDTracker features are used.\nThere are other demos in the song folder.\n\n\nHave fun !", font, charSize));
+			buttons.push_back(Button(490, 101, "Tutorial", -1, 8));
+			texts.push_back(Text("Welcome to MUDTracker !\n\nIt seems to be the first time you've launched this program.\n\n\nClick here to learn the basics :\n\n\nA demo song was just loaded so you can see how a song is made and how\nsome MUDTracker features are used.\nThere are other demos in the song folder.\n\n\nHave fun !", font, charSize));
 			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(276, 20);
 
