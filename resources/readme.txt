@@ -7,7 +7,7 @@
 |                                                     
 |                                 v1.0 (????-??-??)
 |
-| Developed by Dashodanger -- https://github.com/dashodanger/fmcomposer
+| Developed by Dashodanger -- https://github.com/dashodanger/mudtracker
 | 
 | Forked from FM Composer by Stephane "Phanoo" Damo -- 
 |	https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/ (Original Site)

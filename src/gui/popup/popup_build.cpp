@@ -86,8 +86,7 @@ void Popup::show(int _type, int param)
 			sprites[0].setPosition(10, 10);
 
 			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
-			buttons.push_back(Button(20, h - 50, "Go to the website (Archive.org)", -1, 8));
-			buttons.push_back(Button(240, h - 50, "Check for updates (Github)", -1, 8));
+			buttons.push_back(Button(20, h - 50, "Go to the website", -1, 8));
 			texts.push_back(Text(L"MUDTracker, © 2025 Dashodanger\n\nForked from FM Composer © 2017-2018 Stéphane Damo\n\n--------- Credits ---------\n\nTesting, help and advices :\n		Klairzaki Fil-Xter, Masami Komuro, Isaac Zuniga\n\nLibraries authors :\n		Laurent Gomila & SFML contributors (SFML lib)\n		Guillaume Vareille (tinyfiledialogs lib)\n		Brodie Thiesfield (SimpleIni lib)\n		Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)\n		The Google team (Material Icons)\n		Josua Rieder (ProgramOptions)\n		Gregory Pakosz (whereami)\n		Id Software, Inc., Simon Howard, Ben Ryves\n				(SLADE3 MUS2MIDI conversion)", font, charSize));
 			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(286, 20);
