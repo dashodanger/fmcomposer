@@ -88,7 +88,7 @@ void Popup::show(int _type, int param)
 			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
 			buttons.push_back(Button(20, h - 50, "Go to the website (Archive.org)", -1, 8));
 			buttons.push_back(Button(240, h - 50, "Check for updates (Github)", -1, 8));
-			texts.push_back(Text(L"FM Composer, © 2017-2018 Stéphane Damo\n\n--------- Credits ---------\n\nTesting, help and advices :\n		Klairzaki Fil-Xter, Masami Komuro, Isaac Zuniga\n\nLibraries authors :\n		Laurent Gomila & SFML contributors (SFML lib)\n		Guillaume Vareille (tinyfiledialogs lib)\n		Brodie Thiesfield (SimpleIni lib)\n		Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)\n		The Google team (Material Icons)\n		Josua Rieder (ProgramOptions)\n		Gregory Pakosz (whereami)\n		Id Software, Inc., Simon Howard, Ben Ryves\n				(SLADE3 MUS2MIDI conversion)", font, charSize));
+			texts.push_back(Text(L"MUDTracker, © 2025 Dashodanger\n\nForked from FM Composer © 2017-2018 Stéphane Damo\n\n--------- Credits ---------\n\nTesting, help and advices :\n		Klairzaki Fil-Xter, Masami Komuro, Isaac Zuniga\n\nLibraries authors :\n		Laurent Gomila & SFML contributors (SFML lib)\n		Guillaume Vareille (tinyfiledialogs lib)\n		Brodie Thiesfield (SimpleIni lib)\n		Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)\n		The Google team (Material Icons)\n		Josua Rieder (ProgramOptions)\n		Gregory Pakosz (whereami)\n		Id Software, Inc., Simon Howard, Ben Ryves\n				(SLADE3 MUS2MIDI conversion)", font, charSize));
 			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(286, 20);
 
@@ -532,7 +532,7 @@ void Popup::show(int _type, int param)
 
 			buttons.push_back(Button(w - 80, h - 50, "Close", -1, 8));
 			buttons.push_back(Button(490, 101, "Online tutorial (Archive.org)", -1, 8));
-			texts.push_back(Text("Welcome to FM Composer !\n\nIt seems to be the first time you launch this program.\n\n\nClick here to learn the basics :\n\n\nA demo song was just loaded so you can see how a song is made and how\nsome FM Composer features are used.\nThere are other demos in the song folder.\n\n\nHave fun !", font, charSize));
+			texts.push_back(Text("Welcome to MUDTracker !\n\nIt seems to be the first time you launch this program.\n\n\nClick here to learn the basics :\n\n\nA demo song was just loaded so you can see how a song is made and how\nsome MUDTracker features are used.\nThere are other demos in the song folder.\n\n\nHave fun !", font, charSize));
 			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(276, 20);
 
@@ -545,7 +545,7 @@ void Popup::show(int _type, int param)
 
 			buttons.push_back(Button(w - 50, h - 50, "OK", -1, 8));
 			buttons.push_back(Button(28, 150, "Go to the download page", -1, 8));
-			texts.push_back(Text("This file has been created with a newer version of FM Composer.\n\nPlease download the latest version and try again.", font, charSize));
+			texts.push_back(Text("This file has been created with a newer version of MUDTracker.\n\nPlease download the latest version and try again.", font, charSize));
 			texts[0].setFillColor(colors[BLOCKTEXT]);
 			texts[0].setPosition(20, 20);
 			break;

@@ -19,7 +19,7 @@ int song_saveas()
 	mouse.clickLock2 = 1;
 	mouse.clickg = 0;
 	static const char * filters[1] = { "*.fmcs" };
-	const char *fileName = tinyfd_saveFileDialog("Save song", NULL, 1, filters, "FMComposer song");
+	const char *fileName = tinyfd_saveFileDialog("Save song", NULL, 1, filters, "MUDTracker song");
 	if (fileName)
 	{
 		mclock.restart();
@@ -150,7 +150,7 @@ void song_open()
 	mouse.clickLock2 = 1;
 	contextMenu = NULL;
 	static const char * filters[5] = { "*.fmcs", "*.mid", "*.rmi", "*.smf", "*.mus"};
-	const char *fileName = tinyfd_openFileDialog("Open a file", songDir.c_str(), 5, filters, "FMComposer or MIDI files", false);
+	const char *fileName = tinyfd_openFileDialog("Open a file", songDir.c_str(), 5, filters, "MUDTracker/MUS/MIDI files", false);
 	if (fileName)
 	{
 		songDir = dirnameOf(fileName);

@@ -28,7 +28,7 @@ extern Popup *popup;
 extern char songDefaultPath[256];
 void* callbackFunc;
 
-string windowTitle = "FM Composer - New song";
+string windowTitle = "MUDTracker - New song";
 extern Text notePreview;
 bool windowTooSmall;
 string lastSongOpened;
@@ -299,7 +299,7 @@ void songModified(int _modified)
 
 void setWindowTitle(string title)
 {
-	windowTitle = string("FM Composer - ") + title;
+	windowTitle = string("MUDTracker - ") + title;
 	window->setTitle(windowTitle);
 
 }
@@ -379,7 +379,7 @@ void global_initialize()
 	if (config_path != NULL)
 	{
 		appconfigdir = config_path;
-		appconfigdir.append("/fmcomposer/");
+		appconfigdir.append("/mudtracker/");
 	}
 	else
 	{
@@ -387,10 +387,10 @@ void global_initialize()
 		if (home != NULL)
 		{
 			appconfigdir = home;
-			appconfigdir.append("/.config/fmcomposer/");
+			appconfigdir.append("/.config/mudtracker/");
 		}
 		else
-			appconfigdir = "~/.config/fmcomposer/";
+			appconfigdir = "~/.config/mudtracker/";
 	}
 	mkdir(appconfigdir.c_str(),0774);
 #endif

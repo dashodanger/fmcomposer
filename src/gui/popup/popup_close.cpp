@@ -71,10 +71,10 @@ void Popup::buttonActions(int buttonID)
 				close();
 			else if (buttonID == 1)
 #ifdef _WIN32
-				ShellExecute(0, 0, "https://github.com/dashodanger/fmcomposer", 0, 0, SW_SHOW);
+				ShellExecute(0, 0, "https://github.com/dashodanger/mudtracker", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
 			{
-				int result = system("xdg-open https://github.com/dashodanger/fmcomposer &");
+				int result = system("xdg-open https://github.com/dashodanger/mudtracker &");
 				(void)result;
 			}
 #endif
@@ -106,10 +106,10 @@ void Popup::buttonActions(int buttonID)
 #endif
 			else if (buttonID == 2)
 #ifdef _WIN32
-				ShellExecute(0, 0, "https://github.com/dashodanger/fmcomposer", 0, 0, SW_SHOW);
+				ShellExecute(0, 0, "https://github.com/dashodanger/mudtracker", 0, 0, SW_SHOW);
 #elif __linux__ || __APPLE__
 			{
-				int result = system("xdg-open https://github.com/dashodanger/fmcomposer &");
+				int result = system("xdg-open https://github.com/dashodanger/mudtracker &");
 				(void)result;
 			}
 #endif

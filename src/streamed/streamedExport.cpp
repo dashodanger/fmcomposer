@@ -70,7 +70,7 @@ void exportFinished(){
 	if (streamedExport.multitrackAssoc.size() == 0 || streamedExport.multiTrackIter >= streamedExport.multitrackAssoc.size()) {
 		popup->close();
 		if (!windowFocus){
-			tinyfd_notifyPopup("FM Composer", "Export finished !","info");
+			tinyfd_notifyPopup("MUDTracker", "Export finished !","info");
 		}
 		streamedExport.running=0;
 		config->selectSoundDevice(config->approvedDeviceId,config->approvedSampleRate, config->currentLatency, true);

@@ -1,48 +1,39 @@
-|    _____ _ _ _      __
-|     /  '' ) ) )    /  )
-|  ,-/-,   / / /    /   __ ______  _   __ _   _  __ 
-| (_/     / ' (_   (__/(_)/ / / <_/_)_(_)/_)_</_/ (_
-|                                / 
-|                               '  v1.8 (2025-09-25)
-| 
-| by Stephane "Phanoo" Damo -- https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/ (Original Site)
+|	___  ____   _______ _____              _             
+|	|  \/  | | | |  _  \_   _|            | |            
+|	| .  . | | | | | | | | |_ __ __ _  ___| | _____ _ __ 
+|	| |\/| | | | | | | | | | '__/ _` |/ __| |/ / _ \ '__|
+|	| |  | | |_| | |/ /  | | | | (_| | (__|   <  __/ |   
+|	\_|  |_/\___/|___/   \_/_|  \__,_|\___|_|\_\___|_|                                                    
+|                                                     
+|                                 v1.0 (????-??-??)
 |
-| updates by dashodanger    -- https://github.com/dashodanger/fmcomposer
+| Developed by Dashodanger -- https://github.com/dashodanger/fmcomposer
+| 
+| Forked from FM Composer by Stephane "Phanoo" Damo -- 
+|	https://web.archive.org/web/20180727172405/http://fmcomposer.org/en/ (Original Site)
+|
 |___________________________________________________________________________________________________________________
 
 
-Thank you for downloading FM Composer !
-
-This software is free and contains no ads nor intrusive features.
-
-Thanks to Masami Komuro, Klairzaki Fil-Xter and Isaac Zuniga for their contributions !
-
-
-*** Additional credits ***
-
-	- Laurent Gomila & contributors (SFML lib)
-	- Guillaume Vareille (tinyfiledialogs lib)
-	- Brodie Thiesfield (SimpleIni lib)
- 	- Ross Bencina/Phil Burk/Roger B. Dannenberg (PortMidi/Audio lib)
- 	- The Google team (Material Icons)
-	- Id Software, Inc., Simon Howard, Ben Ryves (SLADE3 MUS2MIDI conversion)
-
+Thank you for downloading MUDTracker !
 
 *** Changelog ***
 
-v1.8 (2025-09-25)
+v1.0 (????-??-??)
     - [Feature] Working CMake for GCC/Clang + Unix (with optional install target)
 	- [Feature] Added support for --appdir parameter for separate resource directory
 	- [Feature] Added support for DMX MUS (Doom format) import
+	- [Feature] Will load entire General MIDI instrument set when importing MIDI/MUS
+	- [Feature] Added "Load GM" button to Instrument Editor view to load General MIDI defaults
 	- [Fix] Added missing <sstream> include causing Clang builds to fail
 	- [Fix] Addressed GCC/Clang compilation warnings
-	- [Fix] Original fmcomposer.org URLs in the program redirected to Archive.org capture
 	- [Fix] Update link changed to Github repository
 	- [Maintenance] Updated portaudio/portmidi/simpleini/tinyfiledialogs to latest releases
 	- [Maintenance] Deprecated SFML2 functions migrated to their replacements
 	- [Removal] FLAC and MP3 dependencies/export options removed
+	- [Removal] Instruments and songs are no longer LZ4 compressed
 
--- Versions below 1.8 are by the original developer (Phanoo) --
+-- Below changelogs are for the original FM Composer --
 
 v1.7 (2018-05-11)
 	- [Fix] Crash after undoing a pasted selection that was out of the pattern bounds

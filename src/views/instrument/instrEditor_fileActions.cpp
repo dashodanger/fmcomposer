@@ -18,7 +18,7 @@ void InstrEditor::instrument_open()
 {
 	mouse.clickLock2 = 5;
 	static const char * filters[4] = { "*.fmci" };
-	const char *fileName = tinyfd_openFileDialog("Load an instrument", instrDir.c_str(), 1, filters, "FMComposer instrument", false);
+	const char *fileName = tinyfd_openFileDialog("Load an instrument", instrDir.c_str(), 1, filters, "MUDTracker instrument", false);
 	if (fileName)
 	{
 		instrDir = dirnameOf(fileName);
@@ -46,7 +46,7 @@ void InstrEditor::instrument_save()
 {
 	mouse.clickLock2 = 5;
 	static const char * filters[4] = { "*.fmci" };
-	const char *fileName = tinyfd_saveFileDialog("Save an instrument", instrDir.c_str(), 1, filters, "FMComposer instrument");
+	const char *fileName = tinyfd_saveFileDialog("Save an instrument", instrDir.c_str(), 1, filters, "MUDTracker instrument");
 	if (fileName)
 	{
 		instrDir = dirnameOf(fileName);

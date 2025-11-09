@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.25)
 
-project(FMComposer)
-set(EXECUTABLE_NAME "FMComposer")
+project(MUDTracker)
+set(EXECUTABLE_NAME "MUDTracker")
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -38,7 +38,7 @@ add_subdirectory(libraries)
 include_directories(src)
 
 if (MSVC)
-  file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c" "src/fmcomposer.rc")
+  file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c" "src/mudtracker.rc")
 else()
   file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.c")
 endif()
@@ -70,20 +70,20 @@ add_custom_command( TARGET ${EXECUTABLE_NAME} POST_BUILD COMMAND
   ${CMAKE_COMMAND} -E copy_directory_if_different ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/bin)
 
 if (UNIX)
-  set(INSTALL_BASEDIR "${CMAKE_INSTALL_PREFIX}/share/fmcomposer")
+  set(INSTALL_BASEDIR "${CMAKE_INSTALL_PREFIX}/share/mudtracker")
 
-  install(PROGRAMS "$<TARGET_FILE:${EXECUTABLE_NAME}>" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" RENAME "fmcomposer.bin")
-  install(FILES "${CMAKE_SOURCE_DIR}/src/fmcomposer.png"
+  install(PROGRAMS "$<TARGET_FILE:${EXECUTABLE_NAME}>" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" RENAME "mudtracker.bin")
+  install(FILES "${CMAKE_SOURCE_DIR}/src/mudtracker.png"
           DESTINATION "${CMAKE_INSTALL_PREFIX}/share/pixmaps")
 
-  install(PROGRAMS "${CMAKE_SOURCE_DIR}/src/fmcomposer.sh" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" RENAME "fmcomposer")
-  install(FILES "${CMAKE_SOURCE_DIR}/src/fmcomposer.desktop"
+  install(PROGRAMS "${CMAKE_SOURCE_DIR}/src/mudtracker.sh" DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" RENAME "mudtracker")
+  install(FILES "${CMAKE_SOURCE_DIR}/src/mudtracker.desktop"
           DESTINATION "${CMAKE_INSTALL_PREFIX}/share/applications")
 
   # Update launch script/desktop file with path information
-  install(CODE "file(APPEND \"${CMAKE_INSTALL_PREFIX}/bin/fmcomposer\" \"\nexec \\\"${CMAKE_INSTALL_PREFIX}/bin/fmcomposer.bin\\\" \\\"$@\\\" \\\"--appdir\\\" \\\"${INSTALL_BASEDIR}\\\"\n\")")
-  install(CODE "file(APPEND \"${CMAKE_INSTALL_PREFIX}/share/applications/fmcomposer.desktop\" \"\nExec=\\\"${CMAKE_INSTALL_PREFIX}/bin/fmcomposer.bin\\\" \\\"$@\\\" \\\"--appdir\\\" \\\"${INSTALL_BASEDIR}\\\"\")")
-  install(CODE "file(APPEND \"${CMAKE_INSTALL_PREFIX}/share/applications/fmcomposer.desktop\" \"\nIcon=\"${CMAKE_INSTALL_PREFIX}/share/pixmaps/fmcomposer.png\"\n\")")
+  install(CODE "file(APPEND \"${CMAKE_INSTALL_PREFIX}/bin/mudtracker\" \"\nexec \\\"${CMAKE_INSTALL_PREFIX}/bin/mudtracker.bin\\\" \\\"$@\\\" \\\"--appdir\\\" \\\"${INSTALL_BASEDIR}\\\"\n\")")
+  install(CODE "file(APPEND \"${CMAKE_INSTALL_PREFIX}/share/applications/mudtracker.desktop\" \"\nExec=\\\"${CMAKE_INSTALL_PREFIX}/bin/mudtracker.bin\\\" \\\"$@\\\" \\\"--appdir\\\" \\\"${INSTALL_BASEDIR}\\\"\")")
+  install(CODE "file(APPEND \"${CMAKE_INSTALL_PREFIX}/share/applications/mudtracker.desktop\" \"\nIcon=\"${CMAKE_INSTALL_PREFIX}/share/pixmaps/mudtracker.png\"\n\")")
 
   install(
     DIRECTORY "${CMAKE_SOURCE_DIR}/resources/instruments"

@@ -87,7 +87,7 @@ void gui_initialize()
 
 	s.antialiasingLevel=16;
 
-	window = new RenderWindow(VideoMode(WindowWidth, WindowHeight), "FM Composer - New song",7U,s);
+	window = new RenderWindow(VideoMode(WindowWidth, WindowHeight), "MUDTracker - New song",7U,s);
 
 	
 #ifdef _WIN32

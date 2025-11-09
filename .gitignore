@@ -1,8 +1,2 @@
 .vscode
-.project
 build
-Debug
-Release
-fmfiable.vcproj.*
-fmfiable.vcxproj.*
-fmfiable.aps
