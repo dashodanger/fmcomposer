@@ -1664,7 +1664,7 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 	f->readSeek = 5;
 	readFromMemory(f, (char *)&temp, 1, data);
 
-	if (temp > FMCS_version)
+	if (temp != FMCS_version)
 	{
 		return FM_ERR_FILEVERSION;
 	}
@@ -2102,7 +2102,7 @@ int fm_loadInstrumentFromMemory(fmsynth* f, char *data, unsigned slot)
 	readFromMemory(f, (char*)&f->instrument[slot].dummy, 1, data);
 	readFromMemory(f, (char*)&f->instrument[slot].version, 1, data);
 
-	if (f->instrument[slot].version > FMCI_version)
+	if (f->instrument[slot].version != FMCI_version)
 	{
 		return FM_ERR_FILEVERSION;
 	}
