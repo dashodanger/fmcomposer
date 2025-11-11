@@ -15,11 +15,11 @@ InstrEditor* instrEditor;
 
 InstrEditor::InstrEditor(int y)
 : algo(806, y + 380, 35, 0, "Algorithm", 35), feedback(321, y - 21, 99, 0, "Feedback", 0, 85), feedbackSource(406, y - 21, 6, 1, "src", 1, 36)
-, save(814, y + 15, "Save", -1, 6), load(864, y + 15, "Load", -1, 6), load_default_gm(914, y + 15, "Load GM", -1, 6),instrName(806, y + 50, 23, ""), lfoDelay(811, y + 450, 99, 0, "Delay", 0, 150)
-, lfoSpeed(811, y + 430, 99, 0, "Speed", 0, 150), lfoA(811, y + 470, 99, 0, "Attack", 25, 150), add(1077, 320, "Add", -1, 6), adsr(Vector2f(200, 100)), lfoOffsetBar(Vector2f(1, 26))
+, save(814, y + 15, "Save", -1, 6), load(864, y + 15, "Load", -1, 6), loadDefaultGM(914, y + 15, "Load GM", -1, 6),instrName(806, y + 50, 23, ""), lfoDelay(811, y + 450, 99, 0, "Delay", 0, 150)
+, lfoSpeed(811, y + 430, 99, 0, "Speed", 0, 150), lfoA(811, y + 470, 99, 0, "Attack", 25, 150), add(1077, 320, "Add", -1, 6), loadBank(1077, 330, "Load Bank", -1, 6),adsr(Vector2f(200, 100)), lfoOffsetBar(Vector2f(1, 26))
 , lfoWaveform(811, y + 490, 19, 0, "Waveform", 0, 150), lfoOffset(811, y + 510, 31, 0, "Offset", 0, 150), waveform(*tileset), connector(*tileset), lfo("LFO", font, charSize),
 volume(806, y + 80, 99, 0, "Volume", 80), tuning(806, y + 120, 100, -100, "Tuning", 0,100), lfoBG(Vector2f(198, 130)), envReset(806, y + 567, "Reset env."), phaseReset(806, y + 587, "Reset phase"),
-transpose(806, y + 100, 12, -12, "Base note", 0,100), newNote("On new note :", font, charSize), lfoReset(893, y + 587, "Reset LFO"), instrCleanup(1070, 730, "Remove unused", -1, 6),
+transpose(806, y + 100, 12, -12, "Base note", 0,100), newNote("On new note :", font, charSize), lfoReset(893, y + 587, "Reset LFO"), instrCleanup(1070, 730, "Remove unused", -1, 6), exportBank(1070, 740, "Export as Bank", -1, 6),
 temperament(806 + 6, y + 657 + 6, "Temperament", -1, 6), k_fx1(806, y + 627, 7, 0, "", 0, 69, 0), k_fx2(806 + 70, y + 627, 16, 0, "", 0, 130, 0), kfx_text("K pattern effect control :", font, charSize)
 , zoom(1), smoothTransition(879, y + 567, "Smooth transition"), copied(false), valueChanged(0), opCopied(-1), opSelected(0), transposable(910 + 6, y + 100+8,"Trans-\nposable")
 {
@@ -181,6 +181,11 @@ void InstrEditor::update()
 		addToUndoHistory();
 	}
 
+	// load instruments from a bank file
+	if (loadBank.clicked())
+	{
+		instrument_bank_load();
+	}
 
 	// operator menu
 	if (contextMenu == &operatorMenu)
@@ -230,6 +235,11 @@ void InstrEditor::update()
 	if (instrCleanup.clicked())
 	{
 		cleanupInstruments();
+	}
+
+	if (exportBank.clicked())
+	{
+		instrument_bank_save();
 	}
 
 	/*if (contextMenu || mouse.pos.x > (int)sidebar->borderRight.getPosition().x)
@@ -366,7 +376,7 @@ void InstrEditor::update()
 	{
 		instrument_open();
 	}
-	else if (load_default_gm.clicked())
+	else if (loadDefaultGM.clicked())
 	{
 		instrument_load_default_gm();
 	}
@@ -425,7 +435,7 @@ void InstrEditor::draw()
 
 	drawBatcher.addItem(&save);
 	drawBatcher.addItem(&load);
-	drawBatcher.addItem(&load_default_gm);
+	drawBatcher.addItem(&loadDefaultGM);
 	drawBatcher.addItem(&algo);
 	drawBatcher.addItem(&lfoBG);
 	drawBatcher.addItem(&lfoDelay);
@@ -555,6 +565,8 @@ void InstrEditor::resetView(int width, int height)
 	instrList->setMaxRows(max(3, height / 17 - 29));
 
 	instrCleanup.setPosition(1077, instrList->bg.getPosition().y + instrList->maxrows * 17 + 20);
+
+	exportBank.setPosition(1077, instrList->bg.getPosition().y + instrList->maxrows * 17 + 60);
 }
 
 void InstrEditor::cleanupInstruments()

@@ -55,6 +55,34 @@ void InstrEditor::instrument_save()
 	}
 }
 
+void InstrEditor::instrument_bank_load()
+{
+	mouse.clickLock2 = 5;
+	static const char * filters[4] = { "*.mdtb" };
+	const char *fileName = tinyfd_openFileDialog("Load instrument bank", instrDir.c_str(), 1, filters, "MUDTracker bank", false);
+	if (fileName)
+	{
+		instrDir = dirnameOf(fileName);
+		fm_loadInstrumentBank(fm, fileName);
+		updateFromFM();
+		updateInstrListFromFM();
+		updateToFM();
+	}
+}
+
+void InstrEditor::instrument_bank_save()
+{
+	mouse.clickLock2 = 5;
+	static const char * filters[4] = { "*.mdtb" };
+	const char *fileName = tinyfd_saveFileDialog("Save instrument bank", instrDir.c_str(), 1, filters, "MUDTracker bank");
+	if (fileName)
+	{
+		instrDir = dirnameOf(fileName);
+		string fileNameOk = forceExtension(fileName, "mdtb");
+		fm_saveInstrumentBank(fm, fileNameOk.c_str());
+	}
+}
+
 int InstrEditor::loadInstrument(string filename, int slot)
 {
 

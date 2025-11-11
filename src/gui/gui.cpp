@@ -100,15 +100,15 @@ void gui_initialize()
 	window->setVerticalSyncEnabled(true);
 
 	/* Load font */
-	if (!font.loadFromFile(string(appdir + "themes" + pathSeparator + "roboto.ttf").c_str()))
+	if (!font.loadFromFile(string(appdir + "themes" + pathSeparator + "roboto.ttf")))
 	{
 		error("Can't load font file");
 	}
-	if (!font_condensed.loadFromFile(string(appdir + "themes" + pathSeparator + "roboto_condensed.ttf").c_str()))
+	if (!font_condensed.loadFromFile(string(appdir + "themes" + pathSeparator + "roboto_condensed.ttf")))
 	{
 		error("Can't load font file");
 	}
-	if (!font_symbols.loadFromFile(string(appdir + "themes" + pathSeparator + "materialicons.ttf").c_str()))
+	if (!font_symbols.loadFromFile(string(appdir + "themes" + pathSeparator + "materialicons.ttf")))
 	{
 		error("Can't load font file");
 	}

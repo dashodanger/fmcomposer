@@ -99,7 +99,9 @@ void Sidebar::draw()
 	else if (state == instrEditor)
 	{
 		drawBatcher.addItem(&instrEditor->add);
+		drawBatcher.addItem(&instrEditor->loadBank);
 		drawBatcher.addItem(&instrEditor->instrCleanup);
+		drawBatcher.addItem(&instrEditor->exportBank);
 	}
 
 	drawBatcher.addItem(&timer);

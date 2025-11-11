@@ -2176,13 +2176,12 @@ int fm_loadInstrumentBankFromMemory(fmsynth* f, char *data)
 	}
 	readFromMemory(f, (char *)&instruments, 1, data); //padding
 	readFromMemory(f, (char *)&instruments, 1, data); //instrument count
-	if (8 + (instruments * (5 /* 'SLOT' + id */ + sizeof(fm_instrument))) > f->totalFileSize)
+	if (8 /* header */ + (instruments * (5 /* 'SLOT' + # */ + sizeof(fm_instrument))) > f->totalFileSize)
 	{
 		return FM_ERR_FILECORRUPTED;
 	}
 
 	fm_resizeInstrumentList(f, 0);
-	fm_resizeInstrumentList(f, instruments);
 
 	for (int i = 0; i < instruments; ++i)
 	{
