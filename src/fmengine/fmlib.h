@@ -53,9 +53,9 @@ extern "C"{
 	}fm_instrument_operator;
 
 
-	/* FMCI file format */
+	/* MDTI file format */
 	typedef struct fm_instrument{
-		char magic[4]; /* "FMCI" identifier */
+		char magic[4]; /* "MDTI" identifier */
 		unsigned char dummy;
 		unsigned char version;
 		char name[24];
@@ -408,7 +408,10 @@ extern "C"{
 	int fm_resizePatterns(fmsynth* f, unsigned count);
 	int fm_loadInstrument(fmsynth* f, const char *filename, unsigned slot);
 	int fm_loadInstrumentFromMemory(fmsynth* f, char *data, unsigned slot);
+	int fm_loadInstrumentBank(fmsynth* f, const char *filename);
+	int fm_loadInstrumentBankFromMemory(fmsynth* f, char *data);
 	int fm_saveInstrument(fmsynth* f, const char* filename, unsigned slot);
+	int fm_saveInstrumentBank(fmsynth* f, const char* filename);
 	void fm_removeInstrument(fmsynth* f, unsigned slot, int removeOccurences);
 	void fm_movePattern(fmsynth* f, int from, int to);
 	/* Saves the song to file */

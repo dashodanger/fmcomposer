@@ -76,20 +76,6 @@ void handleUnconditionalEvents()
 			updateViews(evt.size.width, evt.size.height);
 
 			break;
-			#ifdef FMC_MODIFIED_SFML
-		case Event::FileDropped:
-			if (checkExtension(evt.file.path, "fmcs") || checkExtension(evt.file.path, "mid") || checkExtension(evt.file.path, "rmi") || checkExtension(evt.file.path, "smf"))
-			{
-				song_load(evt.file.path);
-			}
-			else if (checkExtension(evt.file.path, "fmci") && state == instrEditor)
-			{
-				instrEditor->instrument_load(evt.file.path);
-			}
-
-			free(evt.file.path);
-			break;
-			#endif
 		default:
 			break;
 	}

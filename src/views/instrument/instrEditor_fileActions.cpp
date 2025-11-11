@@ -17,7 +17,7 @@ void InstrEditor::instrument_load(const char *filename)
 void InstrEditor::instrument_open()
 {
 	mouse.clickLock2 = 5;
-	static const char * filters[4] = { "*.fmci" };
+	static const char * filters[4] = { "*.mdti" };
 	const char *fileName = tinyfd_openFileDialog("Load an instrument", instrDir.c_str(), 1, filters, "MUDTracker instrument", false);
 	if (fileName)
 	{
@@ -45,12 +45,12 @@ void InstrEditor::instrument_load_default_gm()
 void InstrEditor::instrument_save()
 {
 	mouse.clickLock2 = 5;
-	static const char * filters[4] = { "*.fmci" };
+	static const char * filters[4] = { "*.mdti" };
 	const char *fileName = tinyfd_saveFileDialog("Save an instrument", instrDir.c_str(), 1, filters, "MUDTracker instrument");
 	if (fileName)
 	{
 		instrDir = dirnameOf(fileName);
-		string fileNameOk = forceExtension(fileName, "fmci");
+		string fileNameOk = forceExtension(fileName, "mdti");
 		fm_saveInstrument(fm, fileNameOk.c_str(), instrList->value);
 	}
 }

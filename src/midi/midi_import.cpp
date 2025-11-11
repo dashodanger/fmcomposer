@@ -144,7 +144,7 @@ int addInstrument(int id, unsigned char type)
 				instrumentName = midiPercussionNames[id - 23];
 			}
 		}
-		if (fm_loadInstrument(fm, string(string(appdir + "/instruments/") + instrumentFile + string(".fmci")).c_str(), fm->instrumentCount) < 0)
+		if (fm_loadInstrument(fm, string(string(appdir + "/instruments/") + instrumentFile + string(".mdti")).c_str(), fm->instrumentCount) < 0)
 		{
 			fm_resizeInstrumentList(fm, fm->instrumentCount+1);
 		}
@@ -1237,7 +1237,7 @@ int musImport(const char* filename)
 	// no instrument (unlikely?) : avoid crash
 	if (fm->instrumentCount == 0)
 	{
-		if (fm_loadInstrument(fm, "instruments/keyboards/piano.fmci", 0) < 0)
+		if (fm_loadInstrument(fm, "instruments/keyboards/piano.mdti", 0) < 0)
 		{
 			fm_resizeInstrumentList(fm, 1);
 		}
@@ -1336,7 +1336,7 @@ int midiImport(const char* filename)
 	// no instrument (unlikely?) : avoid crash
 	if (fm->instrumentCount == 0)
 	{
-		if (fm_loadInstrument(fm, "instruments/keyboards/piano.fmci", 0) < 0)
+		if (fm_loadInstrument(fm, "instruments/keyboards/piano.mdti", 0) < 0)
 		{
 			fm_resizeInstrumentList(fm, 1);
 		}

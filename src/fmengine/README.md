@@ -10,7 +10,7 @@ fmsynth* fm = fm_create(44100);
 - Load some song 
 ```
 // from a file
-fm_loadSong(fm,"mysong.fmcs");
+fm_loadSong(fm,"mysong.mdts");
 
 // from memory
 fm_loadSongFromMemory(fm, char* data, unsigned length)

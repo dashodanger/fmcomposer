@@ -18,13 +18,13 @@ int song_saveas()
 {
 	mouse.clickLock2 = 1;
 	mouse.clickg = 0;
-	static const char * filters[1] = { "*.fmcs" };
+	static const char * filters[1] = { "*.mdts" };
 	const char *fileName = tinyfd_saveFileDialog("Save song", NULL, 1, filters, "MUDTracker song");
 	if (fileName)
 	{
 		mclock.restart();
 		songDir = dirnameOf(fileName);
-		string fileNameOk = forceExtension(fileName, "fmcs");
+		string fileNameOk = forceExtension(fileName, "mdts");
 		if (!fm_saveSong(fm, fileNameOk.c_str()))
 		{
 			popup->show(POPUP_SAVEFAILED);
@@ -81,7 +81,7 @@ void song_load(const char* filename, bool fromAutoReload)
 	int opened = 0;
 
 	song_stop();
-	if (checkExtension(filename, "fmcs"))
+	if (checkExtension(filename, "mdts"))
 	{
 		if ((opened = fm_loadSong(fm, filename)) == 0)
 			saveAs = filename;
@@ -149,7 +149,7 @@ void song_open()
 
 	mouse.clickLock2 = 1;
 	contextMenu = NULL;
-	static const char * filters[5] = { "*.fmcs", "*.mid", "*.rmi", "*.smf", "*.mus"};
+	static const char * filters[5] = { "*.mdts", "*.mid", "*.rmi", "*.smf", "*.mus"};
 	const char *fileName = tinyfd_openFileDialog("Open a file", songDir.c_str(), 5, filters, "MUDTracker/MUS/MIDI files", false);
 	if (fileName)
 	{
@@ -169,9 +169,9 @@ void song_clear()
 	fm_insertPattern(fm, config->patternSize.value, 0);
 	fm_setPosition(fm, 0, 0, 2);
 	fm_resizeInstrumentList(fm, 1);
-	if (fm_loadInstrument(fm, string("instruments/" + config->defaultPreloadedSound + ".fmci").c_str(), 0) < 0)
+	if (fm_loadInstrument(fm, string("instruments/" + config->defaultPreloadedSound + ".mdti").c_str(), 0) < 0)
 	{
-		fm_loadInstrument(fm, string(string("instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".fmci")).c_str(), 0);
+		fm_loadInstrument(fm, string(string("instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".mdti")).c_str(), 0);
 	}
 	
 

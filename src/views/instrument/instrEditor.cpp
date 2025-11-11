@@ -38,10 +38,10 @@ temperament(806 + 6, y + 657 + 6, "Temperament", -1, 6), k_fx1(806, y + 627, 7, 
 	lfoOffsetBar.setFillColor(colors[WAVEFORMOFFSETBAR]);
 
 	/* Try to load default piano sound*/
-	if (fm_loadInstrument(fm, string(appdir + "/instruments/" + config->defaultPreloadedSound + ".fmci").c_str(), 0) < 0)
+	if (fm_loadInstrument(fm, string(appdir + "/instruments/" + config->defaultPreloadedSound + ".mdti").c_str(), 0) < 0)
 	{
 		/* Fallback to the default melodic*/
-		if (fm_loadInstrument(fm, string(string(appdir + "/instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".fmci")).c_str(), 0) < 0)
+		if (fm_loadInstrument(fm, string(string(appdir + "/instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".mdti")).c_str(), 0) < 0)
 		{
 
 			fm_resizeInstrumentList(fm, 1);
@@ -168,7 +168,7 @@ void InstrEditor::update()
 	if (add.clicked())
 	{
 
-		if (fm_loadInstrument(fm, string(string("instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".fmci")).c_str(), fm->instrumentCount)<0)
+		if (fm_loadInstrument(fm, string(string("instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".mdti")).c_str(), fm->instrumentCount)<0)
 		{
 			fm_resizeInstrumentList(fm, fm->instrumentCount+1);
 		}

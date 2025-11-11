@@ -6,11 +6,8 @@
 #include <float.h>
 #include <math.h>
 
-
 /* Current version of instrument/song formats */
-#define FMCI_version 2
-#define FMCS_version 2
-
+#define MUDTRACKER_VERSION 1
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -1457,12 +1454,12 @@ int fm_saveSong(fmsynth* f, const char* filename)
 	{
 		return 0;
 	}
-	fputc('F', fp);
 	fputc('M', fp);
-	fputc('C', fp);
+	fputc('D', fp);
+	fputc('T', fp);
 	fputc('S', fp);
 	fputc(0x00, fp); // unused byte
-	fputc(FMCS_version, fp); // version
+	fputc(MUDTRACKER_VERSION, fp); // version
 	unsigned char temp = strlen(&f->songName[0]);
 	fwrite(&temp, sizeof(temp), 1, fp);
 	fwrite(&f->songName[0], temp, 1, fp);
@@ -1507,7 +1504,7 @@ int fm_saveSong(fmsynth* f, const char* filename)
 
 	for (int slot = 0; slot < f->instrumentCount; slot++)
 	{
-		f->instrument[slot].version = FMCI_version;
+		f->instrument[slot].version = MUDTRACKER_VERSION;
 	}
 
 	fwrite((char*)&f->instrument[0], sizeof(fm_instrument)*f->instrumentCount, 1, fp);
@@ -1664,7 +1661,7 @@ int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len)
 	f->readSeek = 5;
 	readFromMemory(f, (char *)&temp, 1, data);
 
-	if (temp != FMCS_version)
+	if (temp != MUDTRACKER_VERSION)
 	{
 		return FM_ERR_FILEVERSION;
 	}
@@ -1827,9 +1824,9 @@ void fm_clearSong(fmsynth* f)
 void fm_createDefaultInstrument(fmsynth* f, unsigned slot)
 {
 	strncpy((char*)&f->instrument[slot].name[0], "Default", 7);
-	strncpy((char*)&f->instrument[slot].magic[0], "FMCI", 4);
+	strncpy((char*)&f->instrument[slot].magic[0], "MDTI", 4);
 	f->instrument[slot].dummy = 0;
-	f->instrument[slot].version = FMCI_version;
+	f->instrument[slot].version = MUDTRACKER_VERSION;
 	for (unsigned op = 0; op < FM_op; ++op)
 	{
 		f->instrument[slot].op[op].connectOut = op;
@@ -2076,19 +2073,50 @@ int fm_saveInstrument(fmsynth* f, const char* filename, unsigned slot)
 		FILE *fp = fopen(filename, "wb");
 		if (!fp)
 			return 0;
-		fputc('F', fp);
 		fputc('M', fp);
-		fputc('C', fp);
+		fputc('D', fp);
+		fputc('T', fp);
 		fputc('I', fp);
 		fputc(0x00, fp); // unused byte
-		fputc(FMCI_version, fp); // version
-
-	//	f->instrument[slot].flags |= FM_INSTR_TRANSPOSABLE;
+		fputc(MUDTRACKER_VERSION, fp); // version
 		fwrite((char*)&f->instrument[slot].name[0], sizeof(fm_instrument)-6, 1, fp);
 		fclose(fp);
 		return 1;
 	}
 	return 0;
+}
+
+int fm_saveInstrumentBank(fmsynth* f, const char *filename)
+{
+	FILE *fp = fopen(filename, "wb");
+
+	if (!fp)
+		return 0;
+
+	fputc('M', fp);
+	fputc('D', fp);
+	fputc('T', fp);
+	fputc('B', fp);
+	fputc(0x00, fp); 				//unused byte
+	fputc(MUDTRACKER_VERSION, fp);
+	fputc(0x00, fp); 				//unused byte
+	fputc(f->instrumentCount, fp);
+	for (int i = 0; i < f->instrumentCount; ++i)
+	{
+		fputc('S', fp);
+		fputc('L', fp);
+		fputc('O', fp);
+		fputc('T', fp);
+		fputc(i, fp);
+		fputc('M', fp);
+		fputc('D', fp);
+		fputc('T', fp);
+		fputc('I', fp);
+		fputc(0x00, fp); // unused byte
+		fputc(MUDTRACKER_VERSION, fp);
+		fwrite((char*)&f->instrument[i].name[0], sizeof(fm_instrument)-6, 1, fp);
+	}
+	fclose(fp);
 }
 
 int fm_loadInstrumentFromMemory(fmsynth* f, char *data, unsigned slot)
@@ -2102,7 +2130,7 @@ int fm_loadInstrumentFromMemory(fmsynth* f, char *data, unsigned slot)
 	readFromMemory(f, (char*)&f->instrument[slot].dummy, 1, data);
 	readFromMemory(f, (char*)&f->instrument[slot].version, 1, data);
 
-	if (f->instrument[slot].version != FMCI_version)
+	if (f->instrument[slot].version != MUDTRACKER_VERSION)
 	{
 		return FM_ERR_FILEVERSION;
 	}
@@ -2127,7 +2155,69 @@ int fm_loadInstrument(fmsynth* f, const char* filename, unsigned slot)
 	return result;
 }
 
+int fm_loadInstrumentBankFromMemory(fmsynth* f, char *data)
+{
+	char magic_check[4] = {0, 0, 0, 0};
+	uint8_t version = 0;
+	uint8_t instruments = 0;
+	uint8_t slot = 0;
 
+	// check bank magic
+	readFromMemory(f, magic_check, 4, data);
+	if (memcmp(magic_check, "MDTB", 4) != 0)
+	{
+		return FM_ERR_FILECORRUPTED;
+	}
+	readFromMemory(f, (char *)&version, 1, data); //padding
+	readFromMemory(f, (char *)&version, 1, data); //version
+	if (version != MUDTRACKER_VERSION)
+	{
+		return FM_ERR_FILEVERSION;
+	}
+	readFromMemory(f, (char *)&instruments, 1, data); //padding
+	readFromMemory(f, (char *)&instruments, 1, data); //instrument count
+	if (8 + (instruments * (5 /* 'SLOT' + id */ + sizeof(fm_instrument))) > f->totalFileSize)
+	{
+		return FM_ERR_FILECORRUPTED;
+	}
+
+	fm_resizeInstrumentList(f, 0);
+	fm_resizeInstrumentList(f, instruments);
+
+	for (int i = 0; i < instruments; ++i)
+	{
+		readFromMemory(f, magic_check, 4, data);
+		if (memcmp(magic_check, "SLOT", 4) != 0)
+		{
+			return FM_ERR_FILECORRUPTED;
+		}
+		readFromMemory(f, (char *)&slot, 1, data);
+		if (slot >= instruments)
+		{
+			return FM_ERR_FILECORRUPTED;
+		}
+		if (fm_loadInstrumentFromMemory(f, data, slot) != 0)
+		{
+			return FM_ERR_FILECORRUPTED;
+		}
+	}
+
+	return 0;
+
+}
+
+int fm_loadInstrumentBank(fmsynth* f, const char* filename)
+{
+	char *data = fm_fileToMemory(f, filename);
+
+	if (!data)
+		return FM_ERR_FILEIO;
+
+	int result = fm_loadInstrumentBankFromMemory(f, data);
+	free(data);
+
+	return result;
+}
 
 void fm_removeInstrument(fmsynth* f, unsigned slot, int removeOccurences)
 {

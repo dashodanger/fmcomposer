@@ -16,7 +16,7 @@
 #define WindowWidth 1366
 #define WindowHeight 768
 #define VERSION "1.0"
-#define VERSION_DATE "????-??-??"
+#define VERSION_DATE "20XX-XX-XX"
 
 
 template <typename T, typename T2>
