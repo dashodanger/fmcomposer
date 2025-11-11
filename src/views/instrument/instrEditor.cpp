@@ -38,13 +38,13 @@ temperament(806 + 6, y + 657 + 6, "Temperament", -1, 6), k_fx1(806, y + 627, 7, 
 	lfoOffsetBar.setFillColor(colors[WAVEFORMOFFSETBAR]);
 
 	/* Try to load default piano sound*/
-	if (fm_loadInstrument(fm, string(appdir + "/instruments/" + config->defaultPreloadedSound + ".mdti").c_str(), 0) < 0)
+	if (mt_loadInstrument(fm, string(appdir + "/instruments/" + config->defaultPreloadedSound + ".mdti").c_str(), 0) < 0)
 	{
 		/* Fallback to the default melodic*/
-		if (fm_loadInstrument(fm, string(string(appdir + "/instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".mdti")).c_str(), 0) < 0)
+		if (mt_loadInstrument(fm, string(string(appdir + "/instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".mdti")).c_str(), 0) < 0)
 		{
 
-			fm_resizeInstrumentList(fm, 1);
+			mt_resizeInstrumentList(fm, 1);
 		}
 	}
 	customPreset = fm->instrument[instrList->value];
@@ -168,9 +168,9 @@ void InstrEditor::update()
 	if (add.clicked())
 	{
 
-		if (fm_loadInstrument(fm, string(string("instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".mdti")).c_str(), fm->instrumentCount)<0)
+		if (mt_loadInstrument(fm, string(string("instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".mdti")).c_str(), fm->instrumentCount)<0)
 		{
-			fm_resizeInstrumentList(fm, fm->instrumentCount+1);
+			mt_resizeInstrumentList(fm, fm->instrumentCount+1);
 		}
 
 		updateInstrListFromFM();
@@ -510,7 +510,7 @@ void InstrEditor::removeInstrument()
 {
 	history.erase(history.begin() + instrList->value);
 	currentHistoryPos.erase(currentHistoryPos.begin() + instrList->value);
-	fm_removeInstrument(fm, instrList->value, 1);
+	mt_removeInstrument(fm, instrList->value, 1);
 	updateInstrListFromFM();
 	updateFromFM();
 }
@@ -573,14 +573,14 @@ void InstrEditor::cleanupInstruments()
 {
 	for (int i = 0; i < fm->instrumentCount; i++)
 	{
-		if (!fm_isInstrumentUsed(fm, i))
+		if (!mt_isInstrumentUsed(fm, i))
 		{
 			if (i < history.size())
 			{
 				history.erase(history.begin() + i);
 				currentHistoryPos.erase(currentHistoryPos.begin() + i);
 			}
-			fm_removeInstrument(fm, i, 1);
+			mt_removeInstrument(fm, i, 1);
 			/* Because instruments after the removed one are re-numbered, we need to check again the same i (it's the next instrument) */
 			if (fm->instrumentCount==1)
 				break;

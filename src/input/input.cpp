@@ -144,7 +144,7 @@ void handleUnconditionalEvents()
 						keyboard.divide = 1;
 						break;
 					case Keyboard::Home:
-						fm_setPosition(fm, 0, 0, 2);
+						mt_setPosition(fm, 0, 0, 2);
 						songEditor->moveY(0);
 						break;
 					case Keyboard::Return: // play / stop

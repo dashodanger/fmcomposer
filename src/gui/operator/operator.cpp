@@ -1,10 +1,10 @@
 #include "operator.hpp"
-#include "../../fmengine/fmlib.h"
+#include "../../mtengine/mtlib.h"
 #include "../../gui/list/list.hpp"
 #include "../../gui/drawBatcher.hpp"
 
 extern Vector2i mouseSidebar;
-extern fmsynth *phanoo;
+extern mtsynth *phanoo;
 extern List* instrList;
 
 Operator::Operator() : bg(Vector2f(OP_SIZE, OP_SIZE)), number("", font, charSize), active(0), active2(0), muted(0)

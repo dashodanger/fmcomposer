@@ -10,7 +10,7 @@
 #include <shlobj.h>
 #endif
 
-#include "fmengine/fmlib.h"
+#include "mtengine/mtlib.h"
 #include <portaudio.h>
 
 #define WindowWidth 1366
@@ -59,7 +59,7 @@ extern float frameTime60;
 extern string appdir, appconfigdir, instrDir, songDir;
 extern string intervals[25];
 extern RenderWindow *window;
-extern fmsynth *fm;
+extern mtsynth *fm;
 extern sf::Clock mclock;
 extern sf::WindowHandle windowHandle;
 extern PaStream *stream;

@@ -16,7 +16,7 @@ void configurePreviewChannel(int channel)
 {
 	fm->ch[channel].muted = 0;
 	fm->ch[channel].vol = 1;
-	fm->ch[channel].reverbSend = fm_volumeToExp(config->previewReverb.value);
+	fm->ch[channel].reverbSend = mt_volumeToExp(config->previewReverb.value);
 	fm->ch[channel].destPan = fm->ch[channel].pan = 127;
 }
 
@@ -79,7 +79,7 @@ void previewNote(int instrument, int id, int volume, int isFromMidi)
 	}
 
 	configurePreviewChannel(channel);
-	fm_playNote(fm, instrument, id, channel, volume);
+	mt_playNote(fm, instrument, id, channel, volume);
 	noteChn[id] = channel;
 	noteChn3[channel] = id + 1;
 
@@ -110,7 +110,7 @@ void previewNote(int instrument, int id, int volume, int isFromMidi)
 
 }
 
-void previewNoteBend(fmsynth *f, int value)
+void previewNoteBend(mtsynth *f, int value)
 {
 	for (unsigned ch = 0; ch<FM_ch; ch++)
 	{
@@ -124,7 +124,7 @@ void previewNoteBend(fmsynth *f, int value)
 void previewNoteStop(int id, int isFromMidi)
 {
 
-	fm_stopNote(fm, noteChn[id]);
+	mt_stopNote(fm, noteChn[id]);
 	for (unsigned i = 0; i < FM_ch; i++)
 	{
 		if (id == noteChn2[i] - 1)
@@ -142,6 +142,6 @@ void previewNoteStopAll()
 	for (unsigned i = 0; i < FM_ch; i++)
 	{
 		noteChn2[i] = 0;
-		fm_stopNote(fm, i);
+		mt_stopNote(fm, i);
 	}
 }

@@ -7,14 +7,14 @@ void SongEditor::udpatePatternFromHistory()
 	/* Data to restore bigger than actual pattern size : resize pattern */
 	if (history[fm->order][currentHistoryPos[fm->order]].data.size() > fm->patternSize[fm->order])
 	{
-		fm_resizePattern(fm, fm->order, history[fm->order][currentHistoryPos[fm->order]].data.size(), 0);
+		mt_resizePattern(fm, fm->order, history[fm->order][currentHistoryPos[fm->order]].data.size(), 0);
 		patSize.setValue(fm->patternSize[fm->order]);
 		updateRowCount();
 	}
 	/* Data to restore smaller than pattern size : the pattern was resized*/
 	else if (history[fm->order][currentHistoryPos[fm->order]].patternSize != fm->patternSize[fm->order])
 	{
-		fm_resizePattern(fm, fm->order, history[fm->order][currentHistoryPos[fm->order]].patternSize, 0);
+		mt_resizePattern(fm, fm->order, history[fm->order][currentHistoryPos[fm->order]].patternSize, 0);
 		patSize.setValue(fm->patternSize[fm->order]);
 		updateRowCount();
 		setScroll(scroll);
@@ -24,7 +24,7 @@ void SongEditor::udpatePatternFromHistory()
 	if (currentHistoryPos[fm->order] >= 0)
 	{
 
-		/* Eviter d'écrire des données en dehors du pattern */
+		/* Eviter d'ï¿½crire des donnï¿½es en dehors du pattern */
 		int maxy = history[fm->order][currentHistoryPos[fm->order]].data.size();
 		if (maxy + history[fm->order][currentHistoryPos[fm->order]].y > fm->patternSize[fm->order])
 		{
@@ -59,9 +59,9 @@ void SongEditor::saveToHistory(int _y, int size)
 		size = abs(size);
 	}
 
-	if (_y + size >= fm_getPatternSize(fm, fm->order))
+	if (_y + size >= mt_getPatternSize(fm, fm->order))
 	{
-		size = fm_getPatternSize(fm, fm->order) - _y;
+		size = mt_getPatternSize(fm, fm->order) - _y;
 	}
 
 

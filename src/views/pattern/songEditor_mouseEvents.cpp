@@ -125,7 +125,7 @@ void SongEditor::rightMouseEvents()
 		if (!selection.isHover(mousePattern.x, mousePattern.y) && (!contextMenu || !patMenu.hover()))
 		{
 			moveCursor();
-			fm_setPosition(fm, fm->order, selectedRow, 0);
+			mt_setPosition(fm, fm->order, selectedRow, 0);
 			playCursor.setPosition(0, (int)fm->row*ROW_HEIGHT);
 		}
 
@@ -139,7 +139,7 @@ void SongEditor::rightMouseEvents()
 		int elem = patternList.getElementHovered();
 		if (elem > -1)
 		{
-			fm_setPosition(fm, elem, 0, 0);
+			mt_setPosition(fm, elem, 0, 0);
 			patListMenu.show();
 		}
 	}
@@ -245,7 +245,7 @@ void SongEditor::leftMouseRelease()
 		{
 			selection.bg.setSize(Vector2f(COL_WIDTH, ROW_HEIGHT));
 			selectedRow = mouseYpat;
-			fm_setPosition(fm, fm->order, selectedRow, 0);
+			mt_setPosition(fm, fm->order, selectedRow, 0);
 			selectedChannel = mouseXpat / 4;
 			selectedType = mouseXpat % 4;
 			selection.bg.setPosition(min<int>(selectedChannel * CH_WIDTH + selectedType * COL_WIDTH, FM_ch * CH_WIDTH), selectedRow*ROW_HEIGHT);
@@ -307,7 +307,7 @@ void SongEditor::leftMouseRelease()
 			}
 			channelHead[selectedChannel].record.selected = 1;
 
-			fm_setPosition(fm, fm->order, selectedRow, 0);
+			mt_setPosition(fm, fm->order, selectedRow, 0);
 			selection.bg.setPosition(min<int>(selectedChannel*CH_WIDTH + selectedType*COL_WIDTH, FM_ch*CH_WIDTH), selectedRow*ROW_HEIGHT);
 			setScroll(fm->row);
 			playCursor.setPosition(0, (int)fm->row*ROW_HEIGHT);
@@ -323,7 +323,7 @@ void SongEditor::leftMouseRelease()
 	}
 	else if (selection.isSingle() && isMouseHoverPattern() && !fm->playing && focusedElement == &patternView)
 	{
-		fm_setPosition(fm, fm->order, selectedRow, 0);
+		mt_setPosition(fm, fm->order, selectedRow, 0);
 		selectionDisappear();
 	}
 
@@ -337,7 +337,7 @@ void SongEditor::leftMouseRelease()
 			pattern_move(movePat, patternListHovered);
 		}
 
-		fm_setPosition(fm, patternListHovered, fm->playing ? 0 : fm->row, 2);
+		mt_setPosition(fm, patternListHovered, fm->playing ? 0 : fm->row, 2);
 		selection.bg.setSize(Vector2f(selection.bg.getSize().x, min(selection.bg.getSize().y, fm->patternSize[fm->order] * ROW_HEIGHT - selection.bg.getPosition().y)));
 	}
 

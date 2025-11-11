@@ -1,9 +1,9 @@
 #include "buttonlist.hpp"
-#include "../../fmengine/fmlib.h"
+#include "../../mtengine/mtlib.h"
 #include "../contextmenu/contextmenu.hpp"
 #include "../drawBatcher.hpp"
 
-extern fmsynth *phanoo;
+extern mtsynth *phanoo;
 extern ListMenu *contextMenu;
 
 ButtonList::ButtonList(int _x, int _y) :selected(0), maxId(0)

@@ -3,7 +3,7 @@
 
 #define PIANOROLL_MAX_NOTES 1024
 
-#include "../../fmengine/fmlib.h"
+#include "../../mtengine/mtlib.h"
 #include "../../state.hpp"
 #include "../../gui/contextmenu/contextmenu.hpp"
 #include "../../gui/slider/dataslider.hpp"

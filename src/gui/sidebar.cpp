@@ -55,8 +55,8 @@ void Sidebar::draw()
 	static float prevTime=-1;
 	static float prevlength=-1;
 
-	float time = fm_getTime(fm);
-	float length = fm_getSongLength(fm);
+	float time = mt_getTime(fm);
+	float length = mt_getSongLength(fm);
 
 	if (time != prevTime || length != prevlength)
 	{

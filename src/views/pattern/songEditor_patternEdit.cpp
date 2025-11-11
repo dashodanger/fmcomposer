@@ -402,7 +402,7 @@ void SongEditor::pattern_insertrows(int count)
 		count = 256 - fm->patternSize[fm->order];
 	}
 
-	fm_insertRows(fm, fm->order, selectedRow, count);
+	mt_insertRows(fm, fm->order, selectedRow, count);
 
 	updateFromFM();
 	songModified(1);
@@ -421,7 +421,7 @@ void SongEditor::pattern_deleterows(int count)
 		count = clamp((int)fm->patternSize[fm->order] - selectedRow, 0, fm->patternSize[fm->order] - 1);
 	}
 
-	fm_removeRows(fm, fm->order, selectedRow, count);
+	mt_removeRows(fm, fm->order, selectedRow, count);
 	updateFromFM();
 	songModified(1);
 

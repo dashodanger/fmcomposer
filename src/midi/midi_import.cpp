@@ -144,9 +144,9 @@ int addInstrument(int id, unsigned char type)
 				instrumentName = midiPercussionNames[id - 23];
 			}
 		}
-		if (fm_loadInstrument(fm, string(string(appdir + "/instruments/") + instrumentFile + string(".mdti")).c_str(), fm->instrumentCount) < 0)
+		if (mt_loadInstrument(fm, string(string(appdir + "/instruments/") + instrumentFile + string(".mdti")).c_str(), fm->instrumentCount) < 0)
 		{
-			fm_resizeInstrumentList(fm, fm->instrumentCount+1);
+			mt_resizeInstrumentList(fm, fm->instrumentCount+1);
 		}
 
 		sprintf(&fm->instrument[fm->instrumentCount - 1].name[0], "%s", instrumentName.c_str());
@@ -691,7 +691,7 @@ void midi_noteOn(int note, int volume, int midiChannel, int instrument)
 			int pos = order*patternSize + row + 1;
 			if (pos / patternSize == fm->patternCount)
 			{
-				fm_insertPattern(fm, patternSize, fm->patternCount);
+				mt_insertPattern(fm, patternSize, fm->patternCount);
 			}
 			if (fm->pattern[pos / patternSize][pos%patternSize][channel].note == 128)
 			{ // remove a note off that was added by a fast note on the same row (happen in case of very fast note < quantization)
@@ -1022,7 +1022,7 @@ int parseMidiRows(unsigned short delta_time_ticks, istream &midifile)
 			{
 				if (order < 255)
 				{
-					fm_insertPattern(fm, patternSize, fm->patternCount);
+					mt_insertPattern(fm, patternSize, fm->patternCount);
 					maxOrder = order;
 				}
 				else
@@ -1166,14 +1166,14 @@ int musImport(const char* filename)
 	ifstream musfile;
 	musfile.open(filename, ios::binary);
 	if (!musfile.is_open())
-		return FM_ERR_FILEIO;
+		return MT_ERR_FILEIO;
 
 	ostringstream midiostream;
 
 	if (!mus2mid(musfile, midiostream))
 	{
 		musfile.close();
-		return FM_ERR_FILECORRUPTED;
+		return MT_ERR_FILECORRUPTED;
 	}
 	else
 	{
@@ -1184,8 +1184,8 @@ int musImport(const char* filename)
 	istringstream midiistream(midiostream.str());
 
 	int currentVol = fm->_globalVolume;
-	fm_clearSong(fm);
-	fm_resizeInstrumentList(fm, 0);
+	mt_clearSong(fm);
+	mt_resizeInstrumentList(fm, 0);
 	for (int i = 0; i < 128; ++i)
 	{
 		addInstrument(i, 0);
@@ -1195,7 +1195,7 @@ int musImport(const char* filename)
 		addInstrument(i, 1);
 	}
 	fm->diviseur = config->diviseur.value;
-	fm_setVolume(fm, currentVol);
+	mt_setVolume(fm, currentVol);
 	fm->initial_tempo = 120;
 	loopStart = -1;
 
@@ -1237,14 +1237,14 @@ int musImport(const char* filename)
 	// no instrument (unlikely?) : avoid crash
 	if (fm->instrumentCount == 0)
 	{
-		if (fm_loadInstrument(fm, "instruments/keyboards/piano.mdti", 0) < 0)
+		if (mt_loadInstrument(fm, "instruments/keyboards/piano.mdti", 0) < 0)
 		{
-			fm_resizeInstrumentList(fm, 1);
+			mt_resizeInstrumentList(fm, 1);
 		}
 	}
 	instrList->select(0);
 
-	fm_buildStateTable(fm, 0, fm->patternCount, 0, FM_ch);
+	mt_buildStateTable(fm, 0, fm->patternCount, 0, FM_ch);
 
 	return 0;
 }
@@ -1254,11 +1254,11 @@ int midiImport(const char* filename)
 	ifstream midifile;
 	midifile.open(filename, ios::binary);
 	if (!midifile.is_open())
-		return FM_ERR_FILEIO;
+		return MT_ERR_FILEIO;
 
 	int currentVol = fm->_globalVolume;
-	fm_clearSong(fm);
-	fm_resizeInstrumentList(fm, 0);
+	mt_clearSong(fm);
+	mt_resizeInstrumentList(fm, 0);
 	for (int i = 0; i < 128; ++i)
 	{
 		addInstrument(i, 0);
@@ -1268,7 +1268,7 @@ int midiImport(const char* filename)
 		addInstrument(i, 1);
 	}
 	fm->diviseur = config->diviseur.value;
-	fm_setVolume(fm, currentVol);
+	mt_setVolume(fm, currentVol);
 	fm->initial_tempo = 120;
 	loopStart = -1;
 
@@ -1336,15 +1336,15 @@ int midiImport(const char* filename)
 	// no instrument (unlikely?) : avoid crash
 	if (fm->instrumentCount == 0)
 	{
-		if (fm_loadInstrument(fm, "instruments/keyboards/piano.mdti", 0) < 0)
+		if (mt_loadInstrument(fm, "instruments/keyboards/piano.mdti", 0) < 0)
 		{
-			fm_resizeInstrumentList(fm, 1);
+			mt_resizeInstrumentList(fm, 1);
 		}
 	}
 	instrList->select(0);
 	midifile.close();
 
-	fm_buildStateTable(fm, 0, fm->patternCount, 0, FM_ch);
+	mt_buildStateTable(fm, 0, fm->patternCount, 0, FM_ch);
 
 	return 0;
 }

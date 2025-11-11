@@ -27,7 +27,7 @@ void InstrEditor::instrument_open()
 }
 void InstrEditor::instrument_load_default_gm()
 {
-	fm_resizeInstrumentList(fm, 0);
+	mt_resizeInstrumentList(fm, 0);
 	for (int i = 0; i < 128; ++i)
 	{
 		addInstrument(i, 0);
@@ -51,7 +51,7 @@ void InstrEditor::instrument_save()
 	{
 		instrDir = dirnameOf(fileName);
 		string fileNameOk = forceExtension(fileName, "mdti");
-		fm_saveInstrument(fm, fileNameOk.c_str(), instrList->value);
+		mt_saveInstrument(fm, fileNameOk.c_str(), instrList->value);
 	}
 }
 
@@ -63,7 +63,7 @@ void InstrEditor::instrument_bank_load()
 	if (fileName)
 	{
 		instrDir = dirnameOf(fileName);
-		fm_loadInstrumentBank(fm, fileName);
+		mt_loadInstrumentBank(fm, fileName);
 		updateFromFM();
 		updateInstrListFromFM();
 		updateToFM();
@@ -79,27 +79,27 @@ void InstrEditor::instrument_bank_save()
 	{
 		instrDir = dirnameOf(fileName);
 		string fileNameOk = forceExtension(fileName, "mdtb");
-		fm_saveInstrumentBank(fm, fileNameOk.c_str());
+		mt_saveInstrumentBank(fm, fileNameOk.c_str());
 	}
 }
 
 int InstrEditor::loadInstrument(string filename, int slot)
 {
 
-	int result = fm_loadInstrument(fm, filename.c_str(), slot);
+	int result = mt_loadInstrument(fm, filename.c_str(), slot);
 
 	if (result == 0)
 		return 1;
 
-	if (result == FM_ERR_FILEIO)
+	if (result == MT_ERR_FILEIO)
 	{
 		popup->show(POPUP_OPENFAILED);
 	}
-	else if (result == FM_ERR_FILEVERSION)
+	else if (result == MT_ERR_FILEVERSION)
 	{
 		popup->show(POPUP_WRONGVERSION);
 	}
-	else if (result == FM_ERR_FILECORRUPTED)
+	else if (result == MT_ERR_FILECORRUPTED)
 	{
 		popup->show(POPUP_FILECORRUPTED);
 	}

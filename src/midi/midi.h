@@ -1,7 +1,7 @@
 #ifndef MIDI_H
 #define MIDI_H
 
-#include "../fmengine/fmlib.h"
+#include "../mtengine/mtlib.h"
 #include <portmidi.h>
 #include "../views/settings/configEditor.hpp"
 #include <vector>
@@ -11,7 +11,7 @@ using namespace std;
 
 
 
-extern fmsynth *phanoo;
+extern mtsynth *phanoo;
 extern ConfigEditor *configEditor;
 extern vector<int> midiExportAssoc;
 extern vector<int> midiExportAssocChannels;

@@ -10,7 +10,7 @@ void previewNoteStop(int id, int isFromMidi);
 
 void previewNoteStopAll();
 
-void previewNoteBend(fmsynth *f, int value);
+void previewNoteBend(mtsynth *f, int value);
 
 void configurePreviewChannel(int channel);
 

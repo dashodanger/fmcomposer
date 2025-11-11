@@ -65,7 +65,7 @@ void Pianoroll::draw()
 			displayNote = 1;
 			if (mouse.clickg)
 			{
-				fm_playNote(fm, instrList->value, n, 0, sidebar->defNoteVol.value);
+				mt_playNote(fm, instrList->value, n, 0, sidebar->defNoteVol.value);
 			}
 		}
 	}
@@ -235,7 +235,7 @@ void Pianoroll::draw()
 								{
 									moveNote = 1;
 									configurePreviewChannel(0);
-									fm_playNote(fm, noteInstr, oldNote, 0, noteVol);
+									mt_playNote(fm, noteInstr, oldNote, 0, noteVol);
 								}
 							}
 

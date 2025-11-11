@@ -17,7 +17,7 @@ expand(1070, 730, "Scale x2"), shrink(1150, 730, "Scale /2"), resetMute(0, 89, I
 selected(false), patternList(120, 52), zoom(1),
 patHSlider(0, 255, 0, 0.1, 0, 169, 600, false, true)
 {
-	fm_insertPattern(fm, config->patternSize.value, 0);
+	mt_insertPattern(fm, config->patternSize.value, 0);
 
 	patternList.add(std::to_string(patternList.elementCount()));
 
@@ -64,19 +64,19 @@ patHSlider(0, 255, 0, 0.1, 0, 169, 600, false, true)
 	setZoom(0.1*atoi(ini_config.GetValue("config", "patternZoomLevel", "10")));
 	bars.setPrimitiveType(sf::Quads);
 	
-	bars.resize(4*FM_ch+4*(fm_getPatternSize(fm,fm->order)/config->rowHighlight.value));
+	bars.resize(4*FM_ch+4*(mt_getPatternSize(fm,fm->order)/config->rowHighlight.value));
 }
 
 void SongEditor::updatePatternLines()
 {
-	int iters = (int)round(ceil((float)fm_getPatternSize(fm,fm->order)/config->rowHighlight.value));
+	int iters = (int)round(ceil((float)mt_getPatternSize(fm,fm->order)/config->rowHighlight.value));
 	bars.resize(4*FM_ch+4*iters+4);
 
 	sf::Vertex *quad = &bars[0];
 	quad[0].position = Vector2f(0,0);
 	quad[1].position = Vector2f(CH_WIDTH*FM_ch,0);
-	quad[2].position = Vector2f(CH_WIDTH*FM_ch,fm_getPatternSize(fm, fm->order)*ROW_HEIGHT);
-	quad[3].position = Vector2f(0,fm_getPatternSize(fm, fm->order)*ROW_HEIGHT);
+	quad[2].position = Vector2f(CH_WIDTH*FM_ch,mt_getPatternSize(fm, fm->order)*ROW_HEIGHT);
+	quad[3].position = Vector2f(0,mt_getPatternSize(fm, fm->order)*ROW_HEIGHT);
 
 	quad[0].color = colors[PATTERNBG];
 	quad[1].color = colors[PATTERNBG];
@@ -103,8 +103,8 @@ void SongEditor::updatePatternLines()
 		sf::Vertex *quad = &bars[4*iters+i*4+4];
 		quad[0].position = Vector2f(i*CH_WIDTH,0);
 		quad[1].position = Vector2f(i*CH_WIDTH+1,0);
-		quad[2].position = Vector2f(i*CH_WIDTH+1,fm_getPatternSize(fm, fm->order)*ROW_HEIGHT);
-		quad[3].position = Vector2f(i*CH_WIDTH,fm_getPatternSize(fm, fm->order)*ROW_HEIGHT);
+		quad[2].position = Vector2f(i*CH_WIDTH+1,mt_getPatternSize(fm, fm->order)*ROW_HEIGHT);
+		quad[3].position = Vector2f(i*CH_WIDTH,mt_getPatternSize(fm, fm->order)*ROW_HEIGHT);
 
 		quad[0].color = colors[PATTERNCOLUMSEPARATOR];
 		quad[1].color = colors[PATTERNCOLUMSEPARATOR];
@@ -134,7 +134,7 @@ void SongEditor::draw()
 	if (!patSlider.update())
 	{
 		if (fm->order < fm->patternCount)
-			patSlider.setValue(255.0*(scroll - halfPatternHeightView + 6) / (fm_getPatternSize(fm, fm->order) - halfPatternHeightView + 6 - 1));
+			patSlider.setValue(255.0*(scroll - halfPatternHeightView + 6) / (mt_getPatternSize(fm, fm->order) - halfPatternHeightView + 6 - 1));
 
 		
 		if (fm->playing)
@@ -165,7 +165,7 @@ void SongEditor::draw()
 		for (unsigned ch = 0; ch < FM_ch; ++ch)
 			updateChannelData(ch);
 
-		patSize.setValue(fm_getPatternSize(fm, fm->order));
+		patSize.setValue(mt_getPatternSize(fm, fm->order));
 
 		updateRowCount();
 	}
@@ -286,8 +286,8 @@ void SongEditor::update()
 	// add pattern
 	if (add.clicked())
 	{
-		fm_insertPattern(fm, patSize.value, fm->patternCount);
-		fm_setPosition(fm, fm->patternCount - 1, 0, 0);
+		mt_insertPattern(fm, patSize.value, fm->patternCount);
+		mt_setPosition(fm, fm->patternCount - 1, 0, 0);
 		moveY(0);
 		history.push_back(vector<historyElem>());
 		currentHistoryPos.push_back(0);
@@ -373,7 +373,7 @@ void SongEditor::update()
 	/* Pattern scrollbar moved: set scroll*/
 	if (patSlider.update())
 	{
-		setScroll(patSlider.value*(fm_getPatternSize(fm, fm->order) - halfPatternHeightView + 6 - 1) / 255 + halfPatternHeightView - 6);
+		setScroll(patSlider.value*(mt_getPatternSize(fm, fm->order) - halfPatternHeightView + 6 - 1) / 255 + halfPatternHeightView - 6);
 	}
 
 
@@ -382,42 +382,42 @@ void SongEditor::update()
 	patSize.update();
 	if (resize.clicked())
 	{ // resize pattern
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
-		fm_resizePattern(fm, fm->order, patSize.value, 0);
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
+		mt_resizePattern(fm, fm->order, patSize.value, 0);
 
 		updateScrollbar();
 		updateFromFM();
 		songModified(1);
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
 	}
 
 
 
-	if (expand.clicked() && fm_getPatternSize(fm, fm->order) <= 128)
+	if (expand.clicked() && mt_getPatternSize(fm, fm->order) <= 128)
 	{
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
-		fm_resizePattern(fm, fm->order, fm_getPatternSize(fm, fm->order) * 2, 1);
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
+		mt_resizePattern(fm, fm->order, mt_getPatternSize(fm, fm->order) * 2, 1);
 
 		updateScrollbar();
 		updateFromFM();
 		songModified(1);
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
 	}
-	else if (shrink.clicked() && fm_getPatternSize(fm, fm->order) >= 2)
+	else if (shrink.clicked() && mt_getPatternSize(fm, fm->order) >= 2)
 	{
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
 
-		fm_resizePattern(fm, fm->order, fm_getPatternSize(fm, fm->order) / 2, 1);
+		mt_resizePattern(fm, fm->order, mt_getPatternSize(fm, fm->order) / 2, 1);
 		updateFromFM();
 		updateScrollbar();
 		songModified(1);
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
-		saveToHistory(0, fm_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
+		saveToHistory(0, mt_getPatternSize(fm, fm->order));
 	}
 }
 
@@ -491,7 +491,7 @@ void SongEditor::recordFromKeyboard(int note, int volume, int channel, int isFro
 				newVol = note == 128 ? 255 : (isFromMidi ? volume / 1.282828 : volume);
 			}
 
-			fm_write(fm, fm->order, fm->row, channel, {
+			mt_write(fm, fm->order, fm->row, channel, {
 				(unsigned char)note,
 				note == 128 ? (unsigned char)255 : (unsigned char)instrList->value,
 				(unsigned char)newVol,
@@ -505,12 +505,12 @@ void SongEditor::recordFromKeyboard(int note, int volume, int channel, int isFro
 
 			if (sidebar->editingStep.value != 0)
 			{
-				int diff = fm->row + sidebar->editingStep.value - fm_getPatternSize(fm, fm->order);
+				int diff = fm->row + sidebar->editingStep.value - mt_getPatternSize(fm, fm->order);
 				if (diff>=0)
 				{
 					if (fm->order < fm->patternCount-1)
 					{
-						fm_setPosition(fm, fm->order+1, diff, 0);
+						mt_setPosition(fm, fm->order+1, diff, 0);
 						moveY( fm->row);
 					}
 
@@ -558,7 +558,7 @@ bool SongEditor::isMouseHoverPattern()
 void SongEditor::moveY(int pos)
 {
 
-	fm_setPosition(fm, fm->order, pos, fm->playing ? 2 : 0);
+	mt_setPosition(fm, fm->order, pos, fm->playing ? 2 : 0);
 
 	selectedRow = fm->row;
 	mouseYpat = selectedRow;
@@ -615,7 +615,7 @@ void SongEditor::resetView(int width, int height)
 
 void SongEditor::setScroll(float pos)
 {
-	scroll = clamp(pos, 0, fm_getPatternSize(fm, fm->order) - 1);
+	scroll = clamp(pos, 0, mt_getPatternSize(fm, fm->order) - 1);
 	patternView.setCenter(patternView.getCenter().x, (int)round(max(-6, scroll - halfPatternHeightView)*ROW_HEIGHT) + (float)windowHeight / 2);
 	patNumView.setCenter((float)windowWidth / 2, (int)round(max(-6, scroll - halfPatternHeightView)*ROW_HEIGHT) + (float)windowHeight / 2);
 }
@@ -624,12 +624,12 @@ void SongEditor::updateScrollbar()
 {
 	patternHeightView = (int)round(windowHeight - 169) / ROW_HEIGHT;
 	halfPatternHeightView = (int)round((windowHeight - 169)*0.33) / ROW_HEIGHT;
-	patSlider.setScrollableContent((fm_getPatternSize(fm, fm->order) + 6)*ROW_HEIGHT + (windowHeight - 169) / 2, windowHeight - 169);
+	patSlider.setScrollableContent((mt_getPatternSize(fm, fm->order) + 6)*ROW_HEIGHT + (windowHeight - 169) / 2, windowHeight - 169);
 
 	patHSlider.setScrollableContent(CH_WIDTH*FM_ch, windowWidth - 231);
-	patSize.setValue(fm_getPatternSize(fm, fm->order)); //printf("selectedRow %d", selectedRow);
+	patSize.setValue(mt_getPatternSize(fm, fm->order)); //printf("selectedRow %d", selectedRow);
 
-	if (selectedRow > fm_getPatternSize(fm, fm->order) - 1)
+	if (selectedRow > mt_getPatternSize(fm, fm->order) - 1)
 	{
 		selectedRow = fm->row;
 		selection.bg.setPosition(selection.bg.getPosition().x, fm->row*ROW_HEIGHT);
@@ -643,7 +643,7 @@ void SongEditor::updateScrollbar()
 void SongEditor::moveCursorAfterDataEntered()
 {
 	if (!fm->playing)
-		fm_setPosition(fm, fm->order, selectedRow, 0);
+		mt_setPosition(fm, fm->order, selectedRow, 0);
 
 	moveCursor(false);
 	moveY(selectedRow);

@@ -25,7 +25,7 @@ int song_saveas()
 		mclock.restart();
 		songDir = dirnameOf(fileName);
 		string fileNameOk = forceExtension(fileName, "mdts");
-		if (!fm_saveSong(fm, fileNameOk.c_str()))
+		if (!mt_saveSong(fm, fileNameOk.c_str()))
 		{
 			popup->show(POPUP_SAVEFAILED);
 			return 0;
@@ -52,7 +52,7 @@ int song_save()
 	}
 	else
 	{
-		if (!fm_saveSong(fm, saveAs.c_str()))
+		if (!mt_saveSong(fm, saveAs.c_str()))
 		{
 			popup->show(POPUP_SAVEFAILED);
 			return 0;
@@ -83,7 +83,7 @@ void song_load(const char* filename, bool fromAutoReload)
 	song_stop();
 	if (checkExtension(filename, "mdts"))
 	{
-		if ((opened = fm_loadSong(fm, filename)) == 0)
+		if ((opened = mt_loadSong(fm, filename)) == 0)
 			saveAs = filename;
 	}
 	else if (checkExtension(filename, "mid") || checkExtension(filename, "smf") || checkExtension(filename, "rmi"))
@@ -96,19 +96,19 @@ void song_load(const char* filename, bool fromAutoReload)
 		if ((opened = musImport(filename)) == 0)
 			saveAs = "";
 	}
-	if (opened == FM_ERR_FILEIO && !fromAutoReload)
+	if (opened == MT_ERR_FILEIO && !fromAutoReload)
 	{
 		popup->show(POPUP_OPENFAILED);
 		config->lastSongRemove(string(filename));
 	}
-	else if (opened == FM_ERR_FILEVERSION)
+	else if (opened == MT_ERR_FILEVERSION)
 	{
 		popup->show(POPUP_WRONGVERSION);
 		config->lastSongRemove(string(filename));
 	}
-	else if (opened == 0 || opened == FM_ERR_FILECORRUPTED)
+	else if (opened == 0 || opened == MT_ERR_FILECORRUPTED)
 	{
-		if (opened == FM_ERR_FILECORRUPTED)
+		if (opened == MT_ERR_FILECORRUPTED)
 		{
 			popup->show(POPUP_FILECORRUPTED);
 		}
@@ -124,7 +124,7 @@ void song_load(const char* filename, bool fromAutoReload)
 		songEditor->reset();
 		generalEditor->updateFromFM();
 
-		fm_setPosition(fm, 0, 0, 2);
+		mt_setPosition(fm, 0, 0, 2);
 		if (playing)
 			song_play();
 
@@ -164,14 +164,14 @@ void song_clear()
 {
 	mouse.clickLock2 = 1;
 	song_stop();
-	fm_clearSong(fm);
-	fm_setVolume(fm, config->defaultVolume.value);
-	fm_insertPattern(fm, config->patternSize.value, 0);
-	fm_setPosition(fm, 0, 0, 2);
-	fm_resizeInstrumentList(fm, 1);
-	if (fm_loadInstrument(fm, string("instruments/" + config->defaultPreloadedSound + ".mdti").c_str(), 0) < 0)
+	mt_clearSong(fm);
+	mt_setVolume(fm, config->defaultVolume.value);
+	mt_insertPattern(fm, config->patternSize.value, 0);
+	mt_setPosition(fm, 0, 0, 2);
+	mt_resizeInstrumentList(fm, 1);
+	if (mt_loadInstrument(fm, string("instruments/" + config->defaultPreloadedSound + ".mdti").c_str(), 0) < 0)
 	{
-		fm_loadInstrument(fm, string(string("instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".mdti")).c_str(), 0);
+		mt_loadInstrument(fm, string(string("instruments/") + ini_gmlist.GetValue("melodic", "default", "0") + string(".mdti")).c_str(), 0);
 	}
 	
 

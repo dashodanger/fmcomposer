@@ -1,5 +1,5 @@
 #include "mainmenu.hpp"
-#include "../fmengine/fmlib.h"
+#include "../mtengine/mtlib.h"
 #include "../views/settings/configEditor.hpp"
 #include "../views/general/generalEditor.hpp"
 #include "../views/instrument/instrEditor.hpp"
@@ -227,7 +227,7 @@ void Menu::update()
 				song_save();
 				break;
 			case 3: // back
-				fm_setPosition(fm, 0, 0, 2);
+				mt_setPosition(fm, 0, 0, 2);
 				songEditor->moveY(0);
 				break;
 			case 4: // top pattern

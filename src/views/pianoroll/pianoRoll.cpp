@@ -3,7 +3,7 @@
 #include "../../gui/mainmenu.hpp"
 #include "../../input/noteInput.hpp"
 
-extern fmsynth* phanoo;
+extern mtsynth* phanoo;
 extern Texture *tileset;
 
 extern List *instrList;
@@ -89,7 +89,7 @@ void Pianoroll::doubleClick()
 	if (oldNote >= 0 && clickedElem == oldNote + 127 * hoveredRow + 32385 * noteInstr && clickedElem > 0)
 	{
 		menu->goToPage(PAGE_SONG);
-		fm_setPosition(fm, hoveredOrder, hoveredRow, 0);
+		mt_setPosition(fm, hoveredOrder, hoveredRow, 0);
 
 		songEditor->updateFromFM();
 		songEditor->setX(hoveredCh * 4);
@@ -99,7 +99,7 @@ void Pianoroll::doubleClick()
 	else if (oldNote >= 0)
 	{
 		moveNote = 1;
-		fm_playNote(fm, noteInstr, oldNote, 0, noteVol);
+		mt_playNote(fm, noteInstr, oldNote, 0, noteVol);
 	}
 	clickedElem = -1;
 }
@@ -182,7 +182,7 @@ void Pianoroll::update()
 			{
 				oldNote = fm->pattern[selectedOrder][selectedRow][selectedCh].note;
 				configurePreviewChannel(0);
-				fm_playNote(fm, noteInstr, fm->pattern[selectedOrder][selectedRow][selectedCh].note, 0, noteVol);
+				mt_playNote(fm, noteInstr, fm->pattern[selectedOrder][selectedRow][selectedCh].note, 0, noteVol);
 			}
 		}
 		else if (isScrolling && oldNote == -1 && mouse.pos.y > 32 && mouse.pos.y < windowHeight && mouse.pos.x < windowWidth - 250)
@@ -204,7 +204,7 @@ void Pianoroll::update()
 
 			getOrderRowFromPos(&order, &row, newPos);
 
-			fm_setPosition(fm, order, row, 0);
+			mt_setPosition(fm, order, row, 0);
 		}
 	}
 
@@ -216,7 +216,7 @@ void Pianoroll::update()
 
 			getOrderRowFromPos(&order, &row, pos);
 
-			fm_setPosition(fm, order, row, 0);
+			mt_setPosition(fm, order, row, 0);
 		}
 		else
 			y += mouse.scroll * 20;
@@ -304,7 +304,7 @@ void Pianoroll::handleEvents()
 				if (moveNote)
 				{
 					moveNote = 0;
-					fm_stopNote(fm, 0);
+					mt_stopNote(fm, 0);
 				}
 			}
 			break;

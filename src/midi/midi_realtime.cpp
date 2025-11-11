@@ -44,12 +44,12 @@ void midi_getEvents()
 								}
 								break;
 							case 0x78: // (120) all sound off
-								fm_stopSound(fm);
+								mt_stopSound(fm);
 								break;
 							case 0x7B: // all notes off
 								for (unsigned i = 0; i < FM_ch; i++)
 								{
-									fm_stopNote(fm, i);
+									mt_stopNote(fm, i);
 								}
 								break;
 						}

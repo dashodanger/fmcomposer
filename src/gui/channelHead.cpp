@@ -1,9 +1,9 @@
 ﻿#include "channelHead.hpp"
-#include "../fmengine/fmlib.h"
+#include "../mtengine/mtlib.h"
 #include "contextmenu/contextmenu.hpp"
 #include "drawBatcher.hpp"
 
-extern fmsynth *phanoo;
+extern mtsynth *phanoo;
 
 ChannelHead::ChannelHead() {};
 
@@ -63,17 +63,17 @@ void ChannelHead::update(unsigned *paramChanged, int *mutedChanged, int *channel
 
 	if (pan.update())
 	{
-		fm_setChannelPanning(fm, channelIndex, pan.value);
+		mt_setChannelPanning(fm, channelIndex, pan.value);
 		*paramChanged = 1;
 	}
 	if (vol.update())
 	{
-		fm_setChannelVolume(fm, channelIndex, vol.value);
+		mt_setChannelVolume(fm, channelIndex, vol.value);
 		*paramChanged = 2;
 	}
 	if (rev.update())
 	{
-		fm_setChannelReverb(fm, channelIndex, rev.value);
+		mt_setChannelReverb(fm, channelIndex, rev.value);
 		*paramChanged = 3;
 	}
 	if (mute.clicked())

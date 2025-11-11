@@ -145,7 +145,7 @@ int SongEditor::search(int searchWhat, unsigned char searchValues[5], int search
 						if (i > fm->order || i == fm->order && j > fm->row || i == fm->order && j == fm->row && ch > selectedChannel)
 						{
 							searched = true;
-							fm_setPosition(fm, i, j, 2);
+							mt_setPosition(fm, i, j, 2);
 							updateFromFM();
 							moveY(j);
 

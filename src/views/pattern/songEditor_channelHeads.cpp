@@ -20,7 +20,7 @@ void SongEditor::handleChannelHeads()
 		/* Channel swapping */
 		if (channelSwapped > -1)
 		{
-			fm_moveChannels(fm, ch, channelSwapped);
+			mt_moveChannels(fm, ch, channelSwapped);
 			for (unsigned ch2 = 0; ch2 < FM_ch; ++ch2)
 			{
 				channelHead[ch2].updateFromFM();
@@ -42,17 +42,17 @@ void SongEditor::handleChannelHeads()
 					if (paramChanged == 1)
 					{
 						channelHead[ch2].pan.setValue(channelHead[ch].pan.value);
-						fm_setChannelPanning(fm, ch2, channelHead[ch].pan.value);
+						mt_setChannelPanning(fm, ch2, channelHead[ch].pan.value);
 					}
 					else if (paramChanged == 2)
 					{
 						channelHead[ch2].vol.setValue(channelHead[ch].vol.value);
-						fm_setChannelVolume(fm, ch2, channelHead[ch].vol.value);
+						mt_setChannelVolume(fm, ch2, channelHead[ch].vol.value);
 					}
 					else if (paramChanged == 3)
 					{
 						channelHead[ch2].rev.setValue(channelHead[ch].rev.value);
-						fm_setChannelReverb(fm, ch2, channelHead[ch].rev.value);
+						mt_setChannelReverb(fm, ch2, channelHead[ch].rev.value);
 					}
 				}
 			}

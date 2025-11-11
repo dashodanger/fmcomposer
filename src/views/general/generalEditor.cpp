@@ -65,17 +65,17 @@ void GeneralEditor::update()
 	if ((mouse.clickgReleased || mouse.scroll) && tempoUpdated)
 	{
 		tempoUpdated = 0;
-		fm_setTempo(fm, tempo.value);
+		mt_setTempo(fm, tempo.value);
 		songModified(1);
 
-		fm_buildStateTable(fm, 0, fm->patternCount, 0, FM_ch);
+		mt_buildStateTable(fm, 0, fm->patternCount, 0, FM_ch);
 
 	}
 
 
 	else if (globalVolume.update() || diviseur.update() || transpose.update() || reverbLength.update())
 	{
-		fm_setVolume(fm, globalVolume.value);
+		mt_setVolume(fm, globalVolume.value);
 		fm->diviseur = diviseur.value;
 		fm->transpose = transpose.value;
 
@@ -93,7 +93,7 @@ void GeneralEditor::update()
 
 	if (roomSize.update())
 	{
-		fm_initReverb(fm, roomSize.value*0.025);
+		mt_initReverb(fm, roomSize.value*0.025);
 		fm->initialReverbRoomSize = roomSize.value*0.025;
 	}
 

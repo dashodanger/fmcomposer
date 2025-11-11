@@ -2,8 +2,8 @@
 extern "C"{
 #endif
 
-#ifndef FMLIB_H
-#define FMLIB_H
+#ifndef MTLIB_H
+#define MTLIB_H
 
 	/* Number of channels (polyphony) */
 #define FM_ch 24
@@ -12,9 +12,9 @@ extern "C"{
 
 
 	enum{ FM_NOTE, FM_INSTR, FM_VOL, FM_FXTYPE, FM_FXVALUE };
-	enum { FM_ERR_FILEIO = -1, FM_ERR_FILECORRUPTED = -2, FM_ERR_FILEVERSION = -3 };
+	enum { MT_ERR_FILEIO = -1, MT_ERR_FILECORRUPTED = -2, MT_ERR_FILEVERSION = -3 };
 	enum fmInstrumentFlags{FM_INSTR_LFORESET=1, FM_INSTR_SMOOTH=2, FM_INSTR_TRANSPOSABLE=4};
-	enum fmRenderTypes{FM_RENDER_8, FM_RENDER_16, FM_RENDER_24, FM_RENDER_32, FM_RENDER_FLOAT, FM_RENDER_PAD32=64};
+	enum mtRenderTypes{MT_RENDER_8, MT_RENDER_16, MT_RENDER_24, MT_RENDER_32, MT_RENDER_FLOAT, MT_RENDER_PAD32=64};
 	typedef struct fm_instrument_operator
 	{
 		unsigned char mult;
@@ -181,7 +181,7 @@ extern "C"{
 	}fm_channel;
 
 
-	typedef struct fmsynth{
+	typedef struct mtsynth{
 		char songName[64], author[64], comments[256];
 		float globalVolume;
 		float playbackVolume;
@@ -230,57 +230,57 @@ extern "C"{
 		float transitionSpeed;
 		int tempRow, tempOrder;
 		unsigned readSeek, totalFileSize;
-	}fmsynth;
+	}mtsynth;
 
 
 	/** Creates the synth
 		@param samplerate : sample rate in Hz
 		@return pointer to the allocated fm synth
 		*/
-	fmsynth* fm_create(int samplerate);
+	mtsynth* mt_create(int samplerate);
 
-	void fm_destroy(fmsynth* f);
-
-	/** Load a song
-		@param filename
-		@return 1 if ok, 0 if failed
-		*/
-	int fm_loadSong(fmsynth* f, const char* filename);
-
-
+	void mt_destroy(mtsynth* mt);
 
 	/** Load a song
 		@param filename
 		@return 1 if ok, 0 if failed
 		*/
-	int fm_loadSongFromMemory(fmsynth* f, char* data, unsigned len);
+	int mt_loadSong(mtsynth* mt, const char* filename);
+
+
+
+	/** Load a song
+		@param filename
+		@return 1 if ok, 0 if failed
+		*/
+	int mt_loadSongFromMemory(mtsynth* mt, char* data, unsigned len);
 
 	/** Get total song length
 		@return length in seconds
 		*/
-	float fm_getSongLength(fmsynth* f);
+	float mt_getSongLength(mtsynth* mt);
 
 	/** Play the song */
-	void fm_play(fmsynth* f);
+	void mt_play(mtsynth* mt);
 
 	/** Stop the song
 		@param mode : 0 = force note off, 1 = hard cut
 		*/
-	void fm_stop(fmsynth* f, int mode);
+	void mt_stop(mtsynth* mt, int mode);
 
 
-	void fm_setPlaybackVolume(fmsynth *f, int volume);
+	void mt_setPlaybackVolume(mtsynth *mt, int volume);
 
 	/** Set the global volume
 		@param volume : volume, 0-99
 		*/
-	void fm_setVolume(fmsynth *f, int volume);
+	void mt_setVolume(mtsynth *mt, int volume);
 
 	/** Render the sound
 		@param buffer : audio buffer, left and right channels are interleaved
 		@param length : number of samples to render
 		*/
-	void fm_render(fmsynth* f, void* buffer, unsigned length, unsigned type);
+	void mt_render(mtsynth* mt, void* buffer, unsigned length, unsigned type);
 
 	/** Play a note
 		@param instrument : instrument number, 0-255
@@ -288,12 +288,12 @@ extern "C"{
 		@param channel : channel number, 0-23
 		@param volume : volume, 0-99
 		*/
-	void fm_playNote(fmsynth* f, unsigned instrument, unsigned note, unsigned channel, unsigned volume);
+	void mt_playNote(mtsynth* mt, unsigned instrument, unsigned note, unsigned channel, unsigned volume);
 
 	/** Stops a note on a channel
 		@param channel : channel number, 0-23
 		*/
-	void fm_stopNote(fmsynth* f, unsigned channel);
+	void mt_stopNote(mtsynth* mt, unsigned channel);
 
 
 
@@ -304,54 +304,54 @@ extern "C"{
 		@param row : row number
 		@param mode : 0 = keep playing notes, 1 = force note off, 2 = hard cut
 		*/
-	void fm_setPosition(fmsynth* f, int pattern, int row, int mode);
+	void mt_setPosition(mtsynth* mt, int pattern, int row, int mode);
 
 	/** Set the playing position in seconds
 		@param time : position in seconds
 		@param mode : 0 = keep playing notes, 1 = force note off, 2 = hard cut
 		*/
-	void fm_setTime(fmsynth* f, int time, int mode);
+	void mt_setTime(mtsynth* mt, int time, int mode);
 
 	/** Set the tempo
 		@param tempo : tempo in BPM, 0-255
 		*/
-	void fm_setTempo(fmsynth* f, int tempo);
+	void mt_setTempo(mtsynth* mt, int tempo);
 
 
 	/** Get the current playing position
 		@param *order : current pattern number
 		@param *row : current row number
 		*/
-	void fm_getPosition(fmsynth* f, int *pattern, int *row);
+	void mt_getPosition(mtsynth* mt, int *pattern, int *row);
 
 	/** Get the playing time in seconds
 		@return current playing time in seconds
 		*/
-	float fm_getTime(fmsynth* f);
+	float mt_getTime(mtsynth* mt);
 
 	/** Set the sample rate
 		@param samplerate : sample rate in Hz
 		@return 1 if ok, 0 if failed (keeps the previous sample rate)
 		*/
-	int fm_setSampleRate(fmsynth* f, int samplerate);
+	int mt_setSampleRate(mtsynth* mt, int samplerate);
 
 	/** Set channel volume
 		@param channel : channel number, 0-23
 		@param volume : volume, 0-99
 		*/
-	void fm_setChannelVolume(fmsynth *f, int channel, int volume);
+	void mt_setChannelVolume(mtsynth *mt, int channel, int volume);
 
 	/** Set channel panning
 		@param channel : channel number, 0-23
 		@param panning : panning, 0-255
 		*/
-	void fm_setChannelPanning(fmsynth *f, int channel, int panning);
+	void mt_setChannelPanning(mtsynth *mt, int channel, int panning);
 
 	/** Set channel reverb
 		@param channel : channel number, 0-23
 		@param panning : reverb amount, 0-99
 		*/
-	void fm_setChannelReverb(fmsynth *f, int channel, int reverb);
+	void mt_setChannelReverb(mtsynth *mt, int channel, int reverb);
 
 	/** Write data to a pattern
 		@param pattern : pattern number
@@ -361,27 +361,27 @@ extern "C"{
 		@param value : the value to write. 255 is considered empty
 		@return 1 if success, 0 if failed (pattern/row/channel/type out of bounds)
 		*/
-	int fm_write(fmsynth *f, unsigned pattern, unsigned row, unsigned channel, Cell data);
+	int mt_write(mtsynth *mt, unsigned pattern, unsigned row, unsigned channel, Cell data);
 
 	/** Create a new pattern at the desired position
 		@param rows : number of rows
 		@param position : the position where to insert the pattern
 		@return 1 if success, 0 if failed
 		*/
-	int fm_insertPattern(fmsynth* f, unsigned rows, unsigned position);
+	int mt_insertPattern(mtsynth* mt, unsigned rows, unsigned position);
 
 	/** Remove a pattern
 		@param pattern : the pattern number
 		@return 1 if success, 0 if failed
 		*/
-	int fm_removePattern(fmsynth* f, unsigned pattern);
+	int mt_removePattern(mtsynth* mt, unsigned pattern);
 
 	/** Resize a pattern. Contents are not stretched/scaled.
 		@param pattern : the pattern number
 		@param size : the new size
 		@return 1 if success, 0 if failed
 		*/
-	int fm_resizePattern(fmsynth* f, unsigned pattern, unsigned size, unsigned scaleContent);
+	int mt_resizePattern(mtsynth* mt, unsigned pattern, unsigned size, unsigned scaleContent);
 
 
 
@@ -392,47 +392,47 @@ extern "C"{
 	/* ########################################################### */
 
 	/* Stops a note by its number */
-	void fm_stopNoteID(fmsynth* f, unsigned note);
+	void mt_stopNoteID(mtsynth* mt, unsigned note);
 
 
 
-	void fm_clearSong(fmsynth* f);
+	void mt_clearSong(mtsynth* mt);
 
-	int fm_getPatternSize(fmsynth *f, int pattern);
+	int mt_getPatternSize(mtsynth *mt, int pattern);
 
-	int fm_resizeInstrumentList(fmsynth* f, unsigned size);
-	void fm_portamento(fmsynth* f, unsigned channel, float value);
+	int mt_resizeInstrumentList(mtsynth* mt, unsigned size);
+	void mt_portamento(mtsynth* mt, unsigned channel, float value);
 
 
-	void fm_patternClear(fmsynth* f);
-	int fm_resizePatterns(fmsynth* f, unsigned count);
-	int fm_loadInstrument(fmsynth* f, const char *filename, unsigned slot);
-	int fm_loadInstrumentFromMemory(fmsynth* f, char *data, unsigned slot);
-	int fm_loadInstrumentBank(fmsynth* f, const char *filename);
-	int fm_loadInstrumentBankFromMemory(fmsynth* f, char *data);
-	int fm_saveInstrument(fmsynth* f, const char* filename, unsigned slot);
-	int fm_saveInstrumentBank(fmsynth* f, const char* filename);
-	void fm_removeInstrument(fmsynth* f, unsigned slot, int removeOccurences);
-	void fm_movePattern(fmsynth* f, int from, int to);
+	void mt_patternClear(mtsynth* mt);
+	int mt_resizePatterns(mtsynth* mt, unsigned count);
+	int mt_loadInstrument(mtsynth* mt, const char *filename, unsigned slot);
+	int mt_loadInstrumentFromMemory(mtsynth* mt, char *data, unsigned slot);
+	int mt_loadInstrumentBank(mtsynth* mt, const char *filename);
+	int mt_loadInstrumentBankFromMemory(mtsynth* mt, char *data);
+	int mt_saveInstrument(mtsynth* mt, const char* filename, unsigned slot);
+	int mt_saveInstrumentBank(mtsynth* mt, const char* filename);
+	void mt_removeInstrument(mtsynth* mt, unsigned slot, int removeOccurences);
+	void mt_movePattern(mtsynth* mt, int from, int to);
 	/* Saves the song to file */
-	int fm_saveSong(fmsynth* f, const char* filename);
+	int mt_saveSong(mtsynth* mt, const char* filename);
 
 
-	void fm_buildStateTable(fmsynth* f, unsigned orderStart, unsigned orderEnd, unsigned channelStart, unsigned channelEnd);
-	int fm_initReverb(fmsynth *f, float roomSize);
+	void mt_buildStateTable(mtsynth* mt, unsigned orderStart, unsigned orderEnd, unsigned channelStart, unsigned channelEnd);
+	int mt_initReverb(mtsynth *mt, float roomSize);
 
 	/* Forces all sound to stop. Cut notes and reverb. */
-	void fm_stopSound(fmsynth* f);
-	void fm_moveChannels(fmsynth* f, int from, int to);
-	int fm_clearPattern(fmsynth* f, unsigned pattern, unsigned rowStart, unsigned count);
-	int fm_insertRows(fmsynth *f, unsigned pattern, unsigned row, unsigned count);
-	int fm_removeRows(fmsynth *f, unsigned pattern, unsigned row, unsigned count);
+	void mt_stopSound(mtsynth* mt);
+	void mt_moveChannels(mtsynth* mt, int from, int to);
+	int mt_clearPattern(mtsynth* mt, unsigned pattern, unsigned rowStart, unsigned count);
+	int mt_insertRows(mtsynth *mt, unsigned pattern, unsigned row, unsigned count);
+	int mt_removeRows(mtsynth *mt, unsigned pattern, unsigned row, unsigned count);
 
 
-	float fm_volumeToExp(int volume);
+	float mt_volumeToExp(int volume);
 
-	int fm_isInstrumentUsed(fmsynth *f, unsigned id);
-	void fm_createDefaultInstrument(fmsynth* f, unsigned slot);
+	int mt_isInstrumentUsed(mtsynth *mt, unsigned id);
+	void mt_createDefaultInstrument(mtsynth* mt, unsigned slot);
 #endif
 
 #ifdef __cplusplus

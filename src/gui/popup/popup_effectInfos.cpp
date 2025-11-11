@@ -17,7 +17,7 @@ unsigned char findPrevious(int type, int _order, int _row, int channel, int*foun
 			_order = 0;
 			break;
 		}
-		_row += fm_getPatternSize(fm, _order);
+		_row += mt_getPatternSize(fm, _order);
 	}
 	int row = _row;
 	int order = _order;
@@ -37,7 +37,7 @@ unsigned char findPrevious(int type, int _order, int _row, int channel, int*foun
 				row = 0;
 				break;
 			}
-			row = fm_getPatternSize(fm, order) - 1;
+			row = mt_getPatternSize(fm, order) - 1;
 		}
 	}
 	if (foundOrder)

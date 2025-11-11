@@ -43,7 +43,7 @@ PaStreamParameters out;
 int windowWidth, windowHeight, windowDpi=96;
 
 RenderWindow *window;
-fmsynth *fm;
+mtsynth *fm;
 sf::Clock mclock;
 sf::WindowHandle windowHandle;
 bool audioInitialized = false;
@@ -114,13 +114,13 @@ string& noteName(int note)
 
 void song_pause()
 {
-	fm_stop(fm, 0);
+	mt_stop(fm, 0);
 	menu->setVertexRect(6*4, 100, 32, 32);
 }
 
 void song_stop()
 {
-	fm_stop(fm, 1);
+	mt_stop(fm, 1);
 	menu->setVertexRect(6*4, 100, 32, 32);
 	
 }
@@ -128,7 +128,7 @@ void song_stop()
 void song_play()
 {
 	songEditor->updateMutedChannels();
-	fm_play(fm);
+	mt_play(fm);
 	menu->setVertexRect(6*4, 36, 32, 32);
 }
 
@@ -348,7 +348,7 @@ static int patestCallback(const void *inputBuffer, void *outputBuffer, unsigned 
 	PaStreamCallbackFlags statusFlags, void *userData)
 {
 	char *out = (char*)outputBuffer;
-	fm_render((fmsynth*)userData, &out[0], framesPerBuffer * 2, FM_RENDER_16);
+	mt_render((mtsynth*)userData, &out[0], framesPerBuffer * 2, MT_RENDER_16);
 
 	if (sidebar && songEditor)
 	{
@@ -399,7 +399,7 @@ void global_initialize()
 	iniparams_load();
 
 	/* Initialize libraries and sound engine */
-	if (!(fm = fm_create(44100)))
+	if (!(fm = mt_create(44100)))
 	{
 		error("Can't initialize the FM synthesizer");
 	}

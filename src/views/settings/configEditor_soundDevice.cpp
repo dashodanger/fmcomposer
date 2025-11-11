@@ -110,7 +110,7 @@ int ConfigEditor::selectSoundDevice(int soundDeviceId, int _samplerate, int _lat
 
 			if (_samplerate != approvedSampleRate)
 			{
-				fm_setSampleRate(fm, _samplerate);
+				mt_setSampleRate(fm, _samplerate);
 			}
 
 

@@ -16,7 +16,7 @@ void SongEditor::pattern_paste(int insertAfter)
 	if (copiedPattern.size()>0)
 	{
 		patternList.insert(fm->order + insertAfter, std::to_string(patternList.elementCount()));
-		fm_insertPattern(fm, copiedPattern.size(), fm->order + insertAfter);
+		mt_insertPattern(fm, copiedPattern.size(), fm->order + insertAfter);
 		for (int i = 0; i < copiedPattern.size(); i++)
 		{
 			for (int ch = 0; ch < FM_ch; ch++)
@@ -26,7 +26,7 @@ void SongEditor::pattern_paste(int insertAfter)
 		songModified(1);
 		history.insert(history.begin() + fm->order, vector<historyElem>());
 		currentHistoryPos.insert(currentHistoryPos.begin() + fm->order, 0);
-		fm_setPosition(fm, fm->order + insertAfter, fm->row, 2);
+		mt_setPosition(fm, fm->order + insertAfter, fm->row, 2);
 	}
 }
 void SongEditor::pattern_delete()
@@ -38,13 +38,13 @@ void SongEditor::pattern_delete()
 		history.erase(history.begin() + fm->order);
 		currentHistoryPos.erase(currentHistoryPos.begin() + fm->order);
 
-		fm_removePattern(fm, fm->order);
+		mt_removePattern(fm, fm->order);
 
 
 	}
 	else
 	{
-		fm_removePattern(fm, 0);
+		mt_removePattern(fm, 0);
 		history[0].clear();
 		currentHistoryPos[0] = 0;
 	}
@@ -76,7 +76,7 @@ void SongEditor::pattern_duplicate()
 void SongEditor::pattern_insert()
 {
 	patternList.insert(fm->order, std::to_string(patternList.elementCount()));
-	fm_insertPattern(fm, patSize.value, fm->order);
+	mt_insertPattern(fm, patSize.value, fm->order);
 	updateFromFM();
 	history.insert(history.begin() + fm->order, vector<historyElem>());
 	currentHistoryPos.insert(currentHistoryPos.begin() + fm->order, 0);
@@ -85,7 +85,7 @@ void SongEditor::pattern_insert()
 
 void SongEditor::pattern_move(int from, int to)
 {
-	fm_movePattern(fm, from, to);
+	mt_movePattern(fm, from, to);
 
 	songModified(1);
 

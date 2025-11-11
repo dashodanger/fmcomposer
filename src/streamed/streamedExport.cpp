@@ -1,4 +1,4 @@
-#include "../fmengine/fmlib.h"
+#include "../mtengine/mtlib.h"
 #include "streamedExport.h"
 #include <stdio.h>
 #include "../gui/popup/popup.hpp"
@@ -6,7 +6,7 @@
 #include "portaudio.h"
 #include "tinyfiledialogs.h"
 
-extern fmsynth *phanoo; 
+extern mtsynth *phanoo; 
 extern Popup *popup;
 extern RenderWindow* window;
 extern PaStream *stream;
@@ -85,7 +85,7 @@ void exportFinished(){
 
 void exportStart(){
 	streamedExport.running=1;
-	fm_setPosition(fm, streamedExport.fromPattern,0,2);
+	mt_setPosition(fm, streamedExport.fromPattern,0,2);
 	song_play();
 	fm->looping=streamedExport.nbLoops; // disable loop points so we aren't stuck forever
 
@@ -115,7 +115,7 @@ int waveExportFunc(){
 
 	int format;
 
-	if (streamedExport.bitDepth == FM_RENDER_FLOAT)
+	if (streamedExport.bitDepth == MT_RENDER_FLOAT)
 	{
 		format =  3; // IEEE float
 	}
@@ -147,7 +147,7 @@ int waveExportFunc(){
 
 	while(fm->playing && streamedExport.running && fm->order<=streamedExport.toPattern){
 		
-		fm_render(fm, &out[0],16384,streamedExport.bitDepth);
+		mt_render(fm, &out[0],16384,streamedExport.bitDepth);
 		fwrite(&out[0],bitDepths_bytes[streamedExport.bitDepth]*16384,1,fp);
 		size+=bitDepths_bytes[streamedExport.bitDepth]*16384;// bits per sample * num samples
 		popup->sliders[0].setValue(((float)fm->order/fm->patternCount)*100);
