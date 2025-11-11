@@ -2117,6 +2117,8 @@ int mt_saveInstrumentBank(mtsynth* mt, const char *filename)
 		fwrite((char*)&mt->instrument[i].name[0], sizeof(fm_instrument)-6, 1, fp);
 	}
 	fclose(fp);
+
+	return 1;
 }
 
 int mt_loadInstrumentFromMemory(mtsynth* mt, char *data, unsigned slot)
